@@ -4,21 +4,23 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 
+const starterText = "If you see this message, your React app is working. This message should be replaced momentarily.";
+
 function App() {
   // TODO: Type the useState once you find out why templates are being so weird
-  const [data, setData] = useState(['Empty Array']);
+  const [data, setData] = useState(starterText);
 
   useEffect(() => {
-      // No need for http://localhost:5000 because of the Vite proxy
+      // '/api' retrieves data from the Vite Proxy
       fetch('/api/data')
         .then(res => res.json())
-        .then(data => console.log(data.message))
+        .then(data => setData(data.message))
         .catch(err => console.error(err))
     }, []);
 
   return (
     <div>
-      hi
+      {data}
     </div>
   )
 }

@@ -10,7 +10,7 @@ The development build of this project has a completely seperate frontend (React 
 
 2. cd `frontend`
 
-3. Run `npm install` (???)
+3. Run `npm install`
 
 ### Setting Up the Backend
 
