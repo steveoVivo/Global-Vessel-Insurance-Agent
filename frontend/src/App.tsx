@@ -25,14 +25,14 @@ const ucDavisCoordinates = [-93703952.94088145, 4656009.537393207];
 const ucDavisZoom = 14.165;
 
 function App() {
-  // TODO: The following 3 should use templates `HTMLDivElement, string, Map`.
-  //   For some reason it's whining when I use em
-  const mapRef = useRef(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
-  const [data, setData] = useState(starterText);
-  const [map, setMap] = useState(null)
+  const [data, setData] = useState<string>(starterText);
+  const [map, setMap] = useState<Map | null>(null)
 
   useEffect(() => {
+    if (!mapRef.current) return;
+
     // -------> Retrieve Test Data <-------
     // '/api' retrieves data from the Vite Proxy
     fetch('/api/data')
