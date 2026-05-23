@@ -1,8 +1,13 @@
 import React, { createContext, useState, useContext } from 'react';
 import { Map } from 'ol';
 
+interface MapContextData {
+  map: Map,
+  setMap: any // TODO: Type this
+}
+
 // TODO: Come back, type this, recomment and restructure
-const MapContext = createContext(null);
+const MapContext = createContext<MapContextData>(null);
 
 export const MapProvider = ({ children }: any) => {
   const [map, setMap] = useState(null);

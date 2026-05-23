@@ -10,30 +10,42 @@ import Circle from 'ol/geom/Circle';
 import { fromLonLat } from 'ol/proj';
 import { Style, Fill, Stroke } from 'ol/style';
 
+import centroids from './../data/countries';
+import { MapBrowserEvent } from 'ol';
+
+const CountryNameKey: string = 'countryName';
+
 export default function circleHook () {
   const { map } = getMapContext();
 
   useEffect(() => {
     if (!map) return;
 
-    // SF, Oakland, and Twin Peaks. I got the exact co-ordinates from Google Gemini
-    const testCoordinates: number[][] = [
-      [-122.4194, 37.7749],
-      [-122.2711, 37.8044],
-      [-122.4467, 37.7337]
-    ];
     // Mesaured in meters
-    const radius: number = 5000;
+    const radius: number = 500000;
+    const radiusMin: number = 75000;
+    const radiusMax: number = 350000;
 
-    // TODO: Is this the best way of doing this? Not a huge fan of literally drawing images
-    const circleGeometeries = testCoordinates.map(coordinate => {
-      return new Circle(
-        fromLonLat(coordinate),
-        radius
+    const countryCodes = Object.keys(centroids);
+    const circleFeatures = countryCodes.map((countryCode: string) => {
+      // Create radius (random)
+      const randomRadius = Math.floor(Math.random() * (radiusMax - radiusMin + 1)) + radiusMin;
+
+      // Get Coordinates
+      const coordinate = centroids[countryCode].coordinates;
+      const coordinateFlip = [coordinate[1], coordinate[0]];
+      // Create Geometry
+      const circleGeom = new Circle(
+        fromLonLat(coordinateFlip),
+        randomRadius
       )
-    });
-    const circleFeatures = circleGeometeries.map(geometry => {
-      return new Feature(geometry);
+      // Create Feature
+      const circleFeat = new Feature({
+        geometry: circleGeom
+      });
+      circleFeat.set(CountryNameKey, centroids[countryCode].name);
+
+      return circleFeat;
     });
 
     const circleStyle = new Style({
@@ -51,9 +63,23 @@ export default function circleHook () {
     
     map.addLayer(circleLayer);
 
+    const clickCircleEvent = (event: MapBrowserEvent) => {
+      const countryName = map.forEachFeatureAtPixel(event.pixel, (feature: Feature) => {
+        return feature.get(CountryNameKey);
+      });
+
+      if (countryName) {
+        console.log(countryName);
+      }
+    };
+
+    map.on('click', clickCircleEvent)
+
     // Clean up layer when data changes or component unmounts
     return () => {
       map.removeLayer(circleLayer);
+      // TODO: Do I need this? Pretty sure I do
+      map.un('click', clickCircleEvent);
     };
   }, [map]);
 };

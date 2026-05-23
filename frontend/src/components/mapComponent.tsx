@@ -32,7 +32,7 @@ function MapComponent() {
       ],
       view: new View({
         center: ucDavisCoordinates,
-        zoom: ucDavisZoom
+        zoom: 6
       })
     });
     
