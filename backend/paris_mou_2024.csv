@@ -1,0 +1,70 @@
+flag,flag_key,paris_mou_category,paris_rank,paris_inspections_2022_2024,paris_detentions_2022_2024,paris_black_to_grey_limit,paris_grey_to_white_limit,paris_risk_text,paris_excess_factor,flag_safety_risk
+France,france,white,1,297,1,29,13,,-1.78,0.0
+Denmark,denmark,white,2,1246,14,103,72,,-1.75,0.0
+Norway,norway,white,3,1824,23,146,109,,-1.74,0.0
+Netherlands,netherlands,white,4,2690,46,211,166,,-1.61,0.0
+Singapore,singapore,white,5,1745,28,140,104,,-1.61,0.0
+Cayman Islands (UK),cayman islands,white,6,318,3,30,14,,-1.52,0.0
+Finland,finland,white,7,364,4,34,17,,-1.5,0.0
+Italy,italy,white,8,846,14,72,47,,-1.48,0.0
+Luxembourg,luxembourg,white,9,235,2,23,10,,-1.42,0.0
+Japan,japan,white,10,232,2,23,9,,-1.41,0.0
+Hong Kong (China),hong kong,white,11,1596,34,129,94,,-1.4,0.0
+Sweden,sweden,white,12,317,4,30,14,,-1.37,0.0
+Germany,germany,white,13,486,8,44,24,,-1.35,0.0
+China,china,white,14,265,3,26,11,,-1.35,0.0
+Greece,greece,white,15,599,12,53,31,,-1.25,0.0
+Bahamas,bahamas,white,16,1758,45,141,105,,-1.25,0.0
+Portugal,portugal,white,17,2050,54,163,124,,-1.24,0.0
+United Kingdom,united kingdom,white,18,729,16,63,39,,-1.22,0.0
+Cyprus,cyprus,white,19,2226,63,176,136,,-1.17,0.0
+Malta,malta,white,20,3747,113,288,236,,-1.16,0.0
+Marshall Islands,marshall islands,white,21,5470,181,414,351,,-1.09,0.0
+United States,united states of america,white,22,135,1,15,4,,-1.07,0.0
+Ireland,ireland,white,23,91,0,11,2,,-1.05,0.0
+Bermuda (UK),bermuda,white,24,154,2,16,5,,-0.9,0.0
+Isle of Man (UK),isle of man,white,25,354,9,33,16,,-0.84,0.0
+Spain,spain,white,26,112,1,13,3,,-0.81,0.0
+Barbados,barbados,white,27,863,29,73,48,,-0.81,0.0
+Liberia,liberia,white,28,6035,257,456,389,,-0.76,0.0
+Gibraltar (UK),gibraltar,white,29,293,8,28,13,,-0.68,0.0
+Faroe Islands,faroe islands,white,30,225,6,23,9,,-0.56,0.0
+Belgium,belgium,white,31,168,4,18,6,,-0.48,0.0
+Türkiye,turkiye,white,32,607,25,53,32,,-0.42,0.0
+Estonia,estonia,white,33,84,1,10,2,,-0.33,0.0
+Lithuania,lithuania,white,34,100,2,12,2,,-0.15,0.0
+Antigua and Barbuda,antigua and barbuda,white,35,1708,95,137,102,,-0.14,0.0
+Thailand,thailand,white,36,51,0,7,0,,-0.09,0.0
+Poland,poland,white,37,46,0,7,0,,0.02,0.0
+Jersey (UK),jersey,white,38,44,0,6,0,,0.03,0.0
+Canada,canada,white,39,36,0,6,0,,0.08,0.0
+Egypt,egypt,white,40,36,0,6,0,,0.08,0.0
+Saudi Arabia,saudi arabia,grey,41,72,1,9,1,,0.0,0.5
+Croatia,croatia,grey,42,92,2,11,2,,0.01,0.5
+India,india,grey,43,55,1,7,0,,0.11,0.5
+Latvia,latvia,grey,44,162,7,17,5,,0.13,0.5
+"Korea, Republic of",south korea,grey,45,178,8,19,6,,0.13,0.5
+Morocco,morocco,grey,46,48,1,7,0,,0.15,0.5
+Russian Federation,russia,grey,47,265,14,26,11,,0.19,0.5
+Panama,panama,grey,48,5854,390,442,377,,0.2,0.5
+Lebanon,lebanon,grey,49,38,2,6,0,,0.39,0.5
+Cook Islands,cook islands,grey,50,81,5,10,1,,0.42,0.5
+Philippines,philippines,grey,51,105,7,12,3,,0.46,0.5
+Albania,albania,grey,52,58,4,8,0,,0.49,0.5
+Algeria,algeria,grey,53,77,6,10,1,,0.57,0.5
+Saint Vincent and the Grenadines,st. vincent and the grenadines,grey,54,246,19,24,10,,0.63,0.5
+Sierra Leone,sierra leone,grey,55,173,14,18,6,,0.66,0.5
+Tunisia,tunisia,grey,56,30,3,5,0,,0.66,0.5
+Bangladesh,bangladesh,grey,57,43,5,6,0,,0.81,0.5
+Saint Kitts and Nevis,st. kitts and nevis,black,58,269,29,26,,,1.3,1.0
+Togo,togo,black,59,273,32,27,,Medium risk,1.58,1.0
+Palau,palau,black,60,489,55,44,,,1.67,1.0
+Guinea-Bissau,guinea bissau,black,61,51,9,7,,,1.94,1.0
+Belize,belize,black,62,220,32,22,,,2.29,1.0
+Vanuatu,vanuatu,black,63,357,52,33,,Medium to,2.55,1.0
+Ukraine,ukraine,black,64,43,9,6,,,2.57,1.0
+Comoros,comoros,black,65,258,48,25,,High risk,3.59,1.0
+Viet Nam,vietnam,black,66,43,12,6,,,4.42,1.0
+"Moldova, Republic of",moldova,black,67,32,10,5,,Very high risk,4.81,1.0
+"Tanzania, United Republic of",tanzania,black,68,149,41,16,,,5.88,1.0
+Cameroon,cameroon,black,69,144,43,16,,,6.56,1.0
