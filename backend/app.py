@@ -61,6 +61,10 @@ def get_risk_payload():
 def entrypoint():
     return "<h1>This is the Flask API. The React app is served at http://localhost:5173/</h1>"
 
+@app.route("/api/test")
+def get_test_message():
+    return jsonify({"message": "If you see this message, BOTH your React AND Flask environments are working"})
+
 
 @app.route("/api/data")
 def get_data():

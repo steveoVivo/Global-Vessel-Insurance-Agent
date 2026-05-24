@@ -12,6 +12,7 @@ import './App.css';
 import 'ol/ol.css';
 
 import { MapProvider } from './components/mapContext';
+import { RiskProvider } from './components/riskContext';
 import MapComponent from './components/mapComponent';
 
 // TODO: Just for later, check and make sure you're not pulling a `| null` anywhere anymore
@@ -25,7 +26,7 @@ function App() {
   useEffect(() => {
     // -------> Retrieve Test Data <-------
     // '/api' retrieves data from the Vite Proxy
-    fetch('/api/data')
+    fetch('/api/test')
       .then(res => res.json())
       .then(data => setData(data.message))
       .catch(err => console.error(err))
@@ -37,10 +38,12 @@ function App() {
 
   return (
     <MapProvider>
+    <RiskProvider>
       <div style={{display: 'grid', placeItems: 'center'}}>
         <div> {data} </div>
         <MapComponent />
       </div>
+    </RiskProvider>
     </MapProvider>
   )
 }
