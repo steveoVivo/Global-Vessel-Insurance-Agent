@@ -42,6 +42,8 @@ function App() {
       <div style={{display: 'grid', placeItems: 'center'}}>
         <div> {data} </div>
         <MapComponent />
+        <div> TODO: Selector for 4 risk score types </div>
+        <div> TODO: Panel that opens up information about a country's risk information when selected </div>
       </div>
     </RiskProvider>
     </MapProvider>
