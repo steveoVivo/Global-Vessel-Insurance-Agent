@@ -2,7 +2,7 @@ import React, { createContext, useState, useRef, useContext } from 'react';
 import { Map } from 'ol';
 
 export type RiskName = 'Risk_A' | 'Risk_B' | 'Risk_C' | 'Risk_D' | 'Custom'; 
-type NumericRisk = [number, number, number, number];
+export type NumericRisk = [number, number, number, number];
 interface RiskContextData {
   riskDistribution: NumericRisk,
   setDistribution: (_: RiskName) => void,

@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import getMapContext from './mapContext';
-import getRiskContext from './riskContext';
+import getRiskContext, { RiskName, NumericRisk } from './riskContext';
 
 // Imports that should eventually be moved into a functionality file
 import Feature from 'ol/Feature';
@@ -24,7 +24,10 @@ interface CountryData {
   risk_score_C?: number,
   risk_score_D?: number
 }
+
 const CountryNameKey: string = 'countryName';
+// TODO: Unify the types
+const CountryRiskKey: string = 'riskArray';
 
 export default function circleHook () {
   const { map } = getMapContext();
@@ -47,15 +50,20 @@ export default function circleHook () {
 
     // TODO: Replace this with an animation
     const circleStyleGenerator = (circle: Feature) => {
-      const testColorArray = [
-        'red', 'purple', 'blue', 'orange', 'green'
-      ]
-      const indexOfOne = riskDistributionClosure.current.indexOf(1);
-      const color = testColorArray[indexOfOne];
+      // TODO: Some sort of error if these two aren't of the same length?
+      const riskArray: NumericRisk = circle.get(CountryRiskKey);
+      const riskDistribution: NumericRisk = riskDistributionClosure.current;
+
+      let totalRiskValue = 0;
+      for(let i = 0; i < riskArray.length; i++) {
+        totalRiskValue += riskArray[i] * riskDistribution[i];
+      }
+
+      const [stroke, fill] = getColorFromRiskScore(totalRiskValue);
 
       return new Style({
-        fill: new Fill({ color: 'rgba(160, 0, 0, 0.65)' }),
-        stroke: new Stroke({ color, width: 3 })
+        fill: new Fill({ color: fill }),
+        stroke: new Stroke({ color: stroke, width: 3 })
       });
     }
 
@@ -64,6 +72,9 @@ export default function circleHook () {
         const riskData: CountryData[] = await fetch('/api/data')
           .then(data => data.json())
           .then(data => data.data);
+
+        // TODO: Remove this
+        getCircleDataAnalytics(riskData);
 
         if (!isMounted) return;
 
@@ -105,7 +116,10 @@ export default function circleHook () {
           const circleFeat = new Feature({
             geometry: circleGeom
           });
+
+          // Set properties in the feature to be pulled later when rendering circles
           circleFeat.set(CountryNameKey, centroids[countryCode].name);
+          circleFeat.set(CountryRiskKey, [countryData.risk_score, Math.random(), Math.random(), Math.random()]);
 
           return circleFeat;
         });
@@ -124,7 +138,7 @@ export default function circleHook () {
 
       } catch (_) {
         // TODO: Make this real
-        console.log('Caught an error ;^)')
+        console.error('Caught an error ;^)')
       }
     }
 
@@ -171,6 +185,16 @@ export default function circleHook () {
     });
   }, [map, riskDistribution]);
 };
+
+// Input should be [0, 1]
+// NOTE: This is currently red -> green. Could be any two colors in the future
+function getColorFromRiskScore(riskScore: number): [string, string] {
+  const red: number = Math.floor(255 * riskScore);
+  const green: number = Math.floor(128 * (1 - riskScore));
+  // RGB of "red": rgb(255, 0, 0)
+  // RGB or "green": rgb(0, 128, 0)
+  return [`rgba(${red}, ${green}, 0)`, `rgba(${red}, ${green}, 0, 0.65)`]
+}
 
 function getCircleDataAnalytics(data: CountryData[]): void {
   // .sort() will sort an array in place, put the vessels with the highest count first
