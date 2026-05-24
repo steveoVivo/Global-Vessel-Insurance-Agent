@@ -1,5 +1,5 @@
 // useVectorLayer.js
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import getMapContext from './mapContext';
@@ -28,10 +28,13 @@ const CountryNameKey: string = 'countryName';
 
 export default function circleHook () {
   const { map } = getMapContext();
-  const { riskDistribution, setDistribution, setCustomDistribution } = getRiskContext();
+  const { riskDistribution } = getRiskContext();
 
-  // TODO: Delete this. I just did it to avoid the error
-  console.log(riskDistribution);
+  // We have to do this to prevent the style function (a closure inside of useEffect) from using stale values
+  const riskDistributionClosure = useRef<[number, number, number, number]>(riskDistribution);
+  useEffect(() => {
+    riskDistributionClosure.current = riskDistribution;
+  }, [riskDistribution]);
 
   useEffect(() => {
     if (!map) return;
@@ -47,7 +50,7 @@ export default function circleHook () {
       const testColorArray = [
         'red', 'purple', 'blue', 'orange', 'green'
       ]
-      const indexOfOne = riskDistribution.indexOf(1);
+      const indexOfOne = riskDistributionClosure.current.indexOf(1);
       const color = testColorArray[indexOfOne];
 
       return new Style({

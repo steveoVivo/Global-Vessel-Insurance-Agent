@@ -16,7 +16,7 @@ import { RiskProvider } from './components/riskContext';
 import MapComponent from './components/mapComponent';
 
 // TODO: Just for later, check and make sure you're not pulling a `| null` anywhere anymore
-
+// TODO: I'm sorry, you need to go over all code and change every tab length to either 2 spaces or 4 spaces
 
 const starterText = "If you see this message, your React app is working. This message should be replaced momentarily.";
 

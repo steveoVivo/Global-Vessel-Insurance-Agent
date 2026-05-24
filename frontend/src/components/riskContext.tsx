@@ -17,6 +17,9 @@ export const RiskProvider = ({ children }: any) => {
   const customDistribution = useRef<NumericRisk>([0, 0, 0, 1]);
   const setCustomDistribution = (distribution: NumericRisk) => {customDistribution.current = distribution};
 
+  // TODO: Find out what's causing this to update twice
+  console.log('Updated');
+
   let riskDistribution: NumericRisk = null;
   switch (distribution) {
     case ('Risk_A'): riskDistribution = [1, 0, 0, 0]; break;

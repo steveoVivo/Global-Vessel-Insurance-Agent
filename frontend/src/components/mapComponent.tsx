@@ -9,6 +9,7 @@ import 'ol/ol.css';
 import getMapContext from './mapContext';
 
 import circleHook from './circleHook';
+import RiskSelectComponent from './riskSelectComponent';
 
 const ucDavisCoordinates = [-93703952.94088145, 4656009.537393207];
 const ucDavisZoom = 14.165;
@@ -43,7 +44,12 @@ function MapComponent() {
   }, [setMap]);
 
   return (
-    <div ref={mapRef} style={{width: '90%', height: 600}}></div>
+    <div style={{width: '90%', height: 600, position: 'relative'}}>
+      {/*The Map Itself*/}
+      <div ref={mapRef} style={{width: '100%', height: '100%'}}></div>
+      {/*Data Controls in the Upper-Right Corner*/}
+      <RiskSelectComponent />
+    </div>
   );
 }
 
