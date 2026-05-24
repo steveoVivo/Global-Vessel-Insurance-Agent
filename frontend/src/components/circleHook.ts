@@ -66,7 +66,13 @@ export default function circleHook () {
 
         // Mesaured in meters
         const radiusMin: number = 75000;
-        const radiusMax: number = 350000;
+        const radiusMax: number = 700000;
+
+        // This code effectively normalizes country count - pushing all values to a scale between [0, 1]
+        const fleetSizes = riskData.map((country: CountryData) => country.vessel_count);
+        const smallestFleet = Math.min(...fleetSizes);
+        const largestFleet = Math.max(...fleetSizes);
+        const fleetNormaizer = (size: number): number => ((size - smallestFleet) / (largestFleet - smallestFleet)); 
 
         const countryCodes = Object.keys(centroids);
         const backendMatchingCountryCodes = countryCodes.filter((code: string) => {
@@ -75,8 +81,14 @@ export default function circleHook () {
         });
 
         const circleFeatures = backendMatchingCountryCodes.map((countryCode: string) => {
-          // Create radius (random)
-          const randomRadius = Math.floor(Math.random() * (radiusMax - radiusMin + 1)) + radiusMin;
+          // Not great, you do the same thing that you do in the filter function. You can mesh this into that
+          const countryName = centroids[countryCode].name;
+          const countryData = riskData.find(country => country.country == countryName);
+
+          // Create radius (from fleet count)
+          // NOTE: This is a basic LERP function, similar to Math.LERP from C# (used a lot in gamedev)
+          const normalizedFleetSize = fleetNormaizer(countryData.vessel_count);
+          const radius = radiusMin + ((radiusMax - radiusMin) * normalizedFleetSize);
 
           // Get Coordinates
           const coordinate = centroids[countryCode].coordinates;
@@ -84,7 +96,7 @@ export default function circleHook () {
           // Create Geometry
           const circleGeom = new Circle(
             fromLonLat(coordinateFlip),
-            randomRadius
+            radius * 2  // TODO: Remove this multiplication factor once Yoshiki fixes the output risk range
           )
           // Create Feature
           const circleFeat = new Feature({
