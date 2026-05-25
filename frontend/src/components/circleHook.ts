@@ -16,13 +16,13 @@ import { MapBrowserEvent } from 'ol';
 import BaseLayer from 'ol/layer/Base';
 
 interface CountryData {
-  country: string,
-  risk_score: number,
-  vessel_count: number,
-  risk_score_A?: number,
-  risk_score_B?: number,
-  risk_score_C?: number,
-  risk_score_D?: number
+  "flag": string,
+  "vessel_count": number,
+  "risk_score": number,
+  "accident_rate_norm": number, 
+  "severity_risk_norm": number,
+  "ship_type_risk_norm": number,
+  "flag_safety_risk_norm": number
 }
 
 const CountryNameKey: string = 'countryName';
@@ -74,7 +74,7 @@ export default function circleHook () {
           .then(data => data.data);
 
         // TODO: Remove this
-        getCircleDataAnalytics(riskData);
+        // getCircleDataAnalytics(riskData);
 
         if (!isMounted) return;
 
@@ -91,13 +91,13 @@ export default function circleHook () {
         const countryCodes = Object.keys(centroids);
         const backendMatchingCountryCodes = countryCodes.filter((code: string) => {
           const countryName = centroids[code].name;
-          return riskData.find(country => country.country == countryName);
+          return riskData.find(country => country.flag == countryName);
         });
 
         const circleFeatures = backendMatchingCountryCodes.map((countryCode: string) => {
           // Not great, you do the same thing that you do in the filter function. You can mesh this into that
           const countryName = centroids[countryCode].name;
-          const countryData = riskData.find(country => country.country == countryName);
+          const countryData = riskData.find(country => country.flag == countryName);
 
           // Create radius (from fleet count)
           // NOTE: This is a basic LERP function, similar to Math.LERP from C# (used a lot in gamedev)
@@ -119,7 +119,8 @@ export default function circleHook () {
 
           // Set properties in the feature to be pulled later when rendering circles
           circleFeat.set(CountryNameKey, centroids[countryCode].name);
-          circleFeat.set(CountryRiskKey, [countryData.risk_score, Math.random(), Math.random(), Math.random()]);
+          circleFeat.set(CountryRiskKey, [countryData.accident_rate_norm, countryData.flag_safety_risk_norm,
+            countryData.severity_risk_norm, countryData.ship_type_risk_norm]);
 
           return circleFeat;
         });
@@ -204,12 +205,31 @@ function getCircleDataAnalytics(data: CountryData[]): void {
   console.log(riskiestCountries);
   console.log(biggestCountries);
 
-  const riskScore = data.map(country => country['risk_score']);
-  const riskScoreMax = Math.max(...riskScore);
-  const riskScoreMin = Math.min(...riskScore);
-  const vesselCount = data.map(country => country['vessel_count']);
+  // const riskScore = data.map(country => country.risk_score);
+  // const riskScoreMax = Math.max(...riskScore);
+  // const riskScoreMin = Math.min(...riskScore);
+  const vesselCount = data.map(country => country.vessel_count);
   const vesselCountMax = Math.max(...vesselCount);
   const vesselCountMin = Math.min(...vesselCount);
-  console.log('Risk Max: ', riskScoreMax, ', and min: ', riskScoreMin);
+
+  const accidents = data.map(country => country.accident_rate_norm);
+  const accidentsMax = Math.max(...accidents);
+  const accidentsMin = Math.min(...accidents);
+  const flags = data.map(country => country.flag_safety_risk_norm);
+  const flagsMax = Math.max(...flags);
+  const flagsMin = Math.min(...flags);
+  const severities = data.map(country => country.severity_risk_norm);
+  const severitiesMax = Math.max(...severities);
+  const severitiesMin = Math.min(...severities);
+  const ships = data.map(country => country.ship_type_risk_norm);
+  const shipsMax = Math.max(...ships);
+  const shipsMin = Math.min(...ships);
+
   console.log('Count Max: ', vesselCountMax, ', and min: ', vesselCountMin);
+
+  // console.log('ALL Risk Max: ', riskScoreMax, ', and min: ', riskScoreMin);
+  console.log('Accident Risk Max: ', accidentsMax, ', and min: ', accidentsMin);
+  console.log('Flags Risk Max: ', flagsMax, ', and min: ', flagsMin);
+  console.log('Severities Risk Max: ', severitiesMax, ', and min: ', severitiesMin);
+  console.log('Ships Risk Max: ', shipsMax, ', and min: ', shipsMin);
 }

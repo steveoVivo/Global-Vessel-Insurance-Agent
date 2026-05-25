@@ -25,29 +25,29 @@ function RiskSelectComponent() {
       >
         <h4> Select Risk Factor </h4>
         <button
-            onClick={() => setDistribution('Risk_A')}
+            onClick={() => setDistribution('Accident_Risk')}
         >
-            Only Show Risk Type: A
+            Display Accident Rate Risk
         </button>
         <button
-            onClick={() => setDistribution('Risk_B')}
+            onClick={() => setDistribution('Flag_Risk')}
         >
-            Only Show Risk Type: B
+            Display Flag Safety Risk
         </button>
         <button
-            onClick={() => setDistribution('Risk_C')}
+            onClick={() => setDistribution('Severity_Risk')}
         >
-            Only Show Risk Type: C
+            Display Severity Risk
         </button>
         <button
-            onClick={() => setDistribution('Risk_D')}
+            onClick={() => setDistribution('Ship_Risk')}
         >
-            Only Show Risk Type: D
+            Display Ship Type Risk
         </button>
         <button
             onClick={() => setDistribution('Custom')}
         >
-            Customize Risk Combination
+            Custom Weighted Combination
         </button>
     </div>
   );

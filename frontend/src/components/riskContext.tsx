@@ -1,7 +1,6 @@
 import React, { createContext, useState, useRef, useContext } from 'react';
-import { Map } from 'ol';
 
-export type RiskName = 'Risk_A' | 'Risk_B' | 'Risk_C' | 'Risk_D' | 'Custom'; 
+export type RiskName = 'Accident_Risk' | 'Flag_Risk' | 'Severity_Risk' | 'Ship_Risk' | 'Custom'; 
 export type NumericRisk = [number, number, number, number];
 interface RiskContextData {
   riskDistribution: NumericRisk,
@@ -13,8 +12,8 @@ interface RiskContextData {
 const RiskContext = createContext<RiskContextData>(null);
 
 export const RiskProvider = ({ children }: any) => {
-  const [distribution, setDistribution] = useState<RiskName>('Risk_B');
-  const customDistribution = useRef<NumericRisk>([0, 0, 0, 1]);
+  const [distribution, setDistribution] = useState<RiskName>('Custom');
+  const customDistribution = useRef<NumericRisk>([0.25, 0.25, 0.25, 0.25]);
   const setCustomDistribution = (distribution: NumericRisk) => {customDistribution.current = distribution};
 
   // TODO: Find out what's causing this to update twice
@@ -22,10 +21,10 @@ export const RiskProvider = ({ children }: any) => {
 
   let riskDistribution: NumericRisk = null;
   switch (distribution) {
-    case ('Risk_A'): riskDistribution = [1, 0, 0, 0]; break;
-    case ('Risk_B'): riskDistribution = [0, 1, 0, 0]; break;
-    case ('Risk_C'): riskDistribution = [0, 0, 1, 0]; break;
-    case ('Risk_D'): riskDistribution = [0, 0, 0, 1]; break;
+    case ('Accident_Risk'): riskDistribution = [1, 0, 0, 0]; break;
+    case ('Flag_Risk'): riskDistribution = [0, 1, 0, 0]; break;
+    case ('Severity_Risk'): riskDistribution = [0, 0, 1, 0]; break;
+    case ('Ship_Risk'): riskDistribution = [0, 0, 0, 1]; break;
     default: riskDistribution = customDistribution.current;
   }
 
