@@ -10,6 +10,7 @@ import Feature from 'ol/Feature';
 import Circle from 'ol/geom/Circle';
 import { fromLonLat } from 'ol/proj';
 import { Style, Fill, Stroke } from 'ol/style';
+import { StyleFunction } from 'ol/style/Style';
 
 import centroids from './../data/countries';
 import { MapBrowserEvent } from 'ol';
@@ -47,6 +48,7 @@ export default function circleHook () {
     // Prevent the attempt to attach data to the map in the case the map gets unmounted while fetching
     let isMounted: boolean = true;
     let circleVectorLayer: VectorLayer = null;
+    let circleSelectFunction;
 
     // TODO: Replace this with an animation
     const circleStyleGenerator = (circle: Feature) => {
@@ -137,6 +139,42 @@ export default function circleHook () {
 
         map.addLayer(circleVectorLayer);
 
+
+        // ----> Code for hovering over a circle
+        let currentHoveredCircle: Feature<Circle> = null;
+        let currentHoveredStyle: StyleFunction = null;
+        const hoverCircleEvent = (event: MapBrowserEvent) => {
+          // Unselect an old hovered feature
+          if (currentHoveredCircle) {
+            currentHoveredCircle.setStyle(currentHoveredStyle)
+            currentHoveredCircle = null;
+          }
+
+          map.forEachFeatureAtPixel(event.pixel, feature => {
+            // TODO Give the vectorylayer an ID and grab it here (or just use the named variable)
+            // if (feature in Vectorlayer) {}
+            if (currentHoveredCircle == null || 
+              ((currentHoveredCircle as Feature<Circle>).getGeometry().getRadius()) > ((feature as Feature<Circle>).getGeometry().getRadius()) ){
+                currentHoveredCircle = feature as Feature<Circle>;
+            }
+          });
+
+          currentHoveredStyle = currentHoveredCircle
+            ? (currentHoveredCircle.getStyle() as StyleFunction)
+            : null;
+
+          if (currentHoveredCircle && currentHoveredStyle) {
+            const currentHoveredStyleObject: Style = currentHoveredStyle(currentHoveredCircle, null) as Style;
+            const newStyleObject: Style = brightenStyle(currentHoveredStyleObject);
+            currentHoveredCircle.setStyle(newStyleObject);
+          }
+
+          //currentHoveredCircle.setStyle(TODO);
+          console.log(currentHoveredCircle ? currentHoveredCircle.get(CountryNameKey) : 'None hovered');
+        }
+
+        map.on('pointermove', hoverCircleEvent);
+
       } catch (_) {
         // TODO: Make this real
         console.error('Caught an error ;^)')
@@ -165,10 +203,12 @@ export default function circleHook () {
     // Clean up layer when data changes or component unmounts
     return () => {
       isMounted = false;
-      // TODO: You 100% need to come back to these two
 
-      // map.removeLayer(circleLayer);
-      // TODO: Do I need this? Pretty sure I do
+      if (circleVectorLayer != null) {
+        map.removeLayer(circleVectorLayer);
+      }
+
+      // TODO: Fill this in after you add the function
       // map.un('click', clickCircleEvent);
     };
     
@@ -186,6 +226,74 @@ export default function circleHook () {
     });
   }, [map, riskDistribution]);
 };
+
+// The incoming style MUST have an RGBA fill and an RGB stroke
+function brightenStyle(style: Style): Style {
+  const valueToBrightenBy = 40;
+  const increaseNumberBrightness = ((num: number) => {
+    if (num < 1) return num;
+    return ((num + valueToBrightenBy) <= 255) ? (num + valueToBrightenBy) : 255;
+  });
+
+  const returnStyle = style.clone();
+
+  const fill = style.getFill();
+  const fillColor = fill.getColor();
+  const fillRGB = fillColor.toString().slice(5,-1);
+  const fillArray = fillRGB.split(',').map(Number).map(increaseNumberBrightness)
+
+  const returnFill = returnStyle.getFill();
+  returnFill.setColor('rgba(' + fillArray.join(',') + ')');
+  returnStyle.setFill(returnFill);
+  
+
+  const stroke = style.getStroke();
+  const strokeColor = stroke.getColor();
+  const strokeRGB = strokeColor.toString().slice(5, -1);
+  const strokeArray = strokeRGB.split(',').map(Number).map(increaseNumberBrightness);
+
+  const returnStroke = returnStyle.getStroke();
+  returnStroke.setColor('rgba(' + strokeArray.join(',') + ')');
+  returnStyle.setStroke(returnStroke);
+
+  returnStyle.setZIndex(2);
+
+  return returnStyle;
+}
+
+// The incoming style MUST have an RGBA fill and an RGB stroke
+function darkenStyle(style: Style): Style {
+  const valueToDarkenBy = 60;
+  const increaseNumberBrightness = ((num: number) => {
+    if (num < 1) return num;
+    return ((num - valueToDarkenBy) >= 0) ? (num - valueToDarkenBy) : 0;
+  });
+
+  const returnStyle = style.clone();
+
+  const fill = style.getFill();
+  const fillColor = fill.getColor();
+  const fillRGB = fillColor.toString().slice(5,-1);
+  const fillArray = fillRGB.split(',').map(Number).map(increaseNumberBrightness)
+
+  const returnFill = returnStyle.getFill();
+  returnFill.setColor('rgba(' + fillArray.join(',') + ')');
+  returnStyle.setFill(returnFill);
+  
+
+  const stroke = style.getStroke();
+  const strokeColor = stroke.getColor();
+  const strokeRGB = strokeColor.toString().slice(5, -1);
+  const strokeArray = strokeRGB.split(',').map(Number).map(increaseNumberBrightness);
+
+  const returnStroke = returnStyle.getStroke();
+  returnStroke.setColor('rgba(' + strokeArray.join(',') + ')');
+  returnStyle.setStroke(returnStroke);
+
+  returnStyle.setZIndex(2);
+
+  return returnStyle;
+}
 
 // Input should be [0, 1]
 // NOTE: This is currently red -> green. Could be any two colors in the future
