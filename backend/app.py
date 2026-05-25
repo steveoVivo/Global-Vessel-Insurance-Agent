@@ -39,6 +39,18 @@ def get_weights():
     }
 
 
+def flag_risk_payload(row):
+    return {
+        "flag": row["flag"],
+        "vessel_count": row["fleet_size"],
+        "risk_score": row["risk_score"],
+        "accident_rate_norm": row["accident_rate_norm"],
+        "severity_risk_norm": row["severity_risk_norm"],
+        "ship_type_risk_norm": row["ship_type_risk_norm"],
+        "flag_safety_risk_norm": row["flag_safety_risk_norm"],
+    }
+
+
 def get_risk_payload():
     start_year = int_arg("start_year")
     end_year = int_arg("end_year")
@@ -46,14 +58,7 @@ def get_risk_payload():
     rows = build_merged_rows(start_year=start_year, end_year=end_year, weights=weights)
     return {
         "count": len(rows),
-        "data": [
-            {
-                "country": row["flag"],
-                "vessel_count": row["fleet_size"],
-                "risk_score": row["risk_score"],
-            }
-            for row in rows
-        ],
+        "data": [flag_risk_payload(row) for row in rows],
     }
 
 
