@@ -16,6 +16,7 @@ import { RiskProvider } from './components/riskContext';
 import { SelectionProvider } from './components/selectionContext';
 import MapComponent from './components/mapComponent';
 import CountryPanelComponent from './components/countryPanelComponent';
+import CustomriskPanelComponent from './components/customriskPanelComponent';
 
 // TODO: Just for later, check and make sure you're not pulling a `| null` anywhere anymore
 // TODO: I'm sorry, you need to go over all code and change every tab length to either 2 spaces or 4 spaces
@@ -45,8 +46,10 @@ function App() {
       <div style={{display: 'grid', placeItems: 'center'}}>
         <div> {data} </div>
         <MapComponent />
-        <div> TODO: Selector for 4 risk score types </div>
-        <CountryPanelComponent />
+        <div style={{width: '90%', height: 300, position: 'relative'}}>
+          <CustomriskPanelComponent />
+          <CountryPanelComponent />
+        </div>
       </div>
     </SelectionProvider>
     </RiskProvider>

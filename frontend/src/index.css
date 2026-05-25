@@ -112,3 +112,23 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+/* Code from Steven and not VITE: */
+.custom-risk-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.risk-input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+}
+
+.risk-input-container input {
+  text-align: right;
+}
+
+.risk-input-container .risk-input-percentage {
+  margin-left: 4px;
+}
