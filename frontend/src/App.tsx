@@ -13,7 +13,9 @@ import 'ol/ol.css';
 
 import { MapProvider } from './components/mapContext';
 import { RiskProvider } from './components/riskContext';
+import { SelectionProvider } from './components/selectionContext';
 import MapComponent from './components/mapComponent';
+import CountryPanelComponent from './components/countryPanelComponent';
 
 // TODO: Just for later, check and make sure you're not pulling a `| null` anywhere anymore
 // TODO: I'm sorry, you need to go over all code and change every tab length to either 2 spaces or 4 spaces
@@ -39,12 +41,14 @@ function App() {
   return (
     <MapProvider>
     <RiskProvider>
+    <SelectionProvider>
       <div style={{display: 'grid', placeItems: 'center'}}>
         <div> {data} </div>
         <MapComponent />
         <div> TODO: Selector for 4 risk score types </div>
-        <div> TODO: Panel that opens up information about a country's risk information when selected </div>
+        <CountryPanelComponent />
       </div>
+    </SelectionProvider>
     </RiskProvider>
     </MapProvider>
   )

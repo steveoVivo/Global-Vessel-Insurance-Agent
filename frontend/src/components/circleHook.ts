@@ -4,6 +4,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import getMapContext from './mapContext';
 import getRiskContext, { RiskName, NumericRisk } from './riskContext';
+import getSelectionContext from './selectionContext';
 
 // Imports that should eventually be moved into a functionality file
 import Feature from 'ol/Feature';
@@ -33,6 +34,7 @@ const CountryRiskKey: string = 'riskArray';
 export default function circleHook () {
   const { map } = getMapContext();
   const { riskDistribution } = getRiskContext();
+  const { setCurrentCountry } = getSelectionContext();
 
   // We have to do this to prevent the style function (a closure inside of useEffect) from using stale values
   const riskDistributionClosure = useRef<[number, number, number, number]>(riskDistribution);
@@ -65,7 +67,8 @@ export default function circleHook () {
 
       return new Style({
         fill: new Fill({ color: fill }),
-        stroke: new Stroke({ color: stroke, width: 3 })
+        stroke: new Stroke({ color: stroke, width: 3 }),
+        zIndex: 1
       });
     }
 
@@ -140,16 +143,23 @@ export default function circleHook () {
         map.addLayer(circleVectorLayer);
 
 
-        // ----> Code for hovering over a circle
+        // TODO: These two functions are extremely complicated. Consider rewriting them to simplify.
+        // TODO: If you swap risktype, the selected circle will not update with new colors for its new classification
+
+        // ==============================
+        //        CIRCLE HOVER
+        // ==============================
         let currentHoveredCircle: Feature<Circle> = null;
         let currentHoveredStyle: StyleFunction = null;
         const hoverCircleEvent = (event: MapBrowserEvent) => {
           // Unselect an old hovered feature
-          if (currentHoveredCircle) {
+          if (currentHoveredCircle && currentHoveredCircle != currentSelectedCircle) {
             currentHoveredCircle.setStyle(currentHoveredStyle)
             currentHoveredCircle = null;
+            currentHoveredStyle = null;
           }
 
+          // Get the smallest currently hovered feature (if there is one)
           map.forEachFeatureAtPixel(event.pixel, feature => {
             // TODO Give the vectorylayer an ID and grab it here (or just use the named variable)
             // if (feature in Vectorlayer) {}
@@ -159,21 +169,77 @@ export default function circleHook () {
             }
           });
 
+          // If that feature is currently selected, don't style it with hover
+          if (currentHoveredCircle && currentHoveredCircle == currentSelectedCircle) {
+            console.log('Hovered and selected are the same');
+            currentHoveredCircle = null;
+            currentHoveredStyle = null;
+            return;
+          }
+
+          // If there is an unselected circle beneath the cursor, hover over ti
           currentHoveredStyle = currentHoveredCircle
             ? (currentHoveredCircle.getStyle() as StyleFunction)
             : null;
-
           if (currentHoveredCircle && currentHoveredStyle) {
             const currentHoveredStyleObject: Style = currentHoveredStyle(currentHoveredCircle, null) as Style;
             const newStyleObject: Style = brightenStyle(currentHoveredStyleObject);
             currentHoveredCircle.setStyle(newStyleObject);
           }
 
-          //currentHoveredCircle.setStyle(TODO);
-          console.log(currentHoveredCircle ? currentHoveredCircle.get(CountryNameKey) : 'None hovered');
+          // console.log(currentHoveredCircle ? currentHoveredCircle.get(CountryNameKey) : 'None hovered');
         }
-
         map.on('pointermove', hoverCircleEvent);
+
+        // ==============================
+        //        CIRCLE CLICK
+        // ==============================
+        let currentSelectedCircle: Feature<Circle> = null;
+        let currentSelectedStyle: StyleFunction = null;
+        const selectCircleEvent = (event: MapBrowserEvent) => {
+          // Get the smallest currently clicked feature (if there is one)
+          let recentlyClickedFeature: Feature<Circle> = null;
+          map.forEachFeatureAtPixel(event.pixel, feature => {
+            // TODO Give the vectorylayer an ID and grab it here (or just use the named variable)
+            // if (feature in Vectorlayer) {}
+            if (recentlyClickedFeature == null || 
+              ((recentlyClickedFeature as Feature<Circle>).getGeometry().getRadius()) > ((feature as Feature<Circle>).getGeometry().getRadius()) ){
+                recentlyClickedFeature = feature as Feature<Circle>;
+            }
+          });
+
+          // recentlyClickedFeature is almost the same as currentHovered circle, but it can include the currentSelected circle
+          // If you click on the currentSelected, just stop execution
+          if (currentSelectedCircle == recentlyClickedFeature) return;
+          // If you click on no features, unselect currentSelected
+          if (!recentlyClickedFeature) {
+            setCurrentCountry(null);
+            currentSelectedCircle.setStyle(currentSelectedStyle);
+            currentSelectedCircle = null;
+            currentSelectedStyle = null;
+          // If you clicked on a new circle, select that circle
+          } else {
+            if (currentSelectedCircle) {
+              currentSelectedCircle.setStyle(currentSelectedStyle);
+              currentSelectedCircle = null;
+              currentSelectedStyle = null;
+            }
+
+            currentSelectedCircle = currentHoveredCircle;
+            currentSelectedStyle = !currentHoveredCircle
+            ? null
+            : (currentHoveredStyle)
+              ? currentHoveredStyle
+              : (currentSelectedCircle.getStyle() as StyleFunction);
+
+            const currentSelectedStyleObject: Style = currentSelectedStyle(currentSelectedCircle, null) as Style;
+            const newStyleObject: Style = darkenStyle(currentSelectedStyleObject);
+            currentSelectedCircle.setStyle(newStyleObject);
+
+            setCurrentCountry(currentSelectedCircle.get(CountryNameKey));
+          }
+        }
+        map.on('click', selectCircleEvent);
 
       } catch (_) {
         // TODO: Make this real
@@ -182,23 +248,6 @@ export default function circleHook () {
     }
 
     fetchRiskData();
-
-    // NOTE: This will give information about the data being sent
-    // getCircleDataAnalytics(data);
-
-    // TODO: This
-
-    // const clickCircleEvent = (event: MapBrowserEvent) => {
-    //   const countryName = map.forEachFeatureAtPixel(event.pixel, (feature: Feature) => {
-    //     return feature.get(CountryNameKey);
-    //   });
-
-    //   if (countryName) {
-    //     console.log(countryName);
-    //   }
-    // };
-
-    // map.on('click', clickCircleEvent)
 
     // Clean up layer when data changes or component unmounts
     return () => {
@@ -256,7 +305,7 @@ function brightenStyle(style: Style): Style {
   returnStroke.setColor('rgba(' + strokeArray.join(',') + ')');
   returnStyle.setStroke(returnStroke);
 
-  returnStyle.setZIndex(2);
+  returnStyle.setZIndex(3);
 
   return returnStyle;
 }
@@ -287,7 +336,8 @@ function darkenStyle(style: Style): Style {
   const strokeArray = strokeRGB.split(',').map(Number).map(increaseNumberBrightness);
 
   const returnStroke = returnStyle.getStroke();
-  returnStroke.setColor('rgba(' + strokeArray.join(',') + ')');
+  // returnStroke.setColor('rgba(' + strokeArray.join(',') + ')');
+  returnStroke.setColor('black');
   returnStyle.setStroke(returnStroke);
 
   returnStyle.setZIndex(2);
