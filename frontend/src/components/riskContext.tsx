@@ -1,6 +1,6 @@
 import React, { createContext, useState, useRef, useContext } from 'react';
 
-export type RiskName = 'Accident_Risk' | 'Flag_Risk' | 'Severity_Risk' | 'Ship_Risk' | 'Custom'; 
+export type RiskName = 'Accident_Risk' | 'Flag_Risk' | 'Severity_Risk' | 'Ship_Risk' | 'Custom';
 export type NumericRisk = [number, number, number, number];
 interface RiskContextData {
   riskDistributionName: RiskName,
@@ -38,7 +38,7 @@ export const RiskProvider = ({ children }: any) => {
   );
 };
 
-export default function getRiskContext () {
+export default function getRiskContext() {
   const context = useContext(RiskContext);
   if (!context) {
     throw new Error('getRiskContext must be used within a RiskProvider');

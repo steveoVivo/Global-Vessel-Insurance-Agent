@@ -80,20 +80,24 @@ h1 {
   font-size: 56px;
   letter-spacing: -1.68px;
   margin: 32px 0;
+
   @media (max-width: 1024px) {
     font-size: 36px;
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
+
   @media (max-width: 1024px) {
     font-size: 20px;
   }
 }
+
 p {
   margin: 0;
 }
@@ -114,23 +118,18 @@ code {
 }
 
 /* Code from Steven and not VITE: */
-.custom-risk-panel {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.risk-input-container {
-  display: flex;
-  flex-direction: column;
-  padding: 7px;
+
+/** = = = MAP CONTAINER = = = **/
+.map-container { 
+  width: 90%;
+  height: 600px;
+  position: relative;
 }
 
-.risk-input-container input {
-  text-align: right;
-}
-
-.risk-input-container .risk-input-percentage {
-  margin-left: 4px;
+/* This is the element the map is assigned to */
+.map-container .map-assigned-div { 
+  width: 100%;
+  height: 100%;
 }
 
 /** = = = RISK SELECTOR CONTAINER = = = **/
@@ -144,7 +143,7 @@ code {
   padding-top: 0px;
   padding-bottom: 10px;
   border-radius: 12px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   min-width: 200px;
   max-width: 20%;
 }
@@ -161,4 +160,32 @@ code {
 .risk-select-component h4 .risk-select-dropdown-arrow {
   display: inline-block;
   transition: transform 0.25s ease-in-out;
+}
+
+/** = = = CONTROL PANEL = = = **/
+.vessel-control-panel {
+  width: 90%;
+  height: 300px; 
+  position: relative;
+}
+
+/** = = = CUSTOM RISK PANEL = = = **/
+.custom-risk-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.risk-input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+}
+
+.risk-input-container input {
+  text-align: right;
+}
+
+.risk-input-container .risk-input-percentage {
+  margin-left: 4px;
 }

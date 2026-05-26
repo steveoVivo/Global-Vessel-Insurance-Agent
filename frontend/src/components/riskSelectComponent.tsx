@@ -7,45 +7,45 @@ import getRiskContext from './riskContext';
 
 
 function RiskSelectComponent() {
-    const [ isExpanded, setIsExpanded ] = useState<boolean>(true);
-    const { setDistribution } = getRiskContext();
+  const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const { setDistribution } = getRiskContext();
 
   return (
     <div className='risk-select-component'      >
-        <h4 onClick={() => setIsExpanded(!isExpanded)}> 
-            <span> Select Risk Factor </span>
-            <span className='risk-select-dropdown-arrow'
-                style={{transform: isExpanded ? 'none' : 'rotate(180deg)'}}>
-                    ▼ 
-            </span>
-        </h4>
-        <div style={{display: isExpanded ? 'block' : 'none'}}>
-            <button
-                onClick={() => setDistribution('Accident_Risk')}
-            >
-                Display Accident Rate Risk
-            </button>
-            <button
-                onClick={() => setDistribution('Flag_Risk')}
-            >
-                Display Flag Safety Risk
-            </button>
-            <button
-                onClick={() => setDistribution('Severity_Risk')}
-            >
-                Display Severity Risk
-            </button>
-            <button
-                onClick={() => setDistribution('Ship_Risk')}
-            >
-                Display Ship Type Risk
-            </button>
-            <button
-                onClick={() => setDistribution('Custom')}
-            >
-                Custom Weighted Combination
-            </button>
-        </div>
+      <h4 onClick={() => setIsExpanded(!isExpanded)}>
+        <span> Select Risk Factor </span>
+        <span className='risk-select-dropdown-arrow'
+          style={{ transform: isExpanded ? 'none' : 'rotate(180deg)' }}>
+          ▼
+        </span>
+      </h4>
+      <div style={{ display: isExpanded ? 'block' : 'none' }}>
+        <button
+          onClick={() => setDistribution('Accident_Risk')}
+        >
+          Display Accident Rate Risk
+        </button>
+        <button
+          onClick={() => setDistribution('Flag_Risk')}
+        >
+          Display Flag Safety Risk
+        </button>
+        <button
+          onClick={() => setDistribution('Severity_Risk')}
+        >
+          Display Severity Risk
+        </button>
+        <button
+          onClick={() => setDistribution('Ship_Risk')}
+        >
+          Display Ship Type Risk
+        </button>
+        <button
+          onClick={() => setDistribution('Custom')}
+        >
+          Custom Weighted Combination
+        </button>
+      </div>
     </div>
   );
 }

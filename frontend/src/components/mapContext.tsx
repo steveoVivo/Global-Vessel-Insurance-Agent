@@ -20,7 +20,7 @@ export const MapProvider = ({ children }: any) => {
 };
 
 // Custom hook for easy consumption
-export default function getMapContext () {
+export default function getMapContext() {
   const context = useContext(MapContext);
   if (!context) {
     throw new Error('getMapContext must be used within a MapProvider');

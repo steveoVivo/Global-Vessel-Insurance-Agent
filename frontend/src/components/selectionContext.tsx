@@ -19,7 +19,7 @@ export const SelectionProvider = ({ children }: any) => {
   );
 };
 
-export default function getSelectionContext () {
+export default function getSelectionContext() {
   const context = useContext(SelectionContext);
   if (!context) {
     throw new Error('getSelectioncontext must be used within a RiskProvider');

@@ -36,7 +36,7 @@ function MapComponent() {
         zoom: 6
       })
     });
-    
+
     setMap(map);
 
     // Un-Render the map when App is un-rendered
@@ -44,9 +44,9 @@ function MapComponent() {
   }, [setMap]);
 
   return (
-    <div style={{width: '90%', height: 600, position: 'relative'}}>
+    <div className='map-container'>
       {/*The Map Itself*/}
-      <div ref={mapRef} style={{width: '100%', height: '100%'}}></div>
+      <div className='map-assigned-div' ref={mapRef}></div>
       {/*Data Controls in the Upper-Right Corner*/}
       <RiskSelectComponent />
     </div>

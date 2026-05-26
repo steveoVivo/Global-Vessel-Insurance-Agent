@@ -20,7 +20,7 @@ interface CountryData {
   "flag": string,
   "vessel_count": number,
   "risk_score": number,
-  "accident_rate_norm": number, 
+  "accident_rate_norm": number,
   "severity_risk_norm": number,
   "ship_type_risk_norm": number,
   "flag_safety_risk_norm": number
@@ -30,7 +30,7 @@ const CountryNameKey: string = 'countryName';
 // TODO: Unify the types
 const CountryRiskKey: string = 'riskArray';
 
-export default function circleHook () {
+export default function circleHook() {
   const { map } = getMapContext();
   const { riskDistribution } = getRiskContext();
   const { setCurrentCountry } = getSelectionContext();
@@ -58,7 +58,7 @@ export default function circleHook () {
       const riskDistribution: NumericRisk = riskDistributionClosure.current;
 
       let totalRiskValue = 0;
-      for(let i = 0; i < riskArray.length; i++) {
+      for (let i = 0; i < riskArray.length; i++) {
         totalRiskValue += riskArray[i] * riskDistribution[i];
       }
 
@@ -90,7 +90,7 @@ export default function circleHook () {
         const fleetSizes = riskData.map((country: CountryData) => country.vessel_count);
         const smallestFleet = Math.min(...fleetSizes);
         const largestFleet = Math.max(...fleetSizes);
-        const fleetNormaizer = (size: number): number => ((size - smallestFleet) / (largestFleet - smallestFleet)); 
+        const fleetNormaizer = (size: number): number => ((size - smallestFleet) / (largestFleet - smallestFleet));
 
         const countryCodes = Object.keys(centroids);
         const backendMatchingCountryCodes = countryCodes.filter((code: string) => {
@@ -124,7 +124,7 @@ export default function circleHook () {
           // Set properties in the feature to be pulled later when rendering circles
           circleFeat.set(CountryNameKey, centroids[countryCode].name);
           circleFeat.set(CountryRiskKey, [countryData.accident_rate_norm, countryData.flag_safety_risk_norm,
-            countryData.severity_risk_norm, countryData.ship_type_risk_norm]);
+          countryData.severity_risk_norm, countryData.ship_type_risk_norm]);
 
           return circleFeat;
         });
@@ -162,9 +162,9 @@ export default function circleHook () {
           map.forEachFeatureAtPixel(event.pixel, feature => {
             // TODO Give the vectorylayer an ID and grab it here (or just use the named variable)
             // if (feature in Vectorlayer) {}
-            if (currentHoveredCircle == null || 
-              ((currentHoveredCircle as Feature<Circle>).getGeometry().getRadius()) > ((feature as Feature<Circle>).getGeometry().getRadius()) ){
-                currentHoveredCircle = feature as Feature<Circle>;
+            if (currentHoveredCircle == null ||
+              ((currentHoveredCircle as Feature<Circle>).getGeometry().getRadius()) > ((feature as Feature<Circle>).getGeometry().getRadius())) {
+              currentHoveredCircle = feature as Feature<Circle>;
             }
           });
 
@@ -201,9 +201,9 @@ export default function circleHook () {
           map.forEachFeatureAtPixel(event.pixel, feature => {
             // TODO Give the vectorylayer an ID and grab it here (or just use the named variable)
             // if (feature in Vectorlayer) {}
-            if (recentlyClickedFeature == null || 
-              ((recentlyClickedFeature as Feature<Circle>).getGeometry().getRadius()) > ((feature as Feature<Circle>).getGeometry().getRadius()) ){
-                recentlyClickedFeature = feature as Feature<Circle>;
+            if (recentlyClickedFeature == null ||
+              ((recentlyClickedFeature as Feature<Circle>).getGeometry().getRadius()) > ((feature as Feature<Circle>).getGeometry().getRadius())) {
+              recentlyClickedFeature = feature as Feature<Circle>;
             }
           });
 
@@ -216,7 +216,7 @@ export default function circleHook () {
             currentSelectedCircle.setStyle(currentSelectedStyle);
             currentSelectedCircle = null;
             currentSelectedStyle = null;
-          // If you clicked on a new circle, select that circle
+            // If you clicked on a new circle, select that circle
           } else {
             if (currentSelectedCircle) {
               currentSelectedCircle.setStyle(currentSelectedStyle);
@@ -226,10 +226,10 @@ export default function circleHook () {
 
             currentSelectedCircle = currentHoveredCircle;
             currentSelectedStyle = !currentHoveredCircle
-            ? null
-            : (currentHoveredStyle)
-              ? currentHoveredStyle
-              : (currentSelectedCircle.getStyle() as StyleFunction);
+              ? null
+              : (currentHoveredStyle)
+                ? currentHoveredStyle
+                : (currentSelectedCircle.getStyle() as StyleFunction);
 
             const currentSelectedStyleObject: Style = currentSelectedStyle(currentSelectedCircle, null) as Style;
             const newStyleObject: Style = darkenStyle(currentSelectedStyleObject);
@@ -259,7 +259,7 @@ export default function circleHook () {
       // TODO: Fill this in after you add the function
       // map.un('click', clickCircleEvent);
     };
-    
+
   }, [map]);
 
   // This hook forces the style function to update when riskDistribution updates
@@ -287,13 +287,13 @@ function brightenStyle(style: Style): Style {
 
   const fill = style.getFill();
   const fillColor = fill.getColor();
-  const fillRGB = fillColor.toString().slice(5,-1);
+  const fillRGB = fillColor.toString().slice(5, -1);
   const fillArray = fillRGB.split(',').map(Number).map(increaseNumberBrightness)
 
   const returnFill = returnStyle.getFill();
   returnFill.setColor('rgba(' + fillArray.join(',') + ')');
   returnStyle.setFill(returnFill);
-  
+
 
   const stroke = style.getStroke();
   const strokeColor = stroke.getColor();
@@ -321,13 +321,13 @@ function darkenStyle(style: Style): Style {
 
   const fill = style.getFill();
   const fillColor = fill.getColor();
-  const fillRGB = fillColor.toString().slice(5,-1);
+  const fillRGB = fillColor.toString().slice(5, -1);
   const fillArray = fillRGB.split(',').map(Number).map(increaseNumberBrightness)
 
   const returnFill = returnStyle.getFill();
   returnFill.setColor('rgba(' + fillArray.join(',') + ')');
   returnStyle.setFill(returnFill);
-  
+
 
   const stroke = style.getStroke();
   const strokeColor = stroke.getColor();

@@ -21,32 +21,17 @@ import CustomriskPanelComponent from './components/customriskPanelComponent';
 // TODO: Just for later, check and make sure you're not pulling a `| null` anywhere anymore
 // TODO: I'm sorry, you need to go over all code and change every tab length to either 2 spaces or 4 spaces
 
-const starterText = "If you see this message, your React app is working. This message should be replaced momentarily.";
+// const starterText = "If you see this message, your React app is working. This message should be replaced momentarily.";
 
 function App() {
-  const [data, setData] = useState<string>(starterText);
-
-  useEffect(() => {
-    // -------> Retrieve Test Data <-------
-    // '/api' retrieves data from the Vite Proxy
-    fetch('/api/test')
-      .then(res => res.json())
-      .then(data => setData(data.message))
-      .catch(err => console.error(err))
-
-
-    // Un-Render the map when App is un-rendered
-    return;
-  }, []);
-
   return (
     <MapProvider>
     <RiskProvider>
     <SelectionProvider>
-      <div style={{display: 'grid', placeItems: 'center'}}>
+      <div style={{ display: 'grid', placeItems: 'center' }}>
         <h1> Global Vessel Insurance Agent </h1>
         <MapComponent />
-        <div style={{width: '90%', height: 300, position: 'relative'}}>
+        <div className='vessel-control-panel'>
           <CustomriskPanelComponent />
           <CountryPanelComponent />
         </div>

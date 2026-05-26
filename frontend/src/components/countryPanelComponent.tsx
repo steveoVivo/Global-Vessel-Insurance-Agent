@@ -12,8 +12,8 @@ function CountryPanelComponent() {
 
   return (
     <div>
-        <span style={{display: (currentCountry == null) ? 'none' : 'block'}}> Currently Selected Country: {countryText} </span>
-        <span style={{display: (currentCountry != null) ? 'none' : 'block', color: 'darkslategray'}}> [No country currently selected] </span>
+      <span style={{ display: (currentCountry == null) ? 'none' : 'block' }}> Currently Selected Country: {countryText} </span>
+      <span style={{ display: (currentCountry != null) ? 'none' : 'block', color: 'darkslategray' }}> [No country currently selected] </span>
     </div>
   );
 }
