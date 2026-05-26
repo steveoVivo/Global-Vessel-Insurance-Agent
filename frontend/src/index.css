@@ -132,3 +132,33 @@ code {
 .risk-input-container .risk-input-percentage {
   margin-left: 4px;
 }
+
+/** = = = RISK SELECTOR CONTAINER = = = **/
+.risk-select-component {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  z-index: 10;
+  background-color: rgba(245, 245, 245, 0.8);
+  padding: 4px;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  min-width: 200px;
+  max-width: 20%;
+}
+
+.risk-select-component:has(h4:hover) {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.risk-select-component h4 {
+  margin: 0.5em 0em;
+  user-select: none;
+}
+
+.risk-select-component h4 .risk-select-dropdown-arrow {
+  display: inline-block;
+  transition: transform 0.25s ease-in-out;
+}

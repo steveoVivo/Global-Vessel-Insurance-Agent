@@ -1,4 +1,3 @@
-// useVectorLayer.js
 import { useEffect, useRef } from 'react';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -79,7 +78,7 @@ export default function circleHook () {
           .then(data => data.data);
 
         // TODO: Remove this
-        // getCircleDataAnalytics(riskData);
+        getCircleDataAnalytics(riskData);
 
         if (!isMounted) return;
 

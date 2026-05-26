@@ -44,7 +44,7 @@ function App() {
     <RiskProvider>
     <SelectionProvider>
       <div style={{display: 'grid', placeItems: 'center'}}>
-        <div> {data} </div>
+        <h1> Global Vessel Insurance Agent </h1>
         <MapComponent />
         <div style={{width: '90%', height: 300, position: 'relative'}}>
           <CustomriskPanelComponent />
