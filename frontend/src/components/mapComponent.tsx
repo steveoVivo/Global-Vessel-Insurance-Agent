@@ -16,7 +16,7 @@ const ucDavisZoom = 14.165;
 
 function MapComponent() {
   const mapRef = useRef<HTMLDivElement>(null);
-  const { setMap } = getMapContext();
+  const { map, setMap } = getMapContext();
 
   circleHook();
 
@@ -39,9 +39,14 @@ function MapComponent() {
 
     setMap(map);
 
+    setTimeout(() => {
+      map.updateSize();
+    }, 100);
+
     // Un-Render the map when App is un-rendered
     return () => map.setTarget(undefined);
   }, [setMap]);
+
 
   return (
     <div className='map-container'>

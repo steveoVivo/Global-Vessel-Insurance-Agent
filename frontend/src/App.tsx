@@ -15,8 +15,7 @@ import { MapProvider } from './components/mapContext';
 import { RiskProvider } from './components/riskContext';
 import { SelectionProvider } from './components/selectionContext';
 import MapComponent from './components/mapComponent';
-import CountryPanelComponent from './components/countryPanelComponent';
-import CustomriskPanelComponent from './components/customriskPanelComponent';
+import ControlPanelComponent from './components/controlPanelComponent';
 
 // TODO: Just for later, check and make sure you're not pulling a `| null` anywhere anymore
 // TODO: I'm sorry, you need to go over all code and change every tab length to either 2 spaces or 4 spaces
@@ -28,13 +27,10 @@ function App() {
     <MapProvider>
     <RiskProvider>
     <SelectionProvider>
-      <div style={{ display: 'grid', placeItems: 'center' }}>
-        <h1> Global Vessel Insurance Agent </h1>
+      <h1> Global Vessel Insurance Agent </h1>
+      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '100%', minHeight:'10px'}}>
         <MapComponent />
-        <div className='vessel-control-panel'>
-          <CustomriskPanelComponent />
-          <CountryPanelComponent />
-        </div>
+        <ControlPanelComponent />
       </div>
     </SelectionProvider>
     </RiskProvider>
