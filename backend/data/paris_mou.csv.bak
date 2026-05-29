@@ -1,25 +1,25 @@
 year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white_limit,excess_factor,flag_safety_risk
-2010,black,,North Korea,45,17,6,,7.31,1.0
-2010,black,,Libya,47,14,7,,5.09,1.0
+2010,black,,Korea Democratic People' Rep.,45,17,6,,7.31,1.0
+2010,black,,Libyan Arab Jamahiriya,47,14,7,,5.09,1.0
 2010,black,,Togo,150,37,16,,5.02,1.0
 2010,black,,Sierra Leone,570,114,50,,4.44,1.0
 2010,black,,Montenegro,34,10,5,,4.43,1.0
 2010,black,,Albania,222,44,22,,3.86,1.0
-2010,black,,Moldova,461,77,42,,3.31,1.0
+2010,black,,Moldova Republic of,461,77,42,,3.31,1.0
 2010,black,,Cambodia,863,135,73,,3.22,1.0
-2010,black,,St. Kitts and Nevis,488,76,44,,2.99,1.0
+2010,black,,St Kitts and Nevis,488,76,44,,2.99,1.0
 2010,black,,Comoros to,644,98,56,,2.99,1.0
 2010,black,,Georgia,776,106,67,,2.57,1.0
 2010,black,,Bolivia,40,8,6,,2.24,1.0
 2010,black,,Lebanon,72,12,9,,2.04,1.0
-2010,black,,Syria,246,33,24,,2.02,1.0
-2010,black,,Tanzania,65,10,8,,1.62,1.0
+2010,black,,Syrian Arab Republic,246,33,24,,2.02,1.0
+2010,black,,Tanzania United Rep.,65,10,8,,1.62,1.0
 2010,black,,Ukraine,471,50,43,,1.47,1.0
-2010,black,,St. Vincent and Grenadines,1957,168,156,,1.19,1.0
+2010,black,,St Vincent and the Grenadines,1957,168,156,,1.19,1.0
 2010,black,,Azerbaijan,69,9,9,,1.07,1.0
 2010,grey,,Egypt,112,12,13,3,0.92,0.5
 2010,grey,,Cook Islands,150,15,16,5,0.9,0.5
-2010,grey,,Vietnam,37,5,6,0,0.89,0.5
+2010,grey,,Viet Nam,37,5,6,0,0.89,0.5
 2010,grey,,Dominica,167,16,18,6,0.86,0.5
 2010,grey,,Algeria,98,10,12,2,0.84,0.5
 2010,grey,,Slovakia,234,21,23,9,0.83,0.5
@@ -38,20 +38,20 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2010,grey,,Faroe Islands,157,6,17,5,0.07,0.5
 2010,grey,,Vanuatu,177,7,18,6,0.06,0.5
 2010,grey,,Latvia,144,5,16,5,0.04,0.5
-2010,grey,,Iran,146,5,16,5,0.03,0.5
+2010,grey,,Iran Islamic Republic of,146,5,16,5,0.03,0.5
 2010,grey,,Thailand,128,4,14,4,0.03,0.5
-2010,grey,,United States,128,4,14,4,0.03,0.5
+2010,grey,,United States of America,128,4,14,4,0.03,0.5
 2010,white,,Kazakhstan,30,0,5,0,0.0,0.0
 2010,white,,Qatar,30,0,5,0,0.0,0.0
 2010,white,,Philippines,231,8,23,9,-0.24,0.0
 2010,white,,Panama,8385,476,626,548,-0.3,0.0
-2010,white,,South Korea,201,6,21,8,-0.35,0.0
+2010,white,,Korea Republic of,201,6,21,8,-0.35,0.0
 2010,white,,India,138,3,15,4,-0.41,0.0
 2010,white,,Japan,89,1,11,2,-0.44,0.0
 2010,white,,Turkey,2294,108,181,140,-0.5,0.0
 2010,white,,Lithuania,227,6,23,9,-0.57,0.0
 2010,white,,Spain,278,8,27,12,-0.59,0.0
-2010,white,,Russia,1965,80,157,118,-0.7,0.0
+2010,white,,Russian Federation,1965,80,157,118,-0.7,0.0
 2010,white,,Barbados,527,15,47,27,-0.87,0.0
 2010,white,,Cayman Islands,286,6,28,12,-0.93,0.0
 2010,white,,Antigua and Barbuda,5235,195,397,336,-0.94,0.0
@@ -63,17 +63,17 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2010,white,,Liberia,4461,132,341,284,-1.2,0.0
 2010,white,,Cyprus,2694,76,211,166,-1.2,0.0
 2010,white,,Estonia,104,0,12,2,-1.25,0.0
-2010,white,,Gibraltar,1301,29,107,75,-1.33,0.0
+2010,white,,Gibraltar UK,1301,29,107,75,-1.33,0.0
 2010,white,,Belgium,231,2,23,9,-1.41,0.0
 2010,white,,Norway,2323,51,183,142,-1.42,0.0
 2010,white,,Marshall Islands,2260,49,179,138,-1.42,0.0
 2010,white,,Ireland,182,1,19,7,-1.43,0.0
 2010,white,,Bahamas,3628,75,280,228,-1.51,0.0
 2010,white,,Singapore,1375,24,112,80,-1.52,0.0
-2010,white,,Hong Kong,1422,22,116,83,-1.61,0.0
+2010,white,,Hong Kong China,1422,22,116,83,-1.61,0.0
 2010,white,,Greece,1475,22,120,87,-1.63,0.0
 2010,white,,Italy,1487,22,121,87,-1.64,0.0
-2010,white,,Isle of Man,883,11,75,49,-1.65,0.0
+2010,white,,Man Isle of UK,883,11,75,49,-1.65,0.0
 2010,white,,China,250,1,25,10,-1.68,0.0
 2010,white,,Finland,624,6,55,33,-1.71,0.0
 2010,white,,Denmark,1385,17,113,81,-1.73,0.0
@@ -82,52 +82,52 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2010,white,,United Kingdom,2007,25,160,121,-1.76,0.0
 2010,white,,Sweden,984,9,83,55,-1.8,0.0
 2010,white,,Germany,1388,14,113,81,-1.81,0.0
-2010,white,,Bermuda,270,0,26,12,-1.91,0.0
+2010,white,,Bermuda UK,270,0,26,12,-1.91,0.0
 2011,white,,Germany,1335,10,109,78,-1.91,0.0
 2011,white,,Sweden,810,5,69,44,-1.9,0.0
 2011,white,,Denmark,1376,15,112,80,-1.78,0.0
 2011,white,,Netherlands,3691,49,284,232,-1.78,0.0
 2011,white,,United Kingdom,1905,25,152,115,-1.73,0.0
 2011,white,,France,337,2,32,15,-1.7,0.0
-2011,white,,Hong Kong,1489,20,121,88,-1.69,0.0
+2011,white,,Hong Kong China,1489,20,121,88,-1.69,0.0
 2011,white,,Singapore,1370,19,112,80,-1.66,0.0
 2011,white,,Italy,1471,21,120,86,-1.66,0.0
 2011,white,,Greece,1334,19,109,78,-1.65,0.0
 2011,white,,Finland,562,6,50,29,-1.64,0.0
 2011,white,,Croatia,153,0,16,5,-1.62,0.0
-2011,white,,Isle of Man,828,12,71,45,-1.56,0.0
+2011,white,,Man Isle of UK,828,12,71,45,-1.56,0.0
 2011,white,,Bahamas,3265,67,253,204,-1.5,0.0
 2011,white,,Norway,2023,40,161,122,-1.48,0.0
 2011,white,,Poland,189,1,20,7,-1.47,0.0
 2011,white,,Belgium,233,2,23,9,-1.42,0.0
 2011,white,,Liberia,4270,105,327,271,-1.38,0.0
-2011,white,,Bermuda,270,3,26,12,-1.36,0.0
+2011,white,,Bermuda UK,270,3,26,12,-1.36,0.0
 2011,white,,Cyprus,2422,59,191,148,-1.33,0.0
 2011,white,,Ireland,165,1,17,6,-1.33,0.0
-2011,white,,Gibraltar,1208,27,100,69,-1.31,0.0
+2011,white,,Gibraltar UK,1208,27,100,69,-1.31,0.0
 2011,white,,Spain,257,3,25,11,-1.31,0.0
 2011,white,,Marshall Islands,2361,59,186,144,-1.31,0.0
 2011,white,,China,241,3,24,10,-1.24,0.0
-2011,white,,South Korea,141,1,15,4,-1.13,0.0
+2011,white,,Korea Republic of,141,1,15,4,-1.13,0.0
 2011,white,,Estonia,89,0,11,2,-1.02,0.0
 2011,white,,Malta,5301,186,402,340,-1.01,0.0
 2011,white,,Barbados,463,11,42,23,-1.01,0.0
 2011,white,,Luxembourg,195,3,20,7,-0.96,0.0
-2011,white,,Cayman Islands,282,6,27,12,-0.91,0.0
-2011,white,,Russia,1644,60,133,98,-0.83,0.0
+2011,white,,Cayman Islands UK,282,6,27,12,-0.91,0.0
+2011,white,,Russian Federation,1644,60,133,98,-0.83,0.0
 2011,white,,Antigua and Barbuda,4767,196,363,304,-0.79,0.0
 2011,white,,Portugal,496,15,45,25,-0.78,0.0
 2011,white,,Philippines,250,6,25,10,-0.73,0.0
 2011,white,,Panama,7611,345,570,496,-0.69,0.0
 2011,white,,Lithuania,216,5,22,8,-0.68,0.0
 2011,white,,Turkey,2107,96,167,128,-0.54,0.0
-2011,white,,Faroe Islands,193,5,20,7,-0.49,0.0
+2011,white,,Faroe Islands (DK),193,5,20,7,-0.49,0.0
 2011,white,,Japan,91,1,11,2,-0.48,0.0
 2011,white,,Vanuatu,203,6,21,8,-0.37,0.0
 2011,white,,Latvia,109,2,13,3,-0.33,0.0
-2011,white,,Iran,134,4,15,4,-0.01,0.0
+2011,white,,Iran Islamic Republic of,134,4,15,4,-0.01,0.0
 2011,grey,,Kazakhstan,42,0,6,0,0.04,0.5
-2011,grey,,United States,174,7,18,6,0.07,0.5
+2011,grey,,United States of America,174,7,18,6,0.07,0.5
 2011,grey,,Saudi Arabia,59,1,8,0,0.08,0.5
 2011,grey,,Malaysia,57,1,8,0,0.09,0.5
 2011,grey,,Thailand,77,2,10,1,0.09,0.5
@@ -142,30 +142,30 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2011,grey,,Slovakia,140,9,15,4,0.43,0.5
 2011,grey,,Algeria,85,6,10,2,0.51,0.5
 2011,grey,,Egypt,105,9,12,3,0.67,0.5
-2011,grey,,Vietnam,38,4,6,0,0.72,0.5
+2011,grey,,Viet Nam,38,4,6,0,0.72,0.5
 2011,grey,,Cook Islands,160,14,17,5,0.74,0.5
 2011,grey,,Jamaica,36,5,6,0,0.91,0.5
-2011,grey,,St. Vincent and Grenadines,1586,126,128,94,0.94,0.5
+2011,grey,,St Vincent and the Grenadines,1586,126,128,94,0.94,0.5
 2011,black,,Honduras,59,8,8,,1.06,1.0
 2011,black,,Dominica,144,16,16,,1.07,1.0
-2011,black,,Syria,166,19,18,,1.25,1.0
+2011,black,,Syrian Arab Republic,166,19,18,,1.25,1.0
 2011,black,,Lebanon,74,10,9,,1.25,1.0
 2011,black,,Azerbaijan,34,6,5,,1.46,1.0
 2011,black,,Ukraine,372,42,35,,1.59,1.0
 2011,black,,Georgia,647,72,56,,1.73,1.0
 2011,black,,Cambodia,768,91,66,,2.0,1.0
 2011,black,,Comoros,593,76,52,,2.22,1.0
-2011,black,,St. Kitts and Nevis,416,60,38,,2.57,1.0
-2011,black,,Moldova,590,88,52,,2.86,1.0
+2011,black,,St Kitts and Nevis,416,60,38,,2.57,1.0
+2011,black,,Moldova Republic of,590,88,52,,2.86,1.0
 2011,black,,Albania,175,32,18,,3.24,1.0
-2011,black,,Tanzania,130,25,14,,3.29,1.0
+2011,black,,Tanzania United Rep.,130,25,14,,3.29,1.0
 2011,black,,Sierra Leone,476,85,43,,3.69,1.0
 2011,black,,Togo,205,42,21,,4.01,1.0
 2011,black,,Bolivia,46,12,7,,4.03,1.0
-2011,black,,Libya,46,14,7,,5.24,1.0
+2011,black,,Libyan Arab Jamahiriya,46,14,7,,5.24,1.0
 2012,white,1,France,306,0,29,14,-1.95,0.0
 2012,white,2,Germany,1099,10,91,63,-1.82,0.0
-2012,white,3,Hong Kong,1559,19,126,92,-1.74,0.0
+2012,white,3,Hong Kong China,1559,19,126,92,-1.74,0.0
 2012,white,4,Sweden,630,6,55,33,-1.71,0.0
 2012,white,5,Greece,1154,14,96,66,-1.71,0.0
 2012,white,6,Denmark,1233,16,102,71,-1.68,0.0
@@ -174,34 +174,34 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2012,white,9,Italy,1384,21,113,81,-1.61,0.0
 2012,white,10,Croatia,151,0,16,5,-1.61,0.0
 2012,white,11,Finland,477,5,43,24,-1.6,0.0
-2012,white,12,Isle of Man,755,10,65,41,-1.59,0.0
+2012,white,12,Isle of Man UK,755,10,65,41,-1.59,0.0
 2012,white,13,United Kingdom,1683,28,136,100,-1.58,0.0
 2012,white,14,Liberia,4179,80,320,265,-1.57,0.0
 2012,white,15,Netherlands,3441,68,266,216,-1.53,0.0
 2012,white,16,Singapore,1408,25,115,82,-1.52,0.0
-2012,white,17,South Korea,123,0,14,3,-1.44,0.0
+2012,white,17,Korea Republic of,123,0,14,3,-1.44,0.0
 2012,white,18,Marshall Islands,2427,56,191,149,-1.38,0.0
 2012,white,19,Belgium,250,3,25,10,-1.28,0.0
 2012,white,20,China,238,3,24,10,-1.22,0.0
-2012,white,21,Gibraltar,1072,26,89,61,-1.22,0.0
+2012,white,21,Gibraltar UK,1072,26,89,61,-1.22,0.0
 2012,white,22,Cyprus,2157,61,171,131,-1.17,0.0
 2012,white,23,Malta,4922,159,374,315,-1.11,0.0
-2012,white,24,Cayman Islands,315,6,30,14,-1.06,0.0
+2012,white,24,Cayman Islands UK,315,6,30,14,-1.06,0.0
 2012,white,25,Latvia,91,0,11,2,-1.05,0.0
-2012,white,26,Bermuda,275,5,27,12,-1.03,0.0
+2012,white,26,Bermuda UK,275,5,27,12,-1.03,0.0
 2012,white,27,Ireland,127,1,14,4,-0.98,0.0
-2012,white,28,Russia,1458,49,119,86,-0.91,0.0
+2012,white,28,Russian Federation,1458,49,119,86,-0.91,0.0
 2012,white,29,Estonia,81,0,10,1,-0.9,0.0
 2012,white,30,Barbados,395,10,36,19,-0.89,0.0
 2012,white,31,Japan,80,0,10,1,-0.88,0.0
 2012,white,32,Panama,6876,277,517,446,-0.85,0.0
 2012,white,33,Spain,230,5,23,9,-0.78,0.0
-2012,white,34,Iran,107,1,12,3,-0.75,0.0
-2012,white,35,Faroe Islands,223,5,22,9,-0.73,0.0
+2012,white,34,Iran Islamic Republic of,107,1,12,3,-0.75,0.0
+2012,white,35,Faroe Islands DK,223,5,22,9,-0.73,0.0
 2012,white,36,Antigua and Barbuda,4364,202,334,277,-0.6,0.0
 2012,white,37,Turkey,1930,88,154,116,-0.53,0.0
 2012,white,38,Poland,172,4,18,6,-0.52,0.0
-2012,white,39,United States,236,7,23,10,-0.46,0.0
+2012,white,39,United States of America,236,7,23,10,-0.46,0.0
 2012,white,40,Philippines,234,7,23,9,-0.44,0.0
 2012,white,41,Lithuania,198,6,20,7,-0.32,0.0
 2012,white,42,Portugal,439,19,40,21,-0.22,0.0
@@ -215,44 +215,44 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2012,grey,50,Saudi Arabia,58,1,8,0,0.09,0.5
 2012,grey,51,India,115,4,13,3,0.1,0.5
 2012,grey,52,Belize,616,36,54,32,0.17,0.5
-2012,grey,53,Vietnam,34,1,5,0,0.27,0.5
+2012,grey,53,Viet Nam,34,1,5,0,0.27,0.5
 2012,grey,54,Algeria,73,4,9,1,0.36,0.5
 2012,grey,55,Morocco,101,7,12,2,0.49,0.5
 2012,grey,56,Tunisia,57,4,8,0,0.5,0.5
 2012,grey,57,Egypt,85,6,10,2,0.51,0.5
 2012,grey,58,Slovakia,75,6,9,1,0.59,0.5
 2012,grey,59,Bulgaria,99,8,12,2,0.61,0.5
-2012,grey,60,St. Vincent and Grenadines,1277,96,105,74,0.71,0.5
+2012,grey,60,Saint Vincent and the Grenadines,1277,96,105,74,0.71,0.5
 2012,grey,61,Cook Islands,187,16,19,7,0.73,0.5
-2012,grey,62,Syria,94,9,11,2,0.76,0.5
+2012,grey,62,Syrian Arab Republic,94,9,11,2,0.76,0.5
 2012,grey,63,Tuvalu,44,5,6,0,0.79,0.5
 2012,grey,64,Ukraine,308,29,29,14,0.97,0.5
 2012,black,65,Cambodia,629,59,55,,1.19,1.0
 2012,black,66,Georgia,428,42,39,,1.2,1.0
-2012,black,67,St. Kitts and Nevis,344,35,32,,1.23,1.0
+2012,black,67,Saint Kitts and Nevis,344,35,32,,1.23,1.0
 2012,black,68,Lebanon,82,11,10,,1.31,1.0
 2012,black,69,Libya,44,7,6,,1.35,1.0
 2012,black,70,Dominica,140,18,15,,1.54,1.0
 2012,black,71,Comoros,483,55,44,,1.71,1.0
 2012,black,72,Albania,159,21,17,,1.72,1.0
-2012,black,73,Moldova,654,84,57,,2.26,1.0
+2012,black,73,Moldova Republic of,654,84,57,,2.26,1.0
 2012,black,74,Honduras,45,9,6,,2.39,1.0
 2012,black,75,Sierra Leone,412,58,38,,2.46,1.0
 2012,black,76,Togo,231,35,23,,2.5,1.0
-2012,black,77,Tanzania,234,37,23,,2.7,1.0
+2012,black,77,Tanzania United Republic of,234,37,23,,2.7,1.0
 2012,black,78,Bolivia,39,10,6,,3.66,1.0
 2013,white,1,France,278,0,27,12,-1.92,0.0
 2013,white,2,Norway,1470,16,119,86,-1.79,0.0
 2013,white,3,Sweden,476,4,43,24,-1.69,0.0
 2013,white,4,Denmark,1099,14,91,63,-1.68,0.0
 2013,white,5,Italy,1243,17,102,72,-1.66,0.0
-2013,white,6,Hong Kong,1583,23,128,94,-1.66,0.0
+2013,white,6,Hong Kong China,1583,23,128,94,-1.66,0.0
 2013,white,7,United Kingdom,1513,23,123,89,-1.62,0.0
 2013,white,8,Finland,421,4,39,20,-1.61,0.0
 2013,white,9,Germany,881,12,75,49,-1.61,0.0
 2013,white,10,Croatia,147,0,16,5,-1.59,0.0
 2013,white,11,Bahamas,2414,42,190,148,-1.59,0.0
-2013,white,12,Isle of Man,677,9,59,36,-1.57,0.0
+2013,white,12,Isle of Man UK,677,9,59,36,-1.57,0.0
 2013,white,13,Liberia,4046,82,310,256,-1.53,0.0
 2013,white,14,Singapore,1367,26,112,80,-1.46,0.0
 2013,white,15,Belgium,235,2,23,10,-1.42,0.0
@@ -260,25 +260,25 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2013,white,17,Marshall Islands,2521,63,198,155,-1.31,0.0
 2013,white,18,China,202,2,21,8,-1.26,0.0
 2013,white,19,Netherlands,3083,83,240,192,-1.26,0.0
-2013,white,20,Iran,92,0,11,2,-1.07,0.0
-2013,white,21,Gibraltar,885,24,75,49,-1.06,0.0
+2013,white,20,Iran Islamic Republic of,92,0,11,2,-1.07,0.0
+2013,white,21,Gibraltar UK,885,24,75,49,-1.06,0.0
 2013,white,22,Malta,4426,149,338,281,-1.05,0.0
 2013,white,23,Cyprus,1940,64,155,117,-0.98,0.0
-2013,white,24,Cayman Islands,332,8,31,15,-0.87,0.0
+2013,white,24,Cayman Islands UK,332,8,31,15,-0.87,0.0
 2013,white,25,Barbados,356,9,33,17,-0.85,0.0
-2013,white,26,United States,269,6,26,11,-0.84,0.0
+2013,white,26,United States of America,269,6,26,11,-0.84,0.0
 2013,white,27,Latvia,75,0,9,1,-0.79,0.0
-2013,white,28,Russia,1390,51,113,81,-0.79,0.0
+2013,white,28,Russian Federation,1390,51,113,81,-0.79,0.0
 2013,white,29,Estonia,74,0,9,1,-0.77,0.0
-2013,white,30,Bermuda,254,6,25,11,-0.76,0.0
+2013,white,30,Bermuda UK,254,6,25,11,-0.76,0.0
 2013,white,31,Japan,71,0,9,1,-0.71,0.0
-2013,white,32,South Korea,103,1,12,2,-0.69,0.0
+2013,white,32,Korea Republic of,103,1,12,2,-0.69,0.0
 2013,white,33,Kazakhstan,69,0,9,1,-0.67,0.0
 2013,white,34,Turkey,1650,69,133,98,-0.64,0.0
 2013,white,35,Saudi Arabia,65,0,8,1,-0.57,0.0
 2013,white,36,Panama,6238,305,470,403,-0.55,0.0
 2013,white,37,Antigua and Barbuda,3746,178,288,236,-0.55,0.0
-2013,white,38,Faroe Islands,241,7,24,10,-0.5,0.0
+2013,white,38,Faroe Islands DK,241,7,24,10,-0.5,0.0
 2013,white,39,Ireland,88,1,11,2,-0.42,0.0
 2013,white,40,Philippines,198,6,20,7,-0.32,0.0
 2013,white,41,Spain,210,7,21,8,-0.23,0.0
@@ -294,37 +294,37 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2013,grey,51,Malaysia,61,2,8,0,0.2,0.5
 2013,grey,52,Bulgaria,58,2,8,0,0.22,0.5
 2013,grey,53,Curacao,262,16,26,11,0.34,0.5
-2013,grey,54,Syria,42,2,6,0,0.35,0.5
+2013,grey,54,Syrian Arab Republic,42,2,6,0,0.35,0.5
 2013,grey,55,Egypt,69,4,9,1,0.4,0.5
 2013,grey,56,Morocco,65,4,8,1,0.43,0.5
 2013,grey,57,Ukraine,237,17,24,10,0.53,0.5
 2013,grey,58,Algeria,79,6,10,1,0.56,0.5
 2013,grey,59,Georgia,160,13,17,5,0.65,0.5
 2013,grey,60,Lebanon,81,7,10,1,0.66,0.5
-2013,grey,61,St. Kitts and Nevis,307,24,29,14,0.66,0.5
+2013,grey,61,Saint Kitts and Nevis,307,24,29,14,0.66,0.5
 2013,grey,62,Libya,44,5,6,0,0.79,0.5
 2013,grey,63,Tuvalu,42,5,6,0,0.82,0.5
 2013,grey,64,Albania,117,13,13,3,0.98,0.5
 2013,grey,65,Belize,570,50,50,29,0.98,0.5
 2013,black,66,Cambodia,526,47,47,,1.0,1.0
-2013,black,67,St. Vincent and Grenadines,1004,87,84,,1.09,1.0
+2013,black,67,Saint Vincent and the Grenadines,1004,87,84,,1.09,1.0
 2013,black,68,Comoros,350,37,33,,1.35,1.0
 2013,black,69,Cook Islands,240,29,24,,1.62,1.0
 2013,black,70,Sierra Leone,355,42,33,,1.73,1.0
-2013,black,71,Moldova,611,73,54,,1.96,1.0
+2013,black,71,Moldova Republic of,611,73,54,,1.96,1.0
 2013,black,72,Togo,282,37,27,,2.0,1.0
 2013,black,73,Dominica,103,18,12,,2.59,1.0
 2013,black,74,Honduras,30,7,5,,2.65,1.0
-2013,black,75,Tanzania,289,53,28,,3.58,1.0
+2013,black,75,Tanzania United Republic of,289,53,28,,3.58,1.0
 2014,white,1,France,278,0,27,12,-1.92,0.0
-2014,white,2,Hong Kong,1709,20,137,102,-1.77,0.0
+2014,white,2,Hong Kong China,1709,20,137,102,-1.77,0.0
 2014,white,3,Bahamas,2308,31,182,141,-1.74,0.0
 2014,white,4,Norway,1472,19,120,86,-1.71,0.0
 2014,white,5,Sweden,405,3,37,19,-1.69,0.0
-2014,white,6,Isle of Man,731,8,63,39,-1.68,0.0
+2014,white,6,Isle of Man UK,731,8,63,39,-1.68,0.0
 2014,white,7,Denmark,1082,14,90,61,-1.67,0.0
 2014,white,8,United Kingdom,1369,19,112,80,-1.66,0.0
-2014,white,9,United States,235,1,23,10,-1.64,0.0
+2014,white,9,United States of America,235,1,23,10,-1.64,0.0
 2014,white,10,Italy,1210,17,100,70,-1.64,0.0
 2014,white,11,Singapore,1517,23,123,89,-1.63,0.0
 2014,white,12,Marshall Islands,2807,51,219,174,-1.58,0.0
@@ -335,15 +335,15 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2014,white,17,Liberia,4215,95,323,267,-1.45,0.0
 2014,white,18,Belgium,228,2,23,9,-1.39,0.0
 2014,white,19,Netherlands,3170,79,246,198,-1.34,0.0
-2014,white,20,Bermuda,252,3,25,10,-1.29,0.0
+2014,white,20,Bermuda UK,252,3,25,10,-1.29,0.0
 2014,white,21,Malta,4369,126,334,278,-1.22,0.0
-2014,white,22,Cayman Islands,357,6,33,17,-1.22,0.0
-2014,white,23,Gibraltar,848,20,72,47,-1.19,0.0
+2014,white,22,Cayman Islands UK,357,6,33,17,-1.22,0.0
+2014,white,23,Gibraltar UK,848,20,72,47,-1.19,0.0
 2014,white,24,Croatia,140,1,15,4,-1.12,0.0
 2014,white,25,Cyprus,1976,69,157,119,-0.91,0.0
-2014,white,26,Faroe Islands,252,5,25,10,-0.91,0.0
+2014,white,26,Faroe Islands DK,252,5,25,10,-0.91,0.0
 2014,white,27,India,81,0,10,1,-0.9,0.0
-2014,white,28,Iran,81,0,10,1,-0.9,0.0
+2014,white,28,Iran Islamic Republic of,81,0,10,1,-0.9,0.0
 2014,white,29,Saudi Arabia,81,0,10,1,-0.9,0.0
 2014,white,30,Kazakhstan,75,0,9,1,-0.79,0.0
 2014,white,31,Barbados,363,10,34,17,-0.77,0.0
@@ -352,13 +352,13 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2014,white,34,Japan,66,0,9,1,-0.6,0.0
 2014,white,35,Antigua and Barbuda,3623,174,279,228,-0.52,0.0
 2014,white,36,Latvia,63,0,8,1,-0.52,0.0
-2014,white,37,Russia,1386,62,113,81,-0.5,0.0
+2014,white,37,Russian Federation,1386,62,113,81,-0.5,0.0
 2014,white,38,Ireland,91,1,11,2,-0.48,0.0
 2014,white,39,Panama,6098,315,460,394,-0.45,0.0
 2014,white,40,Philippines,161,4,17,5,-0.4,0.0
 2014,white,41,Switzerland,107,2,12,3,-0.29,0.0
 2014,white,42,Luxembourg,210,7,21,8,-0.23,0.0
-2014,white,43,South Korea,103,2,12,2,-0.21,0.0
+2014,white,43,Korea Republic of,103,2,12,2,-0.21,0.0
 2014,grey,44,Portugal,376,18,35,18,0.02,0.5
 2014,grey,45,Ukraine,202,9,21,8,0.1,0.5
 2014,grey,46,Malaysia,52,1,7,0,0.13,0.5
@@ -375,19 +375,19 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2014,grey,57,Morocco,41,3,6,0,0.52,0.5
 2014,grey,58,Vanuatu,265,19,26,11,0.53,0.5
 2014,grey,59,Albania,92,7,11,2,0.56,0.5
-2014,grey,60,St. Kitts and Nevis,313,25,30,14,0.69,0.5
+2014,grey,60,Saint Kitts and Nevis,313,25,30,14,0.69,0.5
 2014,grey,61,Algeria,73,7,9,1,0.73,0.5
 2014,grey,62,Tuvalu,34,4,5,0,0.77,0.5
 2014,black,63,Sierra Leone,316,32,30,,1.18,1.0
 2014,black,64,Cambodia,442,43,40,,1.18,1.0
-2014,black,65,St. Vincent and Grenadines,861,79,73,,1.21,1.0
+2014,black,65,Saint Vincent and the Grenadines,861,79,73,,1.21,1.0
 2014,black,66,Belize,591,59,52,,1.35,1.0
 2014,black,67,Comoros,280,34,27,,1.71,1.0
 2014,black,68,Dominica,70,11,9,,1.77,1.0
 2014,black,69,Cook Islands,310,39,30,,1.89,1.0
 2014,black,70,Togo,353,45,33,,1.99,1.0
-2014,black,71,Moldova,593,80,52,,2.43,1.0
-2014,black,72,Tanzania,313,51,30,,3.0,1.0
+2014,black,71,Moldova Republic of,593,80,52,,2.43,1.0
+2014,black,72,Tanzania United Rep.,313,51,30,,3.0,1.0
 2014,black,1718,Performance level DNV GL AS,0,44,24,,-1.95,1.0
 2014,black,3072,Registro Italiano Navale,6,75,48,,-1.7,1.0
 2014,black,12674,Germanischer Lloyd,47,280,227,,-1.56,1.0
@@ -408,32 +408,32 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2015,white,4,Denmark,1137,9,94,65,-1.87,0.0
 2015,white,5,Norway,1440,15,117,84,-1.8,0.0
 2015,white,6,Belgium,207,0,21,8,-1.8,0.0
-2015,white,7,Hong Kong,1826,22,146,109,-1.77,0.0
+2015,white,7,Hong Kong China,1826,22,146,109,-1.77,0.0
 2015,white,8,Bahamas,2268,30,179,138,-1.74,0.0
 2015,white,9,Italy,1180,14,98,68,-1.72,0.0
 2015,white,10,Singapore,1644,23,133,98,-1.68,0.0
 2015,white,11,Marshall Islands,3248,53,252,203,-1.66,0.0
 2015,white,12,Netherlands,3171,54,246,198,-1.63,0.0
-2015,white,13,Isle of Man,729,9,63,39,-1.62,0.0
+2015,white,13,Isle of Man UK,729,9,63,39,-1.62,0.0
 2015,white,14,Finland,418,4,38,20,-1.61,0.0
 2015,white,15,Germany,698,9,60,37,-1.59,0.0
-2015,white,16,Cayman Islands,363,4,34,17,-1.49,0.0
-2015,white,17,Bermuda,233,2,23,9,-1.42,0.0
+2015,white,16,Cayman Islands UK,363,4,34,17,-1.49,0.0
+2015,white,17,Bermuda UK,233,2,23,9,-1.42,0.0
 2015,white,18,China,222,2,22,9,-1.37,0.0
 2015,white,19,Greece,902,18,76,50,-1.35,0.0
-2015,white,20,Gibraltar,814,17,69,45,-1.29,0.0
+2015,white,20,Gibraltar UK,814,17,69,45,-1.29,0.0
 2015,white,21,Liberia,4163,116,319,264,-1.25,0.0
 2015,white,22,Philippines,149,1,16,5,-1.21,0.0
 2015,white,23,Malta,4453,137,340,283,-1.16,0.0
 2015,white,24,Luxembourg,215,3,22,8,-1.09,0.0
 2015,white,25,Cyprus,2008,62,160,121,-1.06,0.0
-2015,white,26,United States,206,3,21,8,-1.03,0.0
+2015,white,26,United States of America,206,3,21,8,-1.03,0.0
 2015,white,27,Croatia,125,1,14,4,-0.96,0.0
 2015,white,28,Barbados,348,8,33,16,-0.93,0.0
-2015,white,29,Iran,83,0,10,1,-0.93,0.0
+2015,white,29,Iran Islamic Republic of,83,0,10,1,-0.93,0.0
 2015,white,30,Kazakhstan,82,0,10,1,-0.91,0.0
 2015,white,31,Saudi Arabia,81,0,10,1,-0.9,0.0
-2015,white,32,Faroe Islands,268,6,26,11,-0.84,0.0
+2015,white,32,Faroe Islands DK,268,6,26,11,-0.84,0.0
 2015,white,33,Ireland,113,1,13,3,-0.83,0.0
 2015,white,34,Portugal,429,13,39,21,-0.72,0.0
 2015,white,35,Antigua and Barbuda,3389,145,262,212,-0.7,0.0
@@ -441,9 +441,9 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2015,white,37,Estonia,68,0,9,1,-0.65,0.0
 2015,white,38,Turkey,1324,59,108,77,-0.5,0.0
 2015,white,39,Panama,6105,313,461,394,-0.46,0.0
-2015,white,40,Russia,1322,63,108,77,-0.38,0.0
+2015,white,40,Russian Federation,1322,63,108,77,-0.38,0.0
 2015,white,41,Spain,193,7,20,7,-0.04,0.0
-2015,white,42,South Korea,95,2,11,2,-0.03,0.0
+2015,white,42,Korea Republic of,95,2,11,2,-0.03,0.0
 2015,white,43,Japan,72,1,9,1,0.0,0.0
 2015,grey,44,Poland,147,5,16,5,0.03,0.5
 2015,grey,45,Switzerland,120,4,13,3,0.07,0.5
@@ -465,27 +465,27 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2015,grey,61,Vanuatu,292,26,28,13,0.86,0.5
 2015,grey,62,Palau,75,9,9,1,0.95,0.5
 2015,black,63,Sierra Leone,267,27,26,,1.1,1.0
-2015,black,64,St. Vincent and Grenadines,746,68,64,,1.16,1.0
-2015,black,65,St. Kitts and Nevis,299,31,29,,1.23,1.0
+2015,black,64,Saint Vincent and the Grenadines,746,68,64,,1.16,1.0
+2015,black,65,Saint Kitts and Nevis,299,31,29,,1.23,1.0
 2015,black,66,Belize,546,55,49,,1.36,1.0
 2015,black,67,Cambodia,384,41,36,,1.42,1.0
 2015,black,68,Dominica,41,7,6,,1.55,1.0
 2015,black,69,Cook Islands,352,41,33,,1.67,1.0
 2015,black,70,Comoros,216,28,22,,1.82,1.0
 2015,black,71,Togo,382,55,35,,2.53,1.0
-2015,black,72,Moldova,553,80,49,,2.7,1.0
-2015,black,73,Tanzania,253,45,25,,3.34,1.0
-2016,white,1,Cayman Islands,393,1,36,19,-1.91,0.0
+2015,black,72,Moldova Republic of,553,80,49,,2.7,1.0
+2015,black,73,Tanzania United Rep.,253,45,25,,3.34,1.0
+2016,white,1,Cayman Islands UK,393,1,36,19,-1.91,0.0
 2016,white,2,France,266,0,26,11,-1.91,0.0
 2016,white,3,Denmark,1201,9,99,69,-1.9,0.0
 2016,white,4,Netherlands,3103,35,241,193,-1.84,0.0
 2016,white,5,Bahamas,2291,27,181,140,-1.8,0.0
 2016,white,6,Italy,1164,13,96,67,-1.75,0.0
-2016,white,7,Hong Kong,1921,25,153,116,-1.73,0.0
+2016,white,7,Hong Kong China,1921,25,153,116,-1.73,0.0
 2016,white,8,Marshall Islands,3704,54,285,233,-1.73,0.0
 2016,white,9,United Kingdom,1260,15,104,73,-1.73,0.0
 2016,white,10,Norway,1450,18,118,85,-1.73,0.0
-2016,white,11,Isle of Man,747,8,64,40,-1.7,0.0
+2016,white,11,Isle of Man UK,747,8,64,40,-1.7,0.0
 2016,white,12,Sweden,331,2,31,15,-1.69,0.0
 2016,white,13,Singapore,1816,26,146,109,-1.68,0.0
 2016,white,14,Belgium,219,1,22,9,-1.59,0.0
@@ -495,8 +495,8 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2016,white,18,Finland,407,6,37,20,-1.36,0.0
 2016,white,19,Cyprus,1965,47,157,118,-1.32,0.0
 2016,white,20,Luxembourg,213,2,22,8,-1.32,0.0
-2016,white,21,Bermuda,241,3,24,10,-1.24,0.0
-2016,white,22,Gibraltar,770,17,66,42,-1.23,0.0
+2016,white,21,Bermuda UK,241,3,24,10,-1.24,0.0
+2016,white,22,Gibraltar UK,770,17,66,42,-1.23,0.0
 2016,white,23,Malta,4586,135,350,292,-1.21,0.0
 2016,white,24,Liberia,4170,128,320,264,-1.15,0.0
 2016,white,25,China,207,3,21,8,-1.04,0.0
@@ -505,19 +505,19 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2016,white,28,Estonia,79,0,10,1,-0.86,0.0
 2016,white,29,Barbados,325,8,31,15,-0.84,0.0
 2016,white,30,Portugal,582,18,51,30,-0.8,0.0
-2016,white,31,Faroe Islands,256,6,25,11,-0.77,0.0
+2016,white,31,Faroe Islands DK,256,6,25,11,-0.77,0.0
 2016,white,32,Antigua and Barbuda,3160,129,245,197,-0.76,0.0
 2016,white,33,Saudi Arabia,73,0,9,1,-0.75,0.0
 2016,white,34,Kazakhstan,72,0,9,1,-0.73,0.0
 2016,white,35,Japan,94,1,11,2,-0.54,0.0
-2016,white,36,United States,194,5,20,7,-0.5,0.0
+2016,white,36,United States of America,194,5,20,7,-0.5,0.0
 2016,white,37,Panama,6082,313,459,393,-0.45,0.0
-2016,white,38,Iran,89,1,11,2,-0.44,0.0
-2016,white,39,Russia,1258,61,103,73,-0.34,0.0
+2016,white,38,Iran Islamic Republic of,89,1,11,2,-0.44,0.0
+2016,white,39,Russian Federation,1258,61,103,73,-0.34,0.0
 2016,white,40,Croatia,108,2,12,3,-0.31,0.0
 2016,white,41,Spain,173,5,18,6,-0.28,0.0
 2016,white,42,Turkey,1237,65,102,71,-0.19,0.0
-2016,grey,43,South Korea,90,2,11,2,0.02,0.5
+2016,grey,43,Korea Republic of,90,2,11,2,0.02,0.5
 2016,grey,44,Poland,123,4,14,3,0.05,0.5
 2016,grey,45,Kuwait,36,0,6,0,0.08,0.5
 2016,grey,46,Lithuania,137,6,15,4,0.17,0.5
@@ -532,23 +532,23 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2016,grey,55,Bulgaria,38,3,6,0,0.56,0.5
 2016,grey,56,Curacao,149,12,16,5,0.64,0.5
 2016,grey,57,Albania,68,6,9,1,0.66,0.5
-2016,grey,58,St. Vincent and Grenadines,647,50,56,34,0.71,0.5
+2016,grey,58,Saint Vincent and the Grenadines,647,50,56,34,0.71,0.5
 2016,grey,59,Tunisia,41,5,6,0,0.83,0.5
 2016,grey,60,Lebanon,74,8,9,1,0.84,0.5
 2016,grey,61,Ukraine,129,14,14,4,0.97,0.5
 2016,black,62,Belize,488,47,44,,1.19,1.0
 2016,black,63,Cook Islands,404,40,37,,1.2,1.0
 2016,black,64,Vanuatu,277,31,27,,1.43,1.0
-2016,black,65,St. Kitts and Nevis,299,34,29,,1.52,1.0
+2016,black,65,Saint Kitts and Nevis,299,34,29,,1.52,1.0
 2016,black,66,Cambodia,293,36,28,,1.78,1.0
 2016,black,67,Sierra Leone,260,39,25,,2.52,1.0
 2016,black,68,Palau,123,23,14,,3.09,1.0
 2016,black,69,Comoros,228,40,23,,3.2,1.0
-2016,black,70,Moldova,515,85,46,,3.3,1.0
+2016,black,70,Moldova Republic of,515,85,46,,3.3,1.0
 2016,black,71,Togo,399,70,37,,3.51,1.0
-2016,black,72,Tanzania,211,40,21,,3.57,1.0
-2016,black,73,Congo [Republic],86,24,10,,5.4,1.0
-2017,white,2,Cayman Islands,438,2,40,21,-1.84,0.0
+2016,black,72,Tanzania United Rep.,211,40,21,,3.57,1.0
+2016,black,73,Congo Republic of the,86,24,10,,5.4,1.0
+2017,white,2,Cayman Islands UK,438,2,40,21,-1.84,0.0
 2017,white,3,Netherlands,3028,35,236,188,-1.83,0.0
 2017,white,4,Denmark,1189,12,98,68,-1.79,0.0
 2017,white,5,United Kingdom “,1194,13,99,69,1.76,0.0
@@ -562,7 +562,7 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2017,white,15,Germany,588,8,52,30,-1.52,0.0
 2017,white,16,Ireland,120,0,13,3,-1.41,0.0
 2017,white,7,Cyprus,1921,44,153,116,-1.36,0.0
-2017,white,18,Gibraltar,716,14,62,38,-1.32,0.0
+2017,white,18,Gibraltar UK,716,14,62,38,-1.32,0.0
 2017,white,19,Liberia,4105,110,315,260,-1.29,0.0
 2017,white,21,Luxembourg “,199,2,20,8,1.24,0.0
 2017,white,22,China “,198,2,20,7,1.24,0.0
@@ -578,23 +578,23 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2017,white,33,Barbados,341,1,2,16,-0.55,0.0
 2017,white,34,Saudi Arabia,59,0,8,0,-0.4,0.0
 2017,white,35,Panama,6110,334,461,394,-0.34,0.0
-2017,white,36,South Korea,82,1,10,1,-0.28,0.0
+2017,white,36,Korea Republic of,82,1,10,1,-0.28,0.0
 2017,white,37,Croatia,105,2,12,3,-0.26,0.0
-2017,white,38,Faroe Islands,251,9,25,10,-0.24,0.0
+2017,white,38,Faroe Islands DK,251,9,25,10,-0.24,0.0
 2017,white,39,Turkey,1133,59,94,65,-0.19,0.0
 2017,white,40,Spain,156,5,7,5,-0.05,0.0
 2017,grey,4,Kazakhstan,66,1,9,1,0.04,0.5
 2017,grey,42,Algeria,83,2,10,1,0.06,0.5
-2017,grey,4,United States,203,9,21,8,0.1,0.5
-2017,grey,44,Russia,1182,71,98,68,0.11,0.5
+2017,grey,4,United States of America,203,9,21,8,0.1,0.5
+2017,grey,44,Russian Federation,1182,71,98,68,0.11,0.5
 2017,grey,45,Thailand,58,1,7,0,0.12,0.5
 2017,grey,46,Lithuania,123,5,14,3,0.15,0.5
 2017,grey,47,Switzerland,119,6,13,3,0.27,0.5
 2017,grey,48,Libya,32,1,5,0,0.28,0.5
 2017,grey,49,Egypt,43,2,6,0,0.34,0.5
-2017,grey,50,St. Vincent and Grenadines,557,36,49,29,0.36,0.5
+2017,grey,50,Saint Vincent and the Grenadines,557,36,49,29,0.36,0.5
 2017,grey,51,Morocco,57,3,8,0,0.37,0.5
-2017,grey,52,Iran,104,6,12,2,0.37,0.5
+2017,grey,52,Iran Islamic Republic of,104,6,12,2,0.37,0.5
 2017,grey,53,Curacao,119,7,13,3,0.37,0.5
 2017,grey,54,Azerbaijan,45,3,6,0,0.48,0.5
 2017,grey,55,Bulgaria,33,3,5,0,0.62,0.5
@@ -606,29 +606,29 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2017,black,62,Cook Islands Al,4,43,38,,1.36,1.0
 2017,black,63,Vanuatu Risk,251,28,25,,1.38,1.0
 2017,black,64,Cambodia,161,22,7,,1.85,1.0
-2017,black,65,St. Kitts and Nevis,266,35,26,,1.98,1.0
+2017,black,65,Saint Kitts and Nevis,266,35,26,,1.98,1.0
 2017,black,66,Sierra Leone,292,46,28,,2.8,1.0
 2017,black,67,Ukraine,94,18,1,,2.98,1.0
 2017,black,68,Palau,180,36,19,,3.77,1.0
-2017,black,69,Moldova,480,89,43,,3.9,1.0
+2017,black,69,Moldova Republic of,480,89,43,,3.9,1.0
 2017,black,72,Comoros,282,60,27,,4.46,1.0
-2017,black,23,Congo [Republic],104,28,12,,5.33,1.0
+2017,black,23,Congo Republic of the,104,28,12,,5.33,1.0
 2017,black,16,DNV GLAS DNVGL . “,16,350,291,,1.88,1.0
 2017,black,8,Nippon Kaiji Kyokai INI .,24,188,145,,-1.64,1.0
 2017,black,525,Turkish Lloyd TL,1,16,5,,-1.0,1.0
 2017,black,145,Maritime Lloyd - Georgia ML,5,6,0,,0.82,1.0
 2017,black,152,chenmanitime Certification Services ICS Ics,6,6,0,,0.94,1.0
 2017,black,75,Panama Shipping Registrar Inc. PSR,6,4,0,,2.74,1.0
-2018,white,1,Isle of Man,651,5,57,34,-1.8,0.0
+2018,white,1,Isle of Man (UK),651,5,57,34,-1.8,0.0
 2018,white,2,Bahamas,2207,27,175,134,-1.78,0.0
 2018,white,3,Singapore,1925,24,154,116,-1.76,0.0
 2018,white,4,France,279,1,27,12,-1.75,0.0
 2018,white,5,United Kingdom,1154,13,96,66,-1.74,0.0
 2018,white,6,Netherlands,2978,44,232,185,-1.71,0.0
 2018,white,7,Marshall Islands =,4248,66,325,270,1.7,0.0
-2018,white,8,Cayman Islands,480,4,43,24,-1.7,0.0
+2018,white,8,Cayman Islands (UK),480,4,43,24,-1.7,0.0
 2018,white,9,Norway,1489,21,121,88,-1.66,0.0
-2018,white,10,Hong Kong,1983,30,158,120,-1.66,0.0
+2018,white,10,Hong Kong China,1983,30,158,120,-1.66,0.0
 2018,white,11,Denmark,1232,18,101,71,-1.62,0.0
 2018,white,12,Germany,550,7,49,28,-1.54,0.0
 2018,white,13,Luxembourg,199,1,20,8,-1.51,0.0
@@ -636,12 +636,12 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2018,white,16,Sweden,299,3,29,13,-1.46,0.0
 2018,white,17,Liberia,4206,96,322,267,-1.44,0.0
 2018,white,18,Italy,1039,20,87,59,-1.41,0.0
-2018,white,19,Gibraltar,675,12,59,36,-1.38,0.0
+2018,white,19,Gibraltar (UK),675,12,59,36,-1.38,0.0
 2018,white,20,Malta,4680,117,357,298,-1.37,0.0
 2018,white,21,Belgium,221,2,22,9,-1.36,0.0
 2018,white,22,Cyprus,1964,47,157,118,-1.32,0.0
 2018,white,23,Greece,876,19,74,48,-1.28,0.0
-2018,white,24,Bermuda,244,3,24,10,-1.25,0.0
+2018,white,24,Bermuda (UK),244,3,24,10,-1.25,0.0
 2018,white,25,Estonia,87,0,11,2,-0.98,0.0
 2018,white,26,China,161,2,17,5,-0.96,0.0
 2018,white,27,Portugal,958,30,81,54,-0.92,0.0
@@ -656,9 +656,9 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2018,white,36,Poland,87,1,11,2,-0.4,0.0
 2018,white,37,Croatia,110,2,13,3,-0.35,0.0
 2018,white,38,Panama,6200,343,468,400,-0.32,0.0
-2018,white,39,Faroe Islands,235,8,23,10,-0.27,0.0
-2018,white,40,Russia,1243,66,102,72,-0.17,0.0
-2018,white,4,South Korea,75,1,9,1,-0.08,0.0
+2018,white,39,Faroe Islands DK,235,8,23,10,-0.27,0.0
+2018,white,40,Russian Federation,1243,66,102,72,-0.17,0.0
+2018,white,4,Korea Republic of,75,1,9,1,-0.08,0.0
 2018,grey,42,Saudi Arabia,63,1,8,1,0.05,0.5
 2018,grey,43,United States,206,9,21,8,0.08,0.5
 2018,grey,44,Libya,30,0,5,0,0.12,0.5
@@ -669,8 +669,8 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2018,grey,49,Kazakhstan,52,2,7,0,0.27,0.5
 2018,grey,50,Thailand,33,1,5,0,0.27,0.5
 2018,grey,51,Morocco,68,3,9,1,0.28,0.5
-2018,grey,52,St. Vincent and Grenadines,506,33,45,25,0.38,0.5
-2018,grey,53,Iran,127,9,14,4,0.51,0.5
+2018,grey,52,Saint Vincent and the Grenadines,506,33,45,25,0.38,0.5
+2018,grey,53,Iran Islamic Republic of,127,9,14,4,0.51,0.5
 2018,grey,54,Lebanon,71,6,9,1,0.63,0.5
 2018,grey,55,Azerbaijan,55,5,7,0,0.66,0.5
 2018,grey,56,Tunisia,41,5,6,0,0.83,0.5
@@ -679,16 +679,16 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2018,grey,59,Vanuatu,246,24,24,10,0.98,0.5
 2018,black,60,Cook Islands,424,46,39,,1.5,1.0
 2018,black,61,Belize,361,44,34,,1.84,1.0
-2018,black,62,St. Kitts and Nevis,233,31,23,,1.96,1.0
+2018,black,62,Saint Kitts and Nevis,233,31,23,,1.96,1.0
 2018,black,63,Albania to,69,12,9,,2.2,1.0
 2018,black,64,Mongolia,36,8,6,,2.65,1.0
 2018,black,65,Sierra Leone,333,55,31,,3.1,1.0
-2018,black,67,Moldova,409,69,38,,3.31,1.0
-2018,black,68,Tanzania,326,58,31,,3.48,1.0
+2018,black,67,Moldova Republic of,409,69,38,,3.31,1.0
+2018,black,68,Tanzania United Republic of,326,58,31,,3.48,1.0
 2018,black,69,Cambodia,44,11,6,,3.67,1.0
 2018,black,71,Comoros,351,67,33,,3.92,1.0
 2018,black,72,Togo,486,92,44,,4.03,1.0
-2018,black,73,Congo [Republic],98,26,12,,5.15,1.0
+2018,black,73,Congo Republic of the,98,26,12,,5.15,1.0
 2018,black,18192,DNV GLAS,18,395,332,,-1.88,1.0
 2018,black,487,Turkish Lloyd TL,0,15,4,,-1.6,1.0
 2018,black,4427,RINA Services . . . | RINA,13,104,73,,-1.6,1.0
@@ -706,20 +706,20 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2019,white,5,Denmark,1300,16,107,75,-1.72,0.0
 2019,white,6,Marshall Islands,4481,69,342,285,-1.71,0.0
 2019,white,7,Singapore,2014,29,160,122,-1.69,0.0
-2019,white,8,Hong Kong,1973,31,157,119,-1.63,0.0
+2019,white,8,Hong Kong China,1973,31,157,119,-1.63,0.0
 2019,white,9,Japan,154,0,16,5,-1.63,0.0
-2019,white,10,Bermuda,223,1,22,9,-1.6,0.0
+2019,white,10,Bermuda (UK),223,1,22,9,-1.6,0.0
 2019,white,11,Germany,580,7,51,30,-1.58,0.0
-2019,white,12,Cayman Islands,487,6,44,24,-1.53,0.0
+2019,white,12,Cayman Islands (UK),487,6,44,24,-1.53,0.0
 2019,white,13,Liberia,4288,88,328,272,-1.52,0.0
 2019,white,14,Sweden,310,3,30,14,-1.5,0.0
 2019,white,15,France,304,3,29,13,-1.48,0.0
-2019,white,16,Isle of Man,620,10,54,32,-1.43,0.0
+2019,white,16,Isle of Man (UK),620,10,54,32,-1.43,0.0
 2019,white,17,Malta,4652,110,355,297,-1.42,0.0
 2019,white,18,Belgium,226,2,23,9,-1.39,0.0
 2019,white,19,Italy,1030,21,86,58,-1.36,0.0
 2019,white,20,Greece,822,17,70,45,-1.31,0.0
-2019,white,21,Gibraltar,663,14,58,35,-1.24,0.0
+2019,white,21,Gibraltar (UK),663,14,58,35,-1.24,0.0
 2019,white,22,Cyprus,2084,56,166,126,-1.22,0.0
 2019,white,23,Ireland,143,1,16,4,-1.15,0.0
 2019,white,24,Luxembourg,207,3,21,8,-1.04,0.0
@@ -729,17 +729,17 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2019,white,28,Croatia,111,1,13,3,-0.8,0.0
 2019,white,29,Finland,447,13,41,22,-0.79,0.0
 2019,white,30,Antigua and Barbuda,2345,93,185,143,-0.77,0.0
-2019,white,31,Faroe Islands,251,7,25,10,-0.57,0.0
+2019,white,31,Faroe Islands DK,251,7,25,10,-0.57,0.0
 2019,white,32,Latvia,95,1,11,2,-0.56,0.0
 2019,white,33,China,149,3,16,5,-0.55,0.0
 2019,white,34,Spain,149,3,16,5,-0.55,0.0
 2019,white,35,Philippines,144,3,16,5,-0.49,0.0
 2019,white,36,Panama,6232,323,470,403,-0.44,0.0
-2019,white,37,Russia,1258,59,103,73,-0.4,0.0
+2019,white,37,Russian Federation,1258,59,103,73,-0.4,0.0
 2019,white,38,Estonia,86,1,10,2,-0.37,0.0
 2019,white,39,Lithuania,109,2,13,3,-0.33,0.0
 2019,white,40,United States,225,8,23,9,-0.18,0.0
-2019,white,41,South Korea,73,1,9,1,-0.02,0.0
+2019,white,41,Korea Republic of,73,1,9,1,-0.02,0.0
 2019,grey,42,Morocco,65,1,8,1,0.04,0.5
 2019,grey,43,Saudi Arabia,57,1,8,0,0.09,0.5
 2019,grey,44,Poland,87,3,11,2,0.15,0.5
@@ -749,56 +749,56 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2019,grey,48,Kazakhstan,41,2,6,0,0.36,0.5
 2019,grey,49,Lebanon,66,4,9,1,0.42,0.5
 2019,grey,50,Azerbaijan,62,4,8,1,0.46,0.5
-2019,grey,51,Iran,125,9,14,4,0.52,0.5
+2019,grey,51,Iran Islamic Republic of,125,9,14,4,0.52,0.5
 2019,grey,52,Switzerland,76,6,9,1,0.58,0.5
 2019,grey,53,India,59,5,8,0,0.62,0.5
 2019,grey,54,Vanuatu,260,20,25,11,0.62,0.5
 2019,grey,55,Egypt,45,4,6,0,0.63,0.5
-2019,grey,56,St. Vincent and Grenadines,458,37,42,23,0.76,0.5
+2019,grey,56,Saint Vincent and the Grenadines,458,37,42,23,0.76,0.5
 2019,grey,57,Tuvalu,46,6,7,0,0.92,0.5
 2019,black,58,Tunisia,38,6,6,,1.16,1.0
 2019,black,59,Cook Islands,379,38,35,,1.22,1.0
-2019,black,60,St. Kitts and Nevis,163,19,17,,1.3,1.0
+2019,black,60,Saint Kitts and Nevis,163,19,17,,1.3,1.0
 2019,black,61,Mongolia,49,8,7,,1.57,1.0
 2019,black,62,Sierra Leone,362,43,34,,1.75,1.0
 2019,black,63,Belize,322,43,31,,2.13,1.0
 2019,black,64,Palau,221,31,22,,2.14,1.0
 2019,black,65,Ukraine,89,15,11,,2.29,1.0
-2019,black,66,Tanzania,354,53,33,,2.67,1.0
-2019,black,67,Moldova,381,57,35,,2.7,1.0
+2019,black,66,Tanzania United Republic of,354,53,33,,2.67,1.0
+2019,black,67,Moldova Republic of,381,57,35,,2.7,1.0
 2019,black,68,Togo,492,80,44,,3.21,1.0
 2019,black,69,Albania,74,16,9,,3.42,1.0
 2019,black,70,Comoros,380,69,35,,3.67,1.0
 2020,white,1,Denmark,1199,12,99,69,-1.8,0.0
 2020,white,2,Norway,1559,18,126,92,-1.77,0.0
 2020,white,3,Marshall Islands,4280,65,328,272,-1.72,0.0
-2020,white,4,Bermuda,169,0,18,6,-1.69,0.0
+2020,white,4,Bermuda (UK),169,0,18,6,-1.69,0.0
 2020,white,5,Netherlands,2729,42,213,169,-1.68,0.0
 2020,white,6,Bahamas,1851,27,148,111,-1.67,0.0
 2020,white,7,Greece,736,9,63,40,-1.63,0.0
 2020,white,8,Singapore,1808,30,145,108,-1.59,0.0
-2020,white,9,Cayman Islands,410,4,38,20,-1.59,0.0
+2020,white,9,Cayman Islands (UK),410,4,38,20,-1.59,0.0
 2020,white,10,Japan,138,0,15,4,-1.54,0.0
-2020,white,11,Hong Kong,1741,31,140,104,-1.54,0.0
+2020,white,11,Hong Kong (China),1741,31,140,104,-1.54,0.0
 2020,white,12,Liberia,4017,89,308,254,-1.46,0.0
 2020,white,13,United Kingdom,922,17,78,51,-1.42,0.0
 2020,white,14,Malta,4117,98,316,261,-1.4,0.0
 2020,white,15,Germany,570,10,50,29,-1.35,0.0
 2020,white,16,Turkey,732,14,63,39,-1.34,0.0
 2020,white,17,Italy,927,19,78,52,-1.34,0.0
-2020,white,18,Isle of Man,516,9,46,26,-1.32,0.0
+2020,white,18,Isle of Man (UK),516,9,46,26,-1.32,0.0
 2020,white,19,Belgium,208,2,21,8,-1.3,0.0
 2020,white,20,Sweden,288,4,28,13,-1.26,0.0
 2020,white,21,Cyprus,2018,53,161,122,-1.24,0.0
 2020,white,22,Barbados,399,7,37,19,-1.23,0.0
 2020,white,23,France,266,4,26,11,-1.16,0.0
 2020,white,24,Portugal,1152,30,95,66,-1.16,0.0
-2020,white,25,Russia,1159,31,96,66,-1.13,0.0
+2020,white,25,Russian Federation,1159,31,96,66,-1.13,0.0
 2020,white,26,Croatia,92,0,11,2,-1.07,0.0
 2020,white,27,Latvia,90,0,11,2,-1.04,0.0
 2020,white,28,Antigua and Barbuda,2084,67,166,126,-1.02,0.0
 2020,white,29,Luxembourg,201,3,21,8,-0.99,0.0
-2020,white,30,Gibraltar,599,16,53,31,-0.97,0.0
+2020,white,30,Gibraltar (UK),599,16,53,31,-0.97,0.0
 2020,white,31,Faroe Islands,245,5,24,10,-0.87,0.0
 2020,white,32,Ireland,144,2,16,5,-0.81,0.0
 2020,white,33,United States,194,4,20,7,-0.72,0.0
@@ -810,17 +810,17 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2020,white,39,Morocco,54,0,7,0,-0.22,0.0
 2020,grey,40,Estonia,71,1,9,1,0.01,0.5
 2020,grey,41,Saudi Arabia,54,1,7,0,0.11,0.5
-2020,grey,42,South Korea,68,2,9,1,0.15,0.5
+2020,grey,42,Korea Republic of,68,2,9,1,0.15,0.5
 2020,grey,43,India,44,1,6,0,0.18,0.5
 2020,grey,44,Philippines,133,6,15,4,0.19,0.5
 2020,grey,45,Kazakhstan,34,1,5,0,0.27,0.5
 2020,grey,46,Poland,68,3,9,1,0.28,0.5
 2020,grey,47,Curacao,46,2,7,0,0.32,0.5
-2020,grey,48,St. Vincent and Grenadines,392,25,36,19,0.36,0.5
+2020,grey,48,Saint Vincent and the Grenadines,392,25,36,19,0.36,0.5
 2020,grey,49,Azerbaijan,57,3,8,0,0.37,0.5
-2020,grey,50,Iran,87,5,11,2,0.38,0.5
+2020,grey,50,Iran Islamic Republic of,87,5,11,2,0.38,0.5
 2020,grey,51,Vanuatu,236,15,23,10,0.39,0.5
-2020,grey,52,St. Kitts and Nevis,121,8,14,3,0.45,0.5
+2020,grey,52,Saint Kitts and Nevis,121,8,14,3,0.45,0.5
 2020,grey,53,Algeria,74,6,9,1,0.6,0.5
 2020,grey,54,Lebanon,58,5,8,0,0.63,0.5
 2020,grey,55,Mongolia,44,4,6,0,0.64,0.5
@@ -832,9 +832,9 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2020,grey,61,Ukraine,83,10,10,1,0.98,0.5
 2020,black,62,Tuvalu,39,6,6,,1.09,1.0
 2020,black,63,Sierra Leone,312,33,30,,1.3,1.0
-2020,black,64,Tanzania,276,30,27,,1.34,1.0
+2020,black,64,Tanzania United Republic of,276,30,27,,1.34,1.0
 2020,black,65,Belize,283,31,27,,1.37,1.0
-2020,black,66,Moldova,350,41,33,,1.69,1.0
+2020,black,66,Moldova Republic of,350,41,33,,1.69,1.0
 2020,black,67,Comoros,336,45,32,,2.17,1.0
 2020,black,68,Togo,430,60,39,,2.44,1.0
 2020,black,69,Cameroon,45,10,6,,2.97,1.0
@@ -845,14 +845,14 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2021,white,4,Bahamas,1656,24,133,98,-1.66,0.0
 2021,white,5,Japan,148,0,16,5,-1.6,0.0
 2021,white,6,Greece,644,8,56,34,-1.59,0.0
-2021,white,7,Bermuda,146,0,16,5,-1.59,0.0
+2021,white,7,Bermuda (UK),146,0,16,5,-1.59,0.0
 2021,white,8,Turkey,621,8,54,33,-1.57,0.0
 2021,white,9,Singapore,1707,30,137,102,-1.55,0.0
 2021,white,10,Italy,850,13,72,47,-1.53,0.0
 2021,white,11,Belgium,202,1,21,8,-1.53,0.0
-2021,white,12,Cayman Islands,353,4,33,16,-1.47,0.0
+2021,white,12,Cayman Islands (UK),353,4,33,16,-1.47,0.0
 2021,white,13,Cyprus,1995,42,159,120,-1.43,0.0
-2021,white,14,Hong Kong,1617,34,131,96,-1.41,0.0
+2021,white,14,Hong Kong (China),1617,34,131,96,-1.41,0.0
 2021,white,15,Marshall Islands,4312,104,330,274,-1.39,0.0
 2021,white,16,Liberia,4103,105,315,260,-1.34,0.0
 2021,white,17,Malta,3882,100,298,245,-1.33,0.0
@@ -861,13 +861,13 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2021,white,20,Sweden,287,4,28,12,-1.26,0.0
 2021,white,21,Finland,365,6,34,17,-1.25,0.0
 2021,white,22,Portugal,1254,32,103,72,-1.2,0.0
-2021,white,23,Russia,1072,28,89,61,-1.14,0.0
+2021,white,23,Russian Federation,1072,28,89,61,-1.14,0.0
 2021,white,24,Lithuania,95,0,11,2,-1.12,0.0
-2021,white,25,Isle of Man,424,9,39,21,-1.09,0.0
+2021,white,25,Isle of Man (UK),424,9,39,21,-1.09,0.0
 2021,white,26,Barbados,449,10,41,22,-1.06,0.0
 2021,white,27,United States,169,2,18,6,-1.02,0.0
 2021,white,28,Faroe Islands,240,4,24,10,-1.02,0.0
-2021,white,29,Gibraltar,518,13,46,26,-0.99,0.0
+2021,white,29,Gibraltar (UK),518,13,46,26,-0.99,0.0
 2021,white,30,France,247,5,24,10,-0.88,0.0
 2021,white,31,Luxembourg,209,4,21,8,-0.84,0.0
 2021,white,32,Germany,565,17,50,29,-0.82,0.0
@@ -882,15 +882,15 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2021,grey,41,Morocco,48,0,7,0,0.01,0.5
 2021,grey,42,Thailand,33,0,5,0,0.1,0.5
 2021,grey,43,Curacao,40,1,6,0,0.21,0.5
-2021,grey,44,South Korea,75,3,9,1,0.23,0.5
+2021,grey,44,Korea Republic of,75,3,9,1,0.23,0.5
 2021,grey,45,Azerbaijan,56,2,8,0,0.24,0.5
 2021,grey,46,India,36,1,6,0,0.25,0.5
-2021,grey,47,Iran,68,3,9,1,0.28,0.5
+2021,grey,47,Iran Islamic Republic of,68,3,9,1,0.28,0.5
 2021,grey,48,Palau,162,9,17,5,0.3,0.5
-2021,grey,49,St. Vincent and Grenadines,331,20,31,15,0.31,0.5
+2021,grey,49,Saint Vincent and the Grenadines,331,20,31,15,0.31,0.5
 2021,grey,50,Philippines,131,8,14,4,0.39,0.5
 2021,grey,51,Lebanon,53,3,7,0,0.4,0.5
-2021,grey,52,St. Kitts and Nevis,112,7,13,3,0.42,0.5
+2021,grey,52,Saint Kitts and Nevis,112,7,13,3,0.42,0.5
 2021,grey,53,Poland,50,3,7,0,0.43,0.5
 2021,grey,54,Mongolia,33,3,5,0,0.62,0.5
 2021,grey,55,Cook Islands,201,17,21,8,0.73,0.5
@@ -899,12 +899,12 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2021,grey,58,Ukraine,74,8,9,1,0.84,0.5
 2021,grey,59,Belize,241,22,24,10,0.87,0.5
 2021,grey,60,Switzerland,44,6,6,0,0.94,0.5
-2021,grey,61,Tanzania,189,19,20,7,0.96,0.5
+2021,grey,61,Tanzania United Republic of,189,19,20,7,0.96,0.5
 2021,black,62,Egypt,46,7,7,,1.23,1.0
 2021,black,63,Algeria,69,10,9,,1.44,1.0
 2021,black,64,Comoros,315,39,30,,1.84,1.0
 2021,black,65,Albania,60,11,8,,2.3,1.0
-2021,black,66,Moldova,328,48,31,,2.53,1.0
+2021,black,66,Moldova Republic of,328,48,31,,2.53,1.0
 2021,black,67,Togo,361,53,34,,2.59,1.0
 2021,black,68,Cameroon,69,15,9,,3.38,1.0
 2022,white,1,Denmark at,1,9,93,64,-1.87,0.0
@@ -917,19 +917,19 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2022,white,10,United Kingdom,659,12,57,35,-1.36,0.0
 2022,white,12,Turkey,580,11,51,30,-1.29,0.0
 2022,white,13,Sweden,287,4,28,12,-1.26,0.0
-2022,white,14,Hong Kong,1583,40,128,94,-1.24,0.0
-2022,white,16,Cayman Islands,320,5,30,14,-1.23,0.0
+2022,white,14,Hong Kong (China),1583,40,128,94,-1.24,0.0
+2022,white,16,Cayman Islands (UK),320,5,30,14,-1.23,0.0
 2022,white,17,France,227,3,23,9,-1.16,0.0
 2022,white,18,Marshall Islands,4703,145,358,300,-1.16,0.0
-2022,white,19,Gibraltar,409,8,38,20,-1.15,0.0
+2022,white,19,Gibraltar (UK),409,8,38,20,-1.15,0.0
 2022,white,20,Malta,3710,114,286,234,-1.14,0.0
 2022,white,21,Luxembourg,222,3,22,9,-1.13,0.0
 2022,white,22,Lithuania,93,0,11,2,-1.09,0.0
-2022,white,23,Bermuda,135,1,15,4,-1.07,0.0
+2022,white,23,Bermuda (UK),135,1,15,4,-1.07,0.0
 2022,white,25,Liberia,4569,156,349,291,-1.04,0.0
 2022,white,26,Portugal,1473,45,120,87,-1.03,0.0
 2022,white,28,China,200,3,20,8,-0.99,0.0
-2022,white,29,Russia,832,24,71,46,-0.98,0.0
+2022,white,29,Russian Federation,832,24,71,46,-0.98,0.0
 2022,white,30,Faroe Islands,219,4,22,9,-0.9,0.0
 2022,white,3,| Antigua and Barbuda,1712,61,138,102,-0.87,0.0
 2022,white,32,Barbados,538,16,48,27,-0.82,0.0
@@ -939,7 +939,7 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2022,grey,41,Saudi Arabia,61,1,8,0,0.07,0.5
 2022,grey,45,India,41,1,6,0,0.21,0.5
 2022,grey,46,Panama,5472,366,415,301,0.23,0.5
-2022,grey,47,Iran,47,2,7,0,0.31,0.5
+2022,grey,47,lran Islamic Republic of,47,2,7,0,0.31,0.5
 2022,grey,48,Lebanon,40,2,6,0,0.37,0.5
 2022,grey,49,Switzerland,35,2,3,0,0.42,0.5
 2022,grey,50,Philippines,126,9,14,4,0.52,0.5
@@ -947,7 +947,7 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2022,grey,53,Cook Islands,122,11,14,3,0.74,0.5
 2022,grey,54,Palau,216,19,22,8,0.79,0.5
 2022,grey,55,Azerbaijan,41,5,6,0,0.83,0.5
-2022,grey,56,St. Kitts and Nevis,140,14,15,4,0.88,0.5
+2022,grey,56,Saint Kitts and Nevis,140,14,15,4,0.88,0.5
 2022,grey,57,Ukraine,57,7,8,0,0.91,0.5
 2023,white,1,Denmark,1250,12,103,72,-1.82,0.0
 2023,white,2,Netherlands,2648,35,207,163,-1.76,0.0
@@ -960,10 +960,10 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2023,white,11,France,273,3,27,12,-1.38,0.0
 2023,white,12,Cyprus,2164,50,172,131,-1.37,0.0
 2023,white,13,Greece,618,11,54,32,-1.36,0.0
-2023,white,14,Hong Kong,1596,39,129,94,-1.28,0.0
+2023,white,14,Hong Kong (China),1596,39,129,94,-1.28,0.0
 2023,white,16,China,241,3,24,10,-1.24,0.0
-2023,white,17,Cayman Islands,322,5,31,15,-1.23,0.0
-2023,white,18,Bermuda,151,1,16,5,-1.22,0.0
+2023,white,17,Cayman Islands (UK),322,5,31,15,-1.23,0.0
+2023,white,18,Bermuda (UK),151,1,16,5,-1.22,0.0
 2023,white,19,Luxembourg,238,3,24,10,-1.22,0.0
 2023,white,20,Malta,3862,112,297,244,-1.21,0.0
 2023,white,21,Germany ],516,11,46,26,-1.15,0.0
@@ -971,25 +971,25 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2023,white,23,Marshall Islands,5274,176,400,338,-1.08,0.0
 2023,white,24,Belgium,175,2,18,6,-1.07,0.0
 2023,white,25,United States,135,1,15,4,-1.07,0.0
-2023,white,26,Gibraltar,349,7,33,16,-1.06,0.0
-2023,white,27,Turkey,601,15,53,31,-1.05,0.0
+2023,white,26,Gibraltar (UK),349,7,33,16,-1.06,0.0
+2023,white,27,Turkiye,601,15,53,31,-1.05,0.0
 2023,white,28,Estonia,89,0,11,2,-1.02,0.0
 2023,white,29,Faroe Islands,217,4,22,9,-0.89,0.0
 2023,white,30,Liberia,5496,214,416,353,-0.88,0.0
 2023,white,31,Barbados,697,23,60,37,-0.77,0.0
-2023,white,32,Isle of Man,346,10,33,16,-0.69,0.0
+2023,white,32,Isle of Man (UK),346,10,33,16,-0.69,0.0
 2023,white,33,Spain,130,2,14,4,-0.65,0.0
 2023,white,34,Lithuania,100,1,12,2,-0.64,0.0
 2023,white,35,Antigua and Barbuda,1684,76,136,100,-0.52,0.0
-2023,white,36,Russia,606,26,53,32,-0.35,0.0
+2023,white,36,Russian Federation,606,26,53,32,-0.35,0.0
 2023,white,37,Croatia,85,1,10,2,-0.35,0.0
 2023,white,38,Saudi Arabia,76,1,9,1,-0.11,0.0
-2023,white,42,Jersey,31,0,5,0,0.12,0.0
+2023,white,42,Jersey (UK),31,0,5,0,0.12,0.0
 2023,grey,43,Latvia,152,6,16,5,0.09,0.5
-2023,grey,44,South Korea,126,5,14,4,0.13,0.5
+2023,grey,44,Korea Republic of,126,5,14,4,0.13,0.5
 2023,grey,45,Morocco,49,1,7,0,0.15,0.5
-2023,grey,46,Iran,48,2,7,0,0.3,0.5
-2023,grey,47,St. Vincent and Grenadines,255,15,25,11,0.3,0.5
+2023,grey,46,Iran Islamic Republic of,48,2,7,0,0.3,0.5
+2023,grey,47,Saint Vincent and the Grenadines,255,15,25,11,0.3,0.5
 2023,grey,48,India,45,2,6,0,0.33,0.5
 2023,grey,49,Lebanon,40,2,6,0,0.37,0.5
 2023,grey,50,Egypt,45,3,6,0,0.48,0.5
@@ -999,18 +999,18 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2023,grey,55,Panama,5795,420,438,373,0.72,0.5
 2023,grey,56,Albania,59,6,8,0,0.75,0.5
 2023,grey,58,Sierra Leone,175,17,18,6,0.89,0.5
-2023,grey,59,St. Kitts and Nevis,192,19,20,7,0.94,0.5
+2023,grey,59,Saint Kitts and Nevis,192,19,20,7,0.94,0.5
 2024,white,1,France,297,1,29,13,-1.78,0.0
 2024,white,2,Denmark,1246,14,103,72,-1.75,0.0
 2024,white,3,Norway,1824,23,146,109,-1.74,0.0
 2024,white,4,Netherlands,2690,46,211,166,-1.61,0.0
 2024,white,5,Singapore,1745,28,140,104,-1.61,0.0
-2024,white,6,Cayman Islands,318,3,30,14,-1.52,0.0
+2024,white,6,Cayman Islands (UK),318,3,30,14,-1.52,0.0
 2024,white,7,Finland,364,4,34,17,-1.5,0.0
 2024,white,8,Italy,846,14,72,47,-1.48,0.0
 2024,white,9,Luxembourg,235,2,23,10,-1.42,0.0
 2024,white,10,Japan,232,2,23,9,-1.41,0.0
-2024,white,11,Hong Kong,1596,34,129,94,-1.4,0.0
+2024,white,11,Hong Kong (China),1596,34,129,94,-1.4,0.0
 2024,white,12,Sweden,317,4,30,14,-1.37,0.0
 2024,white,13,Germany,486,8,44,24,-1.35,0.0
 2024,white,14,China,265,3,26,11,-1.35,0.0
@@ -1023,41 +1023,41 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2024,white,21,Marshall Islands,5470,181,414,351,-1.09,0.0
 2024,white,22,United States,135,1,15,4,-1.07,0.0
 2024,white,23,Ireland,91,0,11,2,-1.05,0.0
-2024,white,24,Bermuda,154,2,16,5,-0.9,0.0
-2024,white,25,Isle of Man,354,9,33,16,-0.84,0.0
+2024,white,24,Bermuda (UK),154,2,16,5,-0.9,0.0
+2024,white,25,Isle of Man (UK),354,9,33,16,-0.84,0.0
 2024,white,26,Spain,112,1,13,3,-0.81,0.0
 2024,white,27,Barbados,863,29,73,48,-0.81,0.0
 2024,white,28,Liberia,6035,257,456,389,-0.76,0.0
-2024,white,29,Gibraltar,293,8,28,13,-0.68,0.0
+2024,white,29,Gibraltar (UK),293,8,28,13,-0.68,0.0
 2024,white,30,Faroe Islands,225,6,23,9,-0.56,0.0
 2024,white,31,Belgium,168,4,18,6,-0.48,0.0
-2024,white,32,Turkey,607,25,53,32,-0.42,0.0
+2024,white,32,Türkiye,607,25,53,32,-0.42,0.0
 2024,white,33,Estonia,84,1,10,2,-0.33,0.0
 2024,white,34,Lithuania,100,2,12,2,-0.15,0.0
 2024,white,35,Antigua and Barbuda,1708,95,137,102,-0.14,0.0
 2024,white,36,Thailand,51,0,7,0,-0.09,0.0
 2024,white,37,Poland,46,0,7,0,0.02,0.0
-2024,white,38,Jersey,44,0,6,0,0.03,0.0
+2024,white,38,Jersey (UK),44,0,6,0,0.03,0.0
 2024,white,39,Canada,36,0,6,0,0.08,0.0
 2024,white,40,Egypt,36,0,6,0,0.08,0.0
 2024,grey,41,Saudi Arabia,72,1,9,1,0.0,0.5
 2024,grey,42,Croatia,92,2,11,2,0.01,0.5
 2024,grey,43,India,55,1,7,0,0.11,0.5
 2024,grey,44,Latvia,162,7,17,5,0.13,0.5
-2024,grey,45,South Korea,178,8,19,6,0.13,0.5
+2024,grey,45,Korea Republic of,178,8,19,6,0.13,0.5
 2024,grey,46,Morocco,48,1,7,0,0.15,0.5
-2024,grey,47,Russia,265,14,26,11,0.19,0.5
+2024,grey,47,Russian Federation,265,14,26,11,0.19,0.5
 2024,grey,48,Panama,5854,390,442,377,0.2,0.5
 2024,grey,49,Lebanon,38,2,6,0,0.39,0.5
 2024,grey,50,Cook Islands,81,5,10,1,0.42,0.5
 2024,grey,51,Philippines,105,7,12,3,0.46,0.5
 2024,grey,52,Albania,58,4,8,0,0.49,0.5
 2024,grey,53,Algeria,77,6,10,1,0.57,0.5
-2024,grey,54,St. Vincent and Grenadines,246,19,24,10,0.63,0.5
+2024,grey,54,Saint Vincent and the Grenadines,246,19,24,10,0.63,0.5
 2024,grey,55,Sierra Leone,173,14,18,6,0.66,0.5
 2024,grey,56,Tunisia,30,3,5,0,0.66,0.5
 2024,grey,57,Bangladesh,43,5,6,0,0.81,0.5
-2024,black,58,St. Kitts and Nevis,269,29,26,,1.3,1.0
+2024,black,58,Saint Kitts and Nevis,269,29,26,,1.3,1.0
 2024,black,59,Togo,273,32,27,,1.58,1.0
 2024,black,60,Palau,489,55,44,,1.67,1.0
 2024,black,61,Guinea-Bissau,51,9,7,,1.94,1.0
@@ -1065,7 +1065,7 @@ year,category,rank,flag,inspections,detentions,black_to_grey_limit,grey_to_white
 2024,black,63,Vanuatu,357,52,33,,2.55,1.0
 2024,black,64,Ukraine,43,9,6,,2.57,1.0
 2024,black,65,Comoros,258,48,25,,3.59,1.0
-2024,black,66,Vietnam,43,12,6,,4.42,1.0
-2024,black,67,Moldova,32,10,5,,4.81,1.0
-2024,black,68,Tanzania,149,41,16,,5.88,1.0
+2024,black,66,Viet Nam,43,12,6,,4.42,1.0
+2024,black,67,Moldova Republic of,32,10,5,,4.81,1.0
+2024,black,68,Tanzania United Republic of,149,41,16,,5.88,1.0
 2024,black,69,Cameroon,144,43,16,,6.56,1.0

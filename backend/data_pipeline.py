@@ -18,14 +18,14 @@ DEFAULT_WEIGHTS = {
     # === Active components ===
     # Selected based on single-variable Spearman r against future accident rates.
     # These four are the only components with r >= 0.4 (all p < 0.05) individually.
-    "accident_rate":         0.40,  # r=+0.674** exposure-weighted accidents/ship-year
-    "event_entropy":         0.25,  # r=+0.477** Shannon entropy of accident-cause diversity
+    "accident_rate":         0.20,  # r=+0.674** exposure-weighted accidents/ship-year
+    "event_entropy":         0.20,  # r=+0.477** Shannon entropy of accident-cause diversity
     "trend":                 0.20,  # r=+0.458*  OLS slope of yearly accident rate (worsening = risky)
-    "investigation":         0.15,  # r=+0.439*  mean investigation reports per accident
+    "investigation":         0.20,  # r=+0.439*  mean investigation reports per accident
+    "flag_safety":           0.20,  # detention rate (detentions/inspections from Paris MoU)
     # === Optional components (enable via ?wN= query params) ===
     # Individually weaker (r < 0.3 in top-30 evaluation) but may add information
     # for specific use cases or smaller fleets.
-    "flag_safety":           0.00,  # detention rate (detentions/inspections from Paris MoU)
     "severity":              0.00,  # weighted avg casualty severity + VSMC proportion
     "ship_type":             0.00,  # log-normalized ship type frequency risk
     "multi_ship":            0.00,  # proportion of accidents involving 2+ vessels

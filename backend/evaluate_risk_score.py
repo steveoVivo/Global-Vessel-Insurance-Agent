@@ -15,9 +15,40 @@ KEY METHODOLOGICAL NOTE — weight independence:
   DEFAULT_WEIGHTS remain in data_pipeline.py for the UI default only.
 """
 
+import sys
+from contextlib import contextmanager
+from io import StringIO
+from pathlib import Path
+
 from scipy.stats import spearmanr
 
 from data_pipeline import build_merged_rows, load_fleet_rows, compute_accident_metrics, DEFAULT_WEIGHTS
+
+RESULTS_DIR = Path(__file__).resolve().parent / "results"
+
+
+@contextmanager
+def tee_stdout(path: Path):
+    """Context manager: writes all print() output to *path* AND stdout."""
+    buf = StringIO()
+    original = sys.stdout
+
+    class Tee:
+        def write(self, s):
+            original.write(s)
+            buf.write(s)
+
+        def flush(self):
+            original.flush()
+
+    sys.stdout = Tee()
+    try:
+        yield
+    finally:
+        sys.stdout = original
+        RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+        path.write_text(buf.getvalue(), encoding="utf-8")
+        print(f"\nResults saved to {path.relative_to(Path(__file__).resolve().parent)}")
 
 TRAIN_END  = 2020
 TEST_START = 2021
@@ -147,4 +178,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    output_file = RESULTS_DIR / "evaluation_results_05282248.txt"
+    with tee_stdout(output_file):
+        main()
