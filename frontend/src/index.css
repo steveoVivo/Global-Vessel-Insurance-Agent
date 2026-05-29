@@ -179,6 +179,7 @@ code {
   padding: 10px;
   width: 90%;
   position: relative;
+  border-radius: 20px;
 }
 
 /** = = = CUSTOM RISK PANEL = = = **/
@@ -187,6 +188,33 @@ code {
   flex-direction: row;
   justify-content: center;
 }
+
+.control-panel-container {
+  margin: 10px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.control-panel-header {
+  background-color: rgb(44, 50, 67);
+  border-color: darkgray;
+  border-bottom: 2px solid;
+  height: 32px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-panel-header:hover {
+  background-color: rgb(54, 60, 77);
+}
+
+.control-panel-content {
+  background-color: rgb(82, 98, 122);
+}
+
+/**/
 
 .risk-input-container {
   display: flex;

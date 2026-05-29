@@ -27,13 +27,17 @@ function ControlPanelComponent() {
 
   return (
     <div className='vessel-control-panel'>
-      <div>
-        <div style={{height: '20px'}}> Custom Risk {(activePanel == 'Custom_Risk') ? '▲' : '▼'} </div>
-        <div style={{height: (activePanel == 'Custom_Risk') ? 'auto' : '0px', overflow: 'hidden'}}>
+      <div className='control-panel-container'>
+        <div className='control-panel-header'> Custom Risk {(activePanel == 'Custom_Risk') ? '▲' : '▼'} </div>
+        <div className='control-panel-content' style={{height: (activePanel == 'Custom_Risk') ? 'auto' : '0px', overflow: 'hidden'}}>
           <CustomriskPanelComponent />
         </div>
-        <div style={{height: '20px'}}> Selected Country {(activePanel == 'Selected_Country') ? '▲' : '▼'} </div>
-        <div style={{height: (activePanel == 'Selected_Country') ? 'auto' : '0px', overflow: 'hidden'}}>
+      </div>
+      <div className='control-panel-container'>
+        <div className='control-panel-header'> 
+          Selected Country {(activePanel == 'Selected_Country') ? '▲' : '▼'} 
+        </div>
+        <div className='control-panel-content' style={{display: (activePanel == 'Selected_Country') ? 'block' : 'none', overflow: 'hidden'}}>
           <CountryPanelComponent />
         </div>
       </div>

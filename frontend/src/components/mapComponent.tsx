@@ -39,10 +39,6 @@ function MapComponent() {
 
     setMap(map);
 
-    setTimeout(() => {
-      map.updateSize();
-    }, 100);
-
     // Un-Render the map when App is un-rendered
     return () => map.setTarget(undefined);
   }, [setMap]);
