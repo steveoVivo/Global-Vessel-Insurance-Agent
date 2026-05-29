@@ -1,0 +1,41 @@
+Temporal holdout evaluation
+  Train period : 2011–2020
+  Test period  : 2021–2025
+  Flags        : top 30 by fleet size
+  Spearman r   : -0.108
+  p-value      : 0.5688
+
+Result: WEAK — factors or normalization may need reconsideration (r < 0.3)
+
+Flag                                      Train score  Test acc. rate
+----------------------------------------------------------------------
+Viet Nam                                       0.6376        0.005211
+Belize                                         0.6081        0.010403
+Saint Vincent and the Grenadines               0.4887        0.004878
+Russian Federation                             0.4747        0.006984
+Republic of Korea                              0.4682        0.010199
+Malaysia                                       0.4547        0.004964
+Philippines                                    0.4489        0.006281
+Panama                                         0.4367        0.020999
+Iran (Islamic Republic of)                     0.4257        0.001959
+Portugal                                       0.3948        0.033599
+India                                          0.3908        0.011411
+United Kingdom                                 0.3901        0.042821
+Nigeria                                        0.3746        0.022886
+Netherlands (Kingdom of the)                   0.3598        0.013333
+United States                                  0.3529        0.001989
+Turkiye                                        0.3477        0.005738
+China                                          0.3406        0.002236
+Norway                                         0.3381        0.004044
+Brazil                                         0.3306        0.003240
+Canada                                         0.3299        0.011252
+Cyprus                                         0.3196        0.014535
+Malta                                          0.3194        0.042073
+Marshall Islands                               0.3147        0.012459
+Bahamas                                        0.3047        0.024780
+Greece                                         0.2953        0.001663
+Japan                                          0.2930        0.001538
+Singapore                                      0.2764        0.013880
+Liberia                                        0.2638        0.017260
+Thailand                                       0.2455        0.006912
+Italy                                          0.2449        0.012376

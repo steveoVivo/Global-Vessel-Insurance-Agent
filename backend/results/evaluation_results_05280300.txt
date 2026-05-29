@@ -1,0 +1,41 @@
+Temporal holdout evaluation
+  Train period : 2011–2020
+  Test period  : 2021–2025
+  Flags        : top 30 by fleet size
+  Spearman r   : 0.144
+  p-value      : 0.4479
+
+Result: WEAK — factors or normalization may need reconsideration (r < 0.3)
+
+Flag                                      Train score  Test acc. rate
+----------------------------------------------------------------------
+Viet Nam                                       0.7040        0.005211
+Belize                                         0.6901        0.010403
+United Kingdom                                 0.5837        0.042821
+Republic of Korea                              0.5622        0.010199
+Saint Vincent and the Grenadines               0.5567        0.004878
+Russian Federation                             0.5559        0.006984
+Malaysia                                       0.5468        0.004964
+Panama                                         0.5406        0.020999
+Philippines                                    0.5378        0.006281
+Iran (Islamic Republic of)                     0.5174        0.001959
+India                                          0.5036        0.011411
+Nigeria                                        0.5024        0.022886
+Portugal                                       0.4723        0.033599
+Malta                                          0.4609        0.042073
+Bahamas                                        0.4449        0.024780
+Brazil                                         0.4435        0.003240
+Cyprus                                         0.4414        0.014535
+Netherlands (Kingdom of the)                   0.4332        0.013333
+Turkiye                                        0.4260        0.005738
+United States                                  0.4253        0.001989
+Canada                                         0.4242        0.011252
+Norway                                         0.4205        0.004044
+Marshall Islands                               0.4190        0.012459
+China                                          0.4115        0.002236
+Greece                                         0.3981        0.001663
+Liberia                                        0.3837        0.017260
+Singapore                                      0.3804        0.013880
+Japan                                          0.3696        0.001538
+Italy                                          0.3688        0.012376
+Thailand                                       0.3208        0.006912
