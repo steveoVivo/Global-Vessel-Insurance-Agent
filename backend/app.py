@@ -1,15 +1,17 @@
 from flask import Flask, jsonify, request
 
-from data_pipeline import DEFAULT_WEIGHTS, build_merged_rows
+from data_pipeline import DEFAULT_WEIGHTS, build_merged_rows, compute_temporal_trends
 
 
 app = Flask(__name__)
 
 WEIGHT_ARGS = {
-    "accident_rate": ("accident_rate_weight", "w1"),
-    "severity": ("severity_weight", "w2"),
-    "ship_type": ("ship_type_weight", "w3"),
-    "flag_safety": ("flag_safety_weight", "w4"),
+    # Five components validated in evaluation_results_05282248.txt (Spearman r >= 0.4 individually)
+    "accident_rate":   ("accident_rate_weight",   "w1"),
+    "event_entropy":   ("event_entropy_weight",   "w2"),
+    "trend":           ("trend_weight",           "w3"),
+    "investigation":   ("investigation_weight",   "w4"),
+    "flag_safety":     ("flag_safety_weight",     "w5"),
 }
 
 
@@ -41,13 +43,15 @@ def get_weights():
 
 def flag_risk_payload(row):
     return {
-        "flag": row["flag"],
-        "vessel_count": row["fleet_size"],
-        "risk_score": row["risk_score"],
-        "accident_rate_norm": row["accident_rate_norm"],
-        "severity_risk_norm": row["severity_risk_norm"],
-        "ship_type_risk_norm": row["ship_type_risk_norm"],
-        "flag_safety_risk_norm": row["flag_safety_risk_norm"],
+        "flag":                    row["flag"],
+        "vessel_count":            row["fleet_size"],
+        "risk_score":              row["risk_score"],
+        # Five validated components (evaluation_results_05282248.txt — Spearman r >= 0.5)
+        "accident_rate_norm":      row["accident_rate_norm"],
+        "event_entropy_norm":      row["event_entropy_norm"],
+        "trend_slope_norm":        row["trend_slope_norm"],
+        "investigation_rate_norm": row["investigation_rate_norm"],
+        "flag_safety_risk_norm":   row["flag_safety_risk_norm"],
     }
 
 
@@ -66,6 +70,7 @@ def get_risk_payload():
 def entrypoint():
     return "<h1>This is the Flask API. The React app is served at http://localhost:5173/</h1>"
 
+
 @app.route("/api/test")
 def get_test_message():
     return jsonify({"message": "If you see this message, BOTH your React AND Flask environments are working"})
@@ -74,6 +79,13 @@ def get_test_message():
 @app.route("/api/data")
 def get_data():
     return jsonify(get_risk_payload())
+
+
+@app.route("/api/trend")
+def get_trends():
+    trends = compute_temporal_trends()
+    return jsonify({"count": len(trends), "data": trends})
+
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

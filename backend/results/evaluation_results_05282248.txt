@@ -1,0 +1,58 @@
+============================================================
+PRIMARY EVALUATION (unbiased — equal weights, test-independent)
+============================================================
+  Train period : 2011-2020
+  Test period  : 2021-2025
+  Flags        : top 30 by 2025 fleet size
+  Metric       : exposure-weighted accident rate (acc/ship-yr)
+  Eval weights : {'accident_rate': 0.2, 'event_entropy': 0.2, 'trend': 0.2, 'investigation': 0.2, 'flag_safety': 0.2, 'severity': 0.0, 'ship_type': 0.0, 'multi_ship': 0.0, 'collision': 0.0, 'open_sea': 0.0, 'solas_noncompliance': 0.0, 'excess_factor': 0.0, 'excess_factor_trend': 0.0, 'fleet_growth': 0.0, 'fleet_volatility': 0.0}
+  Spearman r   : 0.545
+  p-value      : 0.0018
+
+Result: GOOD -- risk score has meaningful predictive power (r >= 0.5)
+
+Flag                                      Train score Test rate (acc/ship-yr)
+------------------------------------------------------------------------------
+Portugal                                       0.4502                0.009472
+Greece                                         0.3949                0.000328
+Malta                                          0.3597                0.008327
+Cyprus                                         0.3505                0.002931
+Italy                                          0.3251                0.002410
+Netherlands                                    0.3061                0.002678
+Marshall Islands                               0.3051                0.002551
+Bahamas                                        0.2962                0.004859
+United Kingdom                                 0.2720                0.008181
+Singapore                                      0.2676                0.002747
+Liberia                                        0.2618                0.003904
+Hong Kong                                      0.2590                0.003822
+Norway                                         0.2408                0.001050
+Russia                                         0.2379                0.001428
+Turkey                                         0.2263                0.001169
+India                                          0.1996                0.002349
+St. Vincent and Grenadines                     0.1592                0.000990
+South Korea                                    0.1421                0.002039
+Brazil                                         0.0997                0.000670
+China                                          0.0955                0.000457
+United States                                  0.0944                0.000399
+Belize                                         0.0898                0.002067
+Canada                                         0.0892                0.002261
+Malaysia                                       0.0849                0.001008
+Thailand                                       0.0726                0.001379
+Iran                                           0.0699                0.000405
+Nigeria                                        0.0658                0.004833
+Japan                                          0.0652                0.000309
+Philippines                                    0.0651                0.001264
+Vietnam                                        0.0391                0.001030
+
+============================================================
+SENSITIVITY ANALYSIS (reference only — not unbiased evaluations)
+============================================================
+  Accident rate only                         r = +0.689
+  Detention rate only                        r = -0.071
+  Trend slope only                           r = +0.480
+  Severity only                              r = -0.128
+  Ship type only                             r = +0.059
+  Acc + Trend                                r = +0.724
+  Acc + Detention + Trend                    r = +0.746
+  Equal 3 (acc, det, trend)                  r = +0.794
+  Current DEFAULT_WEIGHTS (biased)           r = +0.562
