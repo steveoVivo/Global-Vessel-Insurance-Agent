@@ -197,8 +197,6 @@ code {
 
 .control-panel-header {
   background-color: rgb(44, 50, 67);
-  border-color: darkgray;
-  border-bottom: 2px solid;
   height: 32px;
   font-size: 14px;
   display: flex;
@@ -206,8 +204,14 @@ code {
   align-items: center;
 }
 
-.control-panel-header:hover {
+.control-panel-header:not(.control-panel-header-hoverable) {
+  border-color: darkgray;
+  border-bottom: 2px solid;
+}
+
+.control-panel-header-hoverable:hover {
   background-color: rgb(54, 60, 77);
+  cursor: pointer;
 }
 
 .control-panel-content {
