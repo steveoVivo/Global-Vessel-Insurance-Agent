@@ -64,8 +64,9 @@ function CustomriskPanelComponent() {
         </div>
       </div>
       <div className='custom-factor-warning' style={{ display: !isCustom ? 'flex' : 'none' }}>
-        <div style={{ color: 'darkslategray' }}> [Inputs only effect map when risk factor is set to custom] </div>
-        <button onClick={() => setDistribution('Custom')}> Enable Custom Risk Instead </button>
+        <div style={{ color: 'darkslategray' }}> [Inputs only effect map when risk factor is set to custom. </div>
+        <div className='custom-factor-button' onClick={() => setDistribution('Custom')}> Click here </div>
+        <div style={{ color: 'darkslategray' }}> to change it] </div>
       </div>
     </div>
   );

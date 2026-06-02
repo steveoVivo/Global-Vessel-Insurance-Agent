@@ -276,8 +276,16 @@ code {
   font-size: 16px;
 }
 
-.custom-factor-warning button {
+/* darkslategray -15 lightness */
+.custom-factor-warning .custom-factor-button {
+  color: rgb(32, 64, 64);
+  cursor: pointer;
   margin-left: 4px;
+  margin-right: 4px;
+}
+/* darkslategray +10 lightness */
+.custom-factor-warning .custom-factor-button:hover {
+  color: rgb(57, 89, 89)
 }
 
 /** = = = SELECT COUNTRY PANEL = = = **/
