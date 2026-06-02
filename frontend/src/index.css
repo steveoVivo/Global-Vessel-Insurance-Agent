@@ -71,6 +71,7 @@ body {
   box-sizing: border-box;
 
   flex-direction: column;
+  align-items: center;
 }
 
 h1,
@@ -154,14 +155,17 @@ code {
   position: absolute;
   right: 3px;
   top: 3px;
-  z-index: 10;
+  z-index: 2;
   background-color: rgba(245, 245, 245, 0.8);
-  padding: 4px;
-  padding-top: 0px;
-  padding-bottom: 10px;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   width: 220px;
+  padding: 4px;
+  padding-top: 0px;
+}
+
+.risk-select-component.expanded {
+  padding-bottom: 10px;
 }
 
 .risk-select-component:has(h4:hover) {
@@ -171,6 +175,10 @@ code {
 .risk-select-component h4 {
   margin: 0.5em 0em;
   user-select: none;
+}
+
+.risk-select-component h4:hover {
+  cursor: pointer;
 }
 
 .risk-select-component h4 .risk-select-dropdown-arrow {
@@ -238,6 +246,11 @@ code {
 /** = = = CUSTOM RISK PANEL = = = **/
 .custom-risk-panel {
   display: flex;
+  flex-direction: column;
+}
+
+.custom-risk-input-container {
+  display: flex;
   flex-direction: row;
   justify-content: center;
 }
@@ -254,6 +267,16 @@ code {
 }
 
 .risk-input-container .risk-input-percentage {
+  margin-left: 4px;
+}
+
+.custom-factor-warning {
+  flex-direction: row;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.custom-factor-warning button {
   margin-left: 4px;
 }
 

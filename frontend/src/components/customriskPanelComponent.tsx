@@ -7,7 +7,7 @@ import 'ol/ol.css';
 function CustomriskPanelComponent() {
   const { riskDistributionName, setCustomDistribution, setDistribution } = getRiskContext();
 
-  const isDisabled = riskDistributionName != 'Custom';
+  const isCustom = riskDistributionName == 'Custom';
   const riskTypeName = RiskTypeToEnglishName(riskDistributionName);
 
   const accidentRef = useRef<HTMLInputElement>(null);
@@ -25,45 +25,47 @@ function CustomriskPanelComponent() {
 
   return (
     <div className='custom-risk-panel'>
-      <div style={{ display: isDisabled ? 'flex' : 'none', flexDirection: 'column' }}>
-        <div> Current Risk Factor </div>
-        <div> is {riskTypeName} </div>
-        <button onClick={() => setDistribution('Custom')}> Enable Custom Risk </button>
-      </div>
-      <div className='risk-input-container'>
-        <div> Accident Rate </div>
-        <div>
-          <input onChange={changeInputValue} ref={accidentRef} type="number" min="0" max="100" defaultValue="20" disabled={isDisabled} />
-          <span className="risk-input-percentage">%</span>
+      <div> Current Risk Factor: {riskTypeName} </div>
+      <div className='custom-risk-input-container'>
+        <div className='risk-input-container'>
+          <div> Accident Rate </div>
+          <div>
+            <input onChange={changeInputValue} ref={accidentRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> Flag Safety </div>
+          <div>
+            <input onChange={changeInputValue} ref={flagRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> Event Entropy </div>
+          <div>
+            <input onChange={changeInputValue} ref={eventRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> Investigation </div>
+          <div>
+            <input onChange={changeInputValue} ref={investigationRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> Trend Slope </div>
+          <div>
+            <input onChange={changeInputValue} ref={trendRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
         </div>
       </div>
-      <div className='risk-input-container'>
-        <div> Flag Safety </div>
-        <div>
-          <input onChange={changeInputValue} ref={flagRef} type="number" min="0" max="100" defaultValue="20" disabled={isDisabled} />
-          <span className="risk-input-percentage">%</span>
-        </div>
-      </div>
-      <div className='risk-input-container'>
-        <div> Event Entropy </div>
-        <div>
-          <input onChange={changeInputValue} ref={eventRef} type="number" min="0" max="100" defaultValue="20" disabled={isDisabled} />
-          <span className="risk-input-percentage">%</span>
-        </div>
-      </div>
-      <div className='risk-input-container'>
-        <div> Investigation </div>
-        <div>
-          <input onChange={changeInputValue} ref={investigationRef} type="number" min="0" max="100" defaultValue="20" disabled={isDisabled} />
-          <span className="risk-input-percentage">%</span>
-        </div>
-      </div>
-      <div className='risk-input-container'>
-        <div> Trend Slope </div>
-        <div>
-          <input onChange={changeInputValue} ref={trendRef} type="number" min="0" max="100" defaultValue="20" disabled={isDisabled} />
-          <span className="risk-input-percentage">%</span>
-        </div>
+      <div className='custom-factor-warning' style={{ display: !isCustom ? 'flex' : 'none' }}>
+        <div style={{ color: 'darkslategray' }}> [Inputs only effect map when risk factor is set to custom] </div>
+        <button onClick={() => setDistribution('Custom')}> Enable Custom Risk Instead </button>
       </div>
     </div>
   );

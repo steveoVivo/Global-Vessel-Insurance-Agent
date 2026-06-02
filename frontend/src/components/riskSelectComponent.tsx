@@ -10,8 +10,10 @@ function RiskSelectComponent() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const { setDistribution } = getRiskContext();
 
+  const riskSelectComponentClassname = 'risk-select-component' + ((isExpanded) ? ' expanded' : '');
+
   return (
-    <div className='risk-select-component'      >
+    <div className={riskSelectComponentClassname}>
       <h4 onClick={() => setIsExpanded(!isExpanded)}>
         <span> Select Risk Factor </span>
         <span className='risk-select-dropdown-arrow'

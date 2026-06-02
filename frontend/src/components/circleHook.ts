@@ -32,13 +32,14 @@ interface CountryData {
 const CountryNameKey: string = 'countryName';
 // TODO: Unify the types
 const CountryRiskKey: string = 'riskArray';
+const CountryFleetKey: string = 'fleetSize';
 const CountryIsHovered: string = 'isHovered';
 const CountryIsSelected: string = 'isSelected';
 
 export default function circleHook() {
   const { map } = getMapContext();
   const { riskDistribution } = getRiskContext();
-  const { setCurrentCountry, setCurrentRisk } = getSelectionContext();
+  const { setSelectedCountry } = getSelectionContext();
 
   // We have to do this to prevent the style function (a closure inside of useEffect) from using stale values
   const riskDistributionClosure = useRef<[number, number, number, number, number]>(riskDistribution);
@@ -138,6 +139,7 @@ export default function circleHook() {
           circleFeat.set(CountryNameKey, centroids[countryCode].name);
           circleFeat.set(CountryRiskKey, [countryData.accident_rate_norm, countryData.flag_safety_risk_norm,
           countryData.event_entropy_norm, countryData.investigation_rate_norm, countryData.trend_slope_norm]);
+          circleFeat.set(CountryFleetKey, countryData.vessel_count);
 
           return circleFeat;
         });
@@ -248,12 +250,13 @@ export default function circleHook() {
           }
           
           if (currentSelectedCircle) {
-            setCurrentCountry(currentSelectedCircle.get(CountryNameKey));
-            console.log('Set Current: ', currentSelectedCircle.get(CountryRiskKey));
-            setCurrentRisk(currentSelectedCircle.get(CountryRiskKey));
+            setSelectedCountry({
+              country: currentSelectedCircle.get(CountryNameKey),
+              risk: currentSelectedCircle.get(CountryRiskKey),
+              fleetSize: currentSelectedCircle.get(CountryFleetKey)
+            });
           } else {
-            setCurrentCountry(null);
-            setCurrentRisk(null);
+            setSelectedCountry(null);
           }
         }
         const clickEventKey = map.on('click', selectCircleEvent);

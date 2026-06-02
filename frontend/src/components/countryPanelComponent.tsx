@@ -13,7 +13,7 @@ import centroids from './../data/countries';
 
 
 function CountryPanelComponent() {
-  const { currentCountry, currentRisk } = getSelectionContext();
+  const { currentCountry, currentRisk, currentFleetSize } = getSelectionContext();
   const { riskDistribution } = getRiskContext();
 
   const flagRef = useRef<HTMLImageElement>(null);
@@ -51,20 +51,29 @@ function CountryPanelComponent() {
     ? currentCountry
     : '~!~ OLD GLORY ~!~ 🦅🦅🇺🇸'
 
-  const fakeVesselCount: number = 10;
+  const fleetText = currentFleetSize?.toLocaleString();
 
   return (
-    <div className='country-panel-container'>
-      <img ref={flagRef} className='country-panel-flag'/>
-      <div className='country-panel-current'> {countryText} </div>
-      <div className='country-panel-risk'>
-          <div> Risk Score: 
-            <span style={{ color: getColorFromRiskScore(totalRisk / 100)[1] }}> {totalRisk} / 100 </span>
+    (!currentCountry)
+      ? (
+        <div style={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignContent: 'center', flexWrap: 'wrap'}}>
+        <div style={{ color: 'darkslategray'}}> [Select a country on the map to interact with this panel] </div>
+        </div>
+        )
+      : (
+        <div className='country-panel-container'>
+          <img ref={flagRef} className='country-panel-flag'/>
+          <div className='country-panel-current'> {countryText} </div>
+          <div className='country-panel-risk'>
+              <div> Risk Score: 
+                <span style={{ color: getColorFromRiskScore(totalRisk / 100)[1] }}> {totalRisk} / 100 </span>
+              </div>
+              <div> Vessel Count: 
+                <span style={{ color: 'darkgray'}}> {fleetText} </span>
+              </div>
           </div>
-          <div> Vessel Count: {fakeVesselCount} </div>
-      </div>
-    </div>
-  );
+        </div>
+      ));
 }
 
 export default CountryPanelComponent;
