@@ -51,15 +51,18 @@ function CountryPanelComponent() {
     ? currentCountry
     : '~!~ OLD GLORY ~!~ 🦅🦅🇺🇸'
 
+  const fakeVesselCount: number = 10;
+
   return (
-    <div>
-      <img ref={flagRef}/>
-      <span style={{ display: (currentCountry == null) ? 'none' : 'inline' }}> Currently Selected Country: {countryText} </span>
-      <span style={{ display: (currentCountry == null) ? 'none' : 'inline' }}> // </span>
-      <span style={{ display: (currentCountry == null) ? 'none' : 'inline', 
-        color: getColorFromRiskScore(totalRisk / 100)[1] }}
-        className='total-risk-display'> {totalRisk} </span>
-      <span style={{ display: (currentCountry != null) ? 'none' : 'inline', color: 'darkslategray' }}> [No country currently selected] </span>
+    <div className='country-panel-container'>
+      <img ref={flagRef} className='country-panel-flag'/>
+      <div className='country-panel-current'> {countryText} </div>
+      <div className='country-panel-risk'>
+          <div> Risk Score: 
+            <span style={{ color: getColorFromRiskScore(totalRisk / 100)[1] }}> {totalRisk} / 100 </span>
+          </div>
+          <div> Vessel Count: {fakeVesselCount} </div>
+      </div>
     </div>
   );
 }
