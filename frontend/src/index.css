@@ -63,11 +63,11 @@ body {
   margin: 10px 0px;
   text-align: center;
   border-inline: 1px solid var(--border);
-  /* min-height: 100svh; */
-  min-height: 95svh;
+  height: 95svh;
   display: flex;
-  flex-direction: column;
   box-sizing: border-box;
+
+  flex-direction: column;
 }
 
 h1,
@@ -75,6 +75,8 @@ h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
+
+  flex: 0 0 auto;
 }
 
 h1 {
@@ -121,9 +123,9 @@ code {
 /*** Code from Steven and not VITE: ***/
 
 /** = = = CONTROL THE RATIO map:panel **/
-/* The first numbr of each represents the numerator in the ratio */
-.map-container { flex: 3 1 0; }
-.vessel-control-panel { flex: 1 1 0; }
+/* The first number of each represents the numerator in the ratio */
+.map-container { flex: 5; }
+.vessel-control-panel { flex: 2; }
 
 /** = = = MAP CONTAINER = = = **/
 .map-container { 
@@ -176,32 +178,38 @@ code {
 /** = = = CONTROL PANEL = = = **/
 .vessel-control-panel {
   /* flex: SET AT TOP */  
-  padding: 10px;
+  padding-top: 8px;
   width: 90%;
-  position: relative;
   border-radius: 20px;
-}
 
-/** = = = CUSTOM RISK PANEL = = = **/
-.custom-risk-panel {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .control-panel-container {
-  margin: 10px;
   padding: 5px;
   border-radius: 5px;
+
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-panel-container.control-panel-expanded {
+  flex: 1;
+  min-height: 0;
 }
 
 .control-panel-header {
   background-color: rgb(44, 50, 67);
-  height: 32px;
+  /* height: 32px; */
   font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  flex: 0 0 32px;
 }
 
 .control-panel-header:not(.control-panel-header-hoverable) {
@@ -216,14 +224,26 @@ code {
 
 .control-panel-content {
   background-color: rgb(82, 98, 122);
+
+  flex: 1;
 }
 
-/**/
+.hidden {
+  display: none;
+}
+
+/** = = = CUSTOM RISK PANEL = = = **/
+.custom-risk-panel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 .risk-input-container {
   display: flex;
   flex-direction: column;
   padding: 7px;
+  font-size: 12px;
 }
 
 .risk-input-container input {
@@ -232,4 +252,9 @@ code {
 
 .risk-input-container .risk-input-percentage {
   margin-left: 4px;
+}
+
+/** = = = SELECT COUNTRY PANEL = = = **/
+.total-risk-display {
+  font-weight: bolder;
 }

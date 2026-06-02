@@ -24,23 +24,30 @@ function ControlPanelComponent() {
     setActivePanel('Custom_Risk');
   }, [riskDistributionName]);
 
+  // TODO: I think that you can collapse all of this (all 6) into a single classname for the container object, then work the CSS around that.
+  const customRiskContainerClassname = 'control-panel-container' + ((activePanel == 'Custom_Risk') ? ' control-panel-expanded' : '');
+  const countryPanelContainerClassname = 'control-panel-container' + ((activePanel == 'Selected_Country') ? ' control-panel-expanded' : '');
+
   const customRiskHeaderClassname = 'control-panel-header' + ((activePanel != 'Custom_Risk') ? ' control-panel-header-hoverable' : '');
   const countryPanelHeaderClassname = 'control-panel-header' + ((activePanel != 'Selected_Country') ? ' control-panel-header-hoverable' : '');
+  
+  const customRiskBodyClassname = 'control-panel-content' + ((activePanel != 'Custom_Risk') ? ' hidden' : '');
+  const countryPanelBodyClassname = 'control-panel-content' + ((activePanel != 'Selected_Country') ? ' hidden' : '');
   
 
   return (
     <div className='vessel-control-panel'>
-      <div className='control-panel-container' onClick={() => setActivePanel('Custom_Risk')}>
+      <div className={customRiskContainerClassname} onClick={() => setActivePanel('Custom_Risk')}>
         <div className={customRiskHeaderClassname}> Custom Risk {(activePanel == 'Custom_Risk') ? '▲' : '▼'} </div>
-        <div className='control-panel-content' style={{height: (activePanel == 'Custom_Risk') ? 'auto' : '0px', overflow: 'hidden'}}>
+        <div className={customRiskBodyClassname}>
           <CustomriskPanelComponent />
         </div>
       </div>
-      <div className='control-panel-container' onClick={() => setActivePanel('Selected_Country')}>
+      <div className={countryPanelContainerClassname} onClick={() => setActivePanel('Selected_Country')}>
         <div className={countryPanelHeaderClassname}> 
           Selected Country {(activePanel == 'Selected_Country') ? '▲' : '▼'} 
         </div>
-        <div className='control-panel-content' style={{display: (activePanel == 'Selected_Country') ? 'block' : 'none', overflow: 'hidden'}}>
+        <div className={countryPanelBodyClassname}>
           <CountryPanelComponent />
         </div>
       </div>

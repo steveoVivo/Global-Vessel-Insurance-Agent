@@ -23,9 +23,10 @@ interface CountryData {
   "vessel_count": number,
   "risk_score": number,
   "accident_rate_norm": number,
-  "severity_risk_norm": number,
-  "ship_type_risk_norm": number,
-  "flag_safety_risk_norm": number
+  "flag_safety_risk_norm": number,
+  "event_entropy_norm": number,
+  "investigation_rate_norm": number,
+  "trend_slope_norm": number
 }
 
 const CountryNameKey: string = 'countryName';
@@ -37,10 +38,10 @@ const CountryIsSelected: string = 'isSelected';
 export default function circleHook() {
   const { map } = getMapContext();
   const { riskDistribution } = getRiskContext();
-  const { setCurrentCountry } = getSelectionContext();
+  const { setCurrentCountry, setCurrentRisk } = getSelectionContext();
 
   // We have to do this to prevent the style function (a closure inside of useEffect) from using stale values
-  const riskDistributionClosure = useRef<[number, number, number, number]>(riskDistribution);
+  const riskDistributionClosure = useRef<[number, number, number, number, number]>(riskDistribution);
   useEffect(() => {
     riskDistributionClosure.current = riskDistribution;
   }, [riskDistribution]);
@@ -136,7 +137,7 @@ export default function circleHook() {
           // Set properties in the feature to be pulled later when rendering circles
           circleFeat.set(CountryNameKey, centroids[countryCode].name);
           circleFeat.set(CountryRiskKey, [countryData.accident_rate_norm, countryData.flag_safety_risk_norm,
-          countryData.severity_risk_norm, countryData.ship_type_risk_norm]);
+          countryData.event_entropy_norm, countryData.investigation_rate_norm, countryData.trend_slope_norm]);
 
           return circleFeat;
         });
@@ -247,9 +248,12 @@ export default function circleHook() {
           }
           
           if (currentSelectedCircle) {
-            setCurrentCountry(currentSelectedCircle.get(CountryNameKey))
+            setCurrentCountry(currentSelectedCircle.get(CountryNameKey));
+            console.log('Set Current: ', currentSelectedCircle.get(CountryRiskKey));
+            setCurrentRisk(currentSelectedCircle.get(CountryRiskKey));
           } else {
             setCurrentCountry(null);
+            setCurrentRisk(null);
           }
         }
         const clickEventKey = map.on('click', selectCircleEvent);
@@ -293,7 +297,7 @@ export default function circleHook() {
 };
 
 // The incoming style MUST have an RGBA fill and an RGB stroke
-function brightenStyle(style: Style): Style {
+export function brightenStyle(style: Style): Style {
   const valueToBrightenBy = 40;
   const increaseNumberBrightness = ((num: number) => {
     if (num < 1) return num;
@@ -363,7 +367,7 @@ function darkenStyle(style: Style): Style {
 
 // Input should be [0, 1]
 // NOTE: This is currently red -> green. Could be any two colors in the future
-function getColorFromRiskScore(riskScore: number): [string, string] {
+export function getColorFromRiskScore(riskScore: number): [string, string] {
   const red: number = Math.floor(255 * riskScore);
   const green: number = Math.floor(128 * (1 - riskScore));
   // RGB of "red": rgb(255, 0, 0)
@@ -392,18 +396,18 @@ function getCircleDataAnalytics(data: CountryData[]): void {
   const flags = data.map(country => country.flag_safety_risk_norm);
   const flagsMax = Math.max(...flags);
   const flagsMin = Math.min(...flags);
-  const severities = data.map(country => country.severity_risk_norm);
-  const severitiesMax = Math.max(...severities);
-  const severitiesMin = Math.min(...severities);
-  const ships = data.map(country => country.ship_type_risk_norm);
-  const shipsMax = Math.max(...ships);
-  const shipsMin = Math.min(...ships);
+  // const severities = data.map(country => country.severity_risk_norm);
+  // const severitiesMax = Math.max(...severities);
+  // const severitiesMin = Math.min(...severities);
+  // const ships = data.map(country => country.ship_type_risk_norm);
+  // const shipsMax = Math.max(...ships);
+  // const shipsMin = Math.min(...ships);
 
   console.log('Count Max: ', vesselCountMax, ', and min: ', vesselCountMin);
 
   // console.log('ALL Risk Max: ', riskScoreMax, ', and min: ', riskScoreMin);
   console.log('Accident Risk Max: ', accidentsMax, ', and min: ', accidentsMin);
   console.log('Flags Risk Max: ', flagsMax, ', and min: ', flagsMin);
-  console.log('Severities Risk Max: ', severitiesMax, ', and min: ', severitiesMin);
-  console.log('Ships Risk Max: ', shipsMax, ', and min: ', shipsMin);
+  // console.log('Severities Risk Max: ', severitiesMax, ', and min: ', severitiesMin);
+  // console.log('Ships Risk Max: ', shipsMax, ', and min: ', shipsMin);
 }

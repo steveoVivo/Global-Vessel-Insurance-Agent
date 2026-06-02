@@ -28,10 +28,8 @@ function App() {
     <RiskProvider>
     <SelectionProvider>
       <h1> Global Vessel Insurance Agent </h1>
-      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '100%', minHeight:'10px'}}>
-        <MapComponent />
-        <ControlPanelComponent />
-      </div>
+      <MapComponent />
+      <ControlPanelComponent />
     </SelectionProvider>
     </RiskProvider>
     </MapProvider>

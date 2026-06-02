@@ -1,7 +1,7 @@
 import React, { createContext, useState, useRef, useContext } from 'react';
 
-export type RiskName = 'Accident_Risk' | 'Flag_Risk' | 'Severity_Risk' | 'Ship_Risk' | 'Custom';
-export type NumericRisk = [number, number, number, number];
+export type RiskName = 'Accident_Risk' | 'Flag_Risk' | 'Event_Risk' | 'Investigation_Risk' | 'Trend_Risk' | 'Custom';
+export type NumericRisk = [number, number, number, number, number];
 interface RiskContextData {
   riskDistributionName: RiskName,
   riskDistribution: NumericRisk,
@@ -14,8 +14,8 @@ const RiskContext = createContext<RiskContextData>(null);
 
 export const RiskProvider = ({ children }: any) => {
   const [distribution, setDistribution] = useState<RiskName>('Custom');
-  const [customDistribution, setCustomDistribution] = useState<NumericRisk>([0.25, 0.25, 0.25, 0.25]);
-  // const customDistribution = useRef<NumericRisk>([0.25, 0.25, 0.25, 0.25]);
+  const [customDistribution, setCustomDistribution] = useState<NumericRisk>([0.2, 0.2, 0.2, 0.2, 0.2]);
+  // const customDistribution = useRef<NumericRisk>([0.2, 0.2, 0.2, 0.2, 0.2]);
   // const setCustomDistribution = (distribution: NumericRisk) => {customDistribution.current = distribution};
 
   // TODO: Find out what's causing this to update twice
@@ -23,10 +23,11 @@ export const RiskProvider = ({ children }: any) => {
 
   let riskDistribution: NumericRisk = null;
   switch (distribution) {
-    case ('Accident_Risk'): riskDistribution = [1, 0, 0, 0]; break;
-    case ('Flag_Risk'): riskDistribution = [0, 1, 0, 0]; break;
-    case ('Severity_Risk'): riskDistribution = [0, 0, 1, 0]; break;
-    case ('Ship_Risk'): riskDistribution = [0, 0, 0, 1]; break;
+    case ('Accident_Risk'): riskDistribution = [1, 0, 0, 0, 0]; break;
+    case ('Flag_Risk'): riskDistribution = [0, 1, 0, 0, 0]; break;
+    case ('Event_Risk'): riskDistribution = [0, 0, 1, 0, 0]; break;
+    case ('Investigation_Risk'): riskDistribution = [0, 0, 0, 1, 0]; break;
+    case ('Trend_Risk'): riskDistribution = [0, 0, 0, 0, 1]; break;
     default: riskDistribution = customDistribution;
   }
 
@@ -50,8 +51,9 @@ export function RiskTypeToEnglishName(riskType: RiskName): string {
   switch (riskType) {
     case ('Accident_Risk'): return 'Accident Rate';
     case ('Flag_Risk'): return 'Flag Safety'
-    case ('Severity_Risk'): return 'Severity';
-    case ('Ship_Risk'): return 'Ship Type';
+    case ('Event_Risk'): return 'Event Entropy';
+    case ('Investigation_Risk'): return 'Investigation Rate';
+    case ('Trend_Risk'): return 'Trend Slope';
   }
   return 'Custom';
 } 

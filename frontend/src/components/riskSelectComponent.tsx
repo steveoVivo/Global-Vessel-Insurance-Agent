@@ -31,17 +31,26 @@ function RiskSelectComponent() {
           Display Flag Safety Risk
         </button>
         <button
-          onClick={() => setDistribution('Severity_Risk')}
+          onClick={() => setDistribution('Event_Risk')}
         >
-          Display Severity Risk
+          Display Event Entropy Risk
         </button>
         <button
-          onClick={() => setDistribution('Ship_Risk')}
+          onClick={() => setDistribution('Investigation_Risk')}
         >
-          Display Ship Type Risk
+          Display investigation Rate Risk
         </button>
         <button
-          onClick={() => setDistribution('Custom')}
+          onClick={() => setDistribution('Trend_Risk')}
+        >
+          Display Risk from Trend Slope
+        </button>
+        <button
+          onClick={() => {
+            // Forces a re-render of components even if update is 'Custom' => 'Custom'
+            setDistribution('Accident_Risk');
+            setTimeout(() => setDistribution('Custom'), 0);
+          }}
         >
           Custom Weighted Combination
         </button>
