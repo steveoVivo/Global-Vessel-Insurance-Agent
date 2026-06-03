@@ -16,7 +16,7 @@ const countryCentroids: Record<string, CountryData> = {
   "AI": { "name": "Anguilla", "coordinates": [18.220554, -63.068615] },
   "AL": { "name": "Albania", "coordinates": [41.153332, 20.168331] },
   "AM": { "name": "Armenia", "coordinates": [40.069099, 45.038189] },
-  "AN": { "name": "Netherlands Antilles", "coordinates": [12.226079, -69.060087] },
+  "ANT": { "name": "Netherlands Antilles", "coordinates": [12.226079, -69.060087] },
   "AO": { "name": "Angola", "coordinates": [-11.202692, 17.873887] },
   "AQ": { "name": "Antarctica", "coordinates": [-75.250973, -0.071389] },
   "AR": { "name": "Argentina", "coordinates": [-38.416097, -63.616672] },

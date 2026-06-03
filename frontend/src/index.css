@@ -308,6 +308,8 @@ code {
   margin-left: 8px;
   font-weight: 900;
   font-size: 50px;
+  line-height: 55px;
+  text-align: left;
 }
 
 .country-panel-container .country-panel-risk {
@@ -317,8 +319,9 @@ code {
   margin-top: 5px;
   margin-bottom: 5px;
 
-  max-width: 250px;
-  flex-grow: 1;
+  /* It always takes 250px, even on mobile. */
+  width: 250px;
+  flex-shrink: 0;
   /* TODO: Consider better ways of handling this */
   overflow-x: hidden;
 
