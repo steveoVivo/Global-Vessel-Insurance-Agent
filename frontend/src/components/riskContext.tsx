@@ -19,7 +19,7 @@ export const RiskProvider = ({ children }: any) => {
   // const setCustomDistribution = (distribution: NumericRisk) => {customDistribution.current = distribution};
 
   // TODO: Find out what's causing this to update twice
-  console.log('Updated');
+  // console.log('Updated');
 
   let riskDistribution: NumericRisk = null;
   switch (distribution) {
@@ -47,7 +47,7 @@ export default function getRiskContext() {
   return context;
 };
 
-export function RiskTypeToEnglishName(riskType: RiskName): string {
+export function riskTypeToEnglishName(riskType: RiskName): string {
   switch (riskType) {
     case ('Accident_Risk'): return 'Accident Rate';
     case ('Flag_Risk'): return 'Flag Safety'
