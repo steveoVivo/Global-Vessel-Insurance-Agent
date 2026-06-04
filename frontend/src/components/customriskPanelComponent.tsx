@@ -73,6 +73,8 @@ function CustomriskPanelComponent() {
       (Number(trendRef.current.value) / 100)]);
   }
 
+  // NOTE: This is actually a UI nightmare, it's so hard to make the values precisely what you want them to be
+  //  TODO: Just update the one after current (if not 0 or 100)
   const changeInputValue = (adjustedPanelIdx: number, triggerName: string) => {
     // This is a case where the user typing triggers a change in state. In this case, we'll eventually let onBlur handle it
     if (triggerName == 'insertText') return;

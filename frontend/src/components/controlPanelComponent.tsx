@@ -5,12 +5,10 @@ import CustomriskPanelComponent from './customriskPanelComponent';
 
 import getSelectionContext from './selectionContext';
 import getRiskContext from './riskContext';
-
-export type ActivePanels = 'Selected_Country' | 'Custom_Risk';
+import getPanelContext from './panelContext';
 
 function ControlPanelComponent() {
-  const [activePanel, setActivePanel] = useState<ActivePanels>('Custom_Risk');
-
+  const {activePanel, setActivePanel} = getPanelContext();
   const { currentCountry } = getSelectionContext();
   const { riskDistributionName } = getRiskContext();
 

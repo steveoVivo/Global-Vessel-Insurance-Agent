@@ -14,6 +14,7 @@ import 'ol/ol.css';
 import { MapProvider } from './components/mapContext';
 import { RiskProvider } from './components/riskContext';
 import { SelectionProvider } from './components/selectionContext';
+import { PanelProvider } from './components/panelContext';
 import MapComponent from './components/mapComponent';
 import ControlPanelComponent from './components/controlPanelComponent';
 
@@ -27,9 +28,11 @@ function App() {
     <MapProvider>
     <RiskProvider>
     <SelectionProvider>
+    <PanelProvider>
       <h1> Global Vessel Insurance Agent </h1>
       <MapComponent />
       <ControlPanelComponent />
+    </PanelProvider>
     </SelectionProvider>
     </RiskProvider>
     </MapProvider>

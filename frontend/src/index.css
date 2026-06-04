@@ -186,6 +186,10 @@ code {
   transition: transform 0.25s ease-in-out;
 }
 
+.current-selected-button {
+  border-color: darkslategray;
+}
+
 /** = = = CONTROL PANEL = = = **/
 .vessel-control-panel {
   /* flex: SET AT TOP */  
