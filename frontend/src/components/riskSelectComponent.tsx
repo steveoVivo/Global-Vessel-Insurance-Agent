@@ -64,16 +64,12 @@ function RiskSelectComponent() {
           disabled={riskDistributionName == 'Solas_Noncompliance_Risk'}
           onClick={() => setDistribution('Solas_Noncompliance_Risk')}
         >
-          Display SOLAS Non-compliance Risk
+          Display Non-compliance Risk
         </button>
         <button
           className={(riskDistributionName == 'Custom') ? 'current-selected-button' : ''}
           disabled={(riskDistributionName == 'Custom') && (activePanel == 'Custom_Risk')}
-          onClick={() => {
-            // Forces a re-render of components even if update is 'Custom' => 'Custom'
-            setDistribution('Event_Risk');
-            setTimeout(() => setDistribution('Custom'), 0);
-          }}
+          onClick={() => setDistribution('Custom')}
         >
           {(riskDistributionName == 'Custom' && (activePanel != 'Custom_Risk')) 
             ? '[Open Custom Control Panel]'

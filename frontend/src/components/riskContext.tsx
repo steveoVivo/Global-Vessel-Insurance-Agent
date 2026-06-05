@@ -14,8 +14,8 @@ const RiskContext = createContext<RiskContextData>(null);
 
 export const RiskProvider = ({ children }: any) => {
   const [distribution, setDistribution] = useState<RiskName>('Custom');
-  const [customDistribution, setCustomDistribution] = useState<NumericRisk>([1/6, 1/6, 1/6, 1/6, 1/6, 1/6]);
-  // const customDistribution = useRef<NumericRisk>([1/6, 1/6, 1/6, 1/6, 1/6, 1/6]);
+  const [customDistribution, setCustomDistribution] = useState<NumericRisk>([0.17, 0.17, 0.17, 0.17, 0.16, 0.16]);
+  // const customDistribution = useRef<NumericRisk>([17, 17, 17, 17, 17, 17]);
   // const setCustomDistribution = (distribution: NumericRisk) => {customDistribution.current = distribution};
 
   // TODO: Find out what's causing this to update twice

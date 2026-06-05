@@ -113,18 +113,21 @@ export default function circleHook() {
         );
 
         const fleetSizes = mappableData.map((country: CountryData) => country.vessel_count);
-        const smallestFleet = Math.min(...fleetSizes);
-        const largestFleet = Math.max(...fleetSizes);
-        const fleetNormalizer = (size: number): number =>
-          largestFleet > smallestFleet ? (size - smallestFleet) / (largestFleet - smallestFleet) : 0.5;
+
+        const exponentiatedData = fleetSizes.map(size => (size ** exponential));
+        const smallestFleetExp = Math.min(...exponentiatedData)
+        const largestFleetExp = Math.max(...exponentiatedData)
+
+        const fleetNormalizerExp = (size: number): number => (size ** exponential);
+        const fleetToRadiusExp = (size: number): number => (radiusMin + (((size - smallestFleetExp) / (largestFleetExp - smallestFleetExp)) * (radiusMax - radiusMin)) );
 
         const circleFeatures = mappableData.map((countryData: CountryData) => {
-          const normalizedFleetSize = fleetNormalizer(countryData.vessel_count);
-          const radius = radiusMin + (radiusMax - radiusMin) * normalizedFleetSize;
+          const normalizedFleetSize = fleetNormalizerExp(countryData.vessel_count);
+          const diameter = fleetToRadiusExp(normalizedFleetSize);
 
           // coordinates from backend: [lat, lon] → OpenLayers expects [lon, lat]
           const [lat, lon] = countryData.coordinates!;
-          const circleGeom = new Circle(fromLonLat([lon, lat]), radius * 2);
+          const circleGeom = new Circle(fromLonLat([lon, lat]), diameter);
 
           const circleFeat = new Feature({ geometry: circleGeom });
 
