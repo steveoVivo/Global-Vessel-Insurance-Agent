@@ -1,0 +1,65 @@
+============================================================
+PRIMARY EVALUATION (unbiased — equal weights, test-independent)
+============================================================
+  Train period : 2011-2020
+  Test period  : 2021-2025
+  Flags        : top 30 by 2025 fleet size
+  Eval weights : 15 active variables
+  Metric       : exposure-weighted accident rate (acc/ship-yr)
+  Spearman r   : 0.458
+  p-value      : 0.0110
+
+Result: MODERATE -- some signal present (0.3 <= r < 0.5)
+
+Flag                                      Train score Test rate (acc/ship-yr)
+------------------------------------------------------------------------------
+Portugal                                       0.4548                0.009472
+Marshall Islands                               0.3823                0.002551
+China                                          0.3683                0.000457
+Cyprus                                         0.3481                0.002931
+Malta                                          0.3388                0.008327
+Italy                                          0.3382                0.002410
+Greece                                         0.3341                0.000328
+China, Hong Kong SAR                           0.3305                0.003822
+Russian Federation                             0.3137                0.001428
+Netherlands (Kingdom of the)                   0.3108                0.002678
+Panama                                         0.3075                0.004353
+Singapore                                      0.3072                0.002747
+Bahamas                                        0.3060                0.004859
+India                                          0.3048                0.002349
+Norway                                         0.3048                0.001050
+Republic of Korea                              0.3025                0.002039
+Iran (Islamic Republic of)                     0.3005                0.000405
+United Kingdom                                 0.3000                0.008181
+Saint Vincent and the Grenadines               0.2943                0.000990
+Turkiye                                        0.2910                0.001169
+Liberia                                        0.2843                0.003904
+Viet Nam                                       0.2754                0.001030
+Thailand                                       0.2654                0.001379
+United States                                  0.2397                0.000399
+Nigeria                                        0.2366                0.004833
+Indonesia                                      0.2334                0.000293
+Malaysia                                       0.2311                0.001008
+Brazil                                         0.2239                0.000670
+Philippines                                    0.2149                0.001264
+Japan                                          0.2098                0.000309
+
+============================================================
+COMBINATION SEARCH TOP 5 — equal weights
+============================================================
+  Components   : 15 active EVAL_WEIGHTS variables
+  Search space : 32767 non-empty combinations
+
+Rank  Spearman r    p-value  N vars  Components
+----------------------------------------------------------------------------------------------------
+1          0.741     0.0000       1  accident_rate
+2          0.706     0.0000       6  accident_rate + event_entropy + trend + ship_type + fleet_growth + fleet_volatility
+3          0.701     0.0000       6  accident_rate + event_entropy + trend + open_sea + excess_factor + fleet_growth
+4          0.699     0.0000       7  accident_rate + event_entropy + trend + ship_type + open_sea + excess_factor + fleet_growth
+5          0.697     0.0000       8  accident_rate + event_entropy + trend + ship_type + open_sea + solas_noncompliance + excess_factor + fleet_growth
+
+Current EVAL_WEIGHTS combination
+  Rank         : 10319/32767
+  Spearman r   : 0.458
+  p-value      : 0.0110
+  Components   : accident_rate + event_entropy + trend + investigation + flag_safety + severity + ship_type + multi_ship + collision + open_sea + solas_noncompliance + excess_factor + excess_factor_trend + fleet_growth + fleet_volatility

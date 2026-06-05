@@ -25,20 +25,6 @@ function RiskSelectComponent() {
       </h4>
       <div style={{ display: isExpanded ? 'block' : 'none' }}>
         <button
-          className={(riskDistributionName == 'Accident_Risk') ? 'current-selected-button' : ''}
-          disabled={riskDistributionName == 'Accident_Risk'}
-          onClick={() => setDistribution('Accident_Risk')}
-        >
-          Display Accident Rate Risk
-        </button>
-        <button
-          className={(riskDistributionName == 'Flag_Risk') ? 'current-selected-button' : ''}
-          disabled={riskDistributionName == 'Flag_Risk'}
-          onClick={() => setDistribution('Flag_Risk')}
-        >
-          Display Flag Safety Risk
-        </button>
-        <button
           className={(riskDistributionName == 'Event_Risk') ? 'current-selected-button' : ''}
           disabled={riskDistributionName == 'Event_Risk'}
           onClick={() => setDistribution('Event_Risk')}
@@ -50,21 +36,42 @@ function RiskSelectComponent() {
           disabled={riskDistributionName == 'Investigation_Risk'}
           onClick={() => setDistribution('Investigation_Risk')}
         >
-          Display investigation Rate Risk
+          Display Investigation Rate Risk
         </button>
         <button
-          className={(riskDistributionName == 'Trend_Risk') ? 'current-selected-button' : ''}
-          disabled={riskDistributionName == 'Trend_Risk'}
-          onClick={() => setDistribution('Trend_Risk')}
+          className={(riskDistributionName == 'Flag_Risk') ? 'current-selected-button' : ''}
+          disabled={riskDistributionName == 'Flag_Risk'}
+          onClick={() => setDistribution('Flag_Risk')}
         >
-          Display Risk from Trend Slope
+          Display Flag Safety Risk
+        </button>
+        <button
+          className={(riskDistributionName == 'Ship_Type_Risk') ? 'current-selected-button' : ''}
+          disabled={riskDistributionName == 'Ship_Type_Risk'}
+          onClick={() => setDistribution('Ship_Type_Risk')}
+        >
+          Display Ship Type Risk
+        </button>
+        <button
+          className={(riskDistributionName == 'Open_Sea_Risk') ? 'current-selected-button' : ''}
+          disabled={riskDistributionName == 'Open_Sea_Risk'}
+          onClick={() => setDistribution('Open_Sea_Risk')}
+        >
+          Display Open Sea Risk
+        </button>
+        <button
+          className={(riskDistributionName == 'Solas_Noncompliance_Risk') ? 'current-selected-button' : ''}
+          disabled={riskDistributionName == 'Solas_Noncompliance_Risk'}
+          onClick={() => setDistribution('Solas_Noncompliance_Risk')}
+        >
+          Display SOLAS Non-compliance Risk
         </button>
         <button
           className={(riskDistributionName == 'Custom') ? 'current-selected-button' : ''}
           disabled={(riskDistributionName == 'Custom') && (activePanel == 'Custom_Risk')}
           onClick={() => {
             // Forces a re-render of components even if update is 'Custom' => 'Custom'
-            setDistribution('Accident_Risk');
+            setDistribution('Event_Risk');
             setTimeout(() => setDistribution('Custom'), 0);
           }}
         >

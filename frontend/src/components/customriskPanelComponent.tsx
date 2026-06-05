@@ -8,12 +8,13 @@ import 'ol/ol.css';
 function CustomriskPanelComponent() {
   const { riskDistribution, riskDistributionName, setCustomDistribution, setDistribution } = getRiskContext();
 
-  const accidentRef = useRef<HTMLInputElement>(null);
-  const flagRef = useRef<HTMLInputElement>(null);
   const eventRef = useRef<HTMLInputElement>(null);
   const investigationRef = useRef<HTMLInputElement>(null);
-  const trendRef = useRef<HTMLInputElement>(null);
-  const indexedRefs = [accidentRef, flagRef, eventRef, investigationRef, trendRef];
+  const flagRef = useRef<HTMLInputElement>(null);
+  const shipTypeRef = useRef<HTMLInputElement>(null);
+  const openSeaRef = useRef<HTMLInputElement>(null);
+  const solasRef = useRef<HTMLInputElement>(null);
+  const indexedRefs = [eventRef, investigationRef, flagRef, shipTypeRef, openSeaRef, solasRef];
 
   const isCustom = riskDistributionName == 'Custom';
   const riskTypeName = riskTypeToEnglishName(riskDistributionName);
@@ -30,9 +31,9 @@ function CustomriskPanelComponent() {
     });
 
     setCustomDistribution([
-      (Number(accidentRef.current.value) / 100), (Number(flagRef.current.value) / 100),
       (Number(eventRef.current.value) / 100), (Number(investigationRef.current.value) / 100),
-      (Number(trendRef.current.value) / 100)]);
+      (Number(flagRef.current.value) / 100), (Number(shipTypeRef.current.value) / 100),
+      (Number(openSeaRef.current.value) / 100), (Number(solasRef.current.value) / 100)]);
   }
 
   return (
@@ -46,26 +47,10 @@ function CustomriskPanelComponent() {
       </div>
       <div className='custom-risk-input-container'>
         <div className='risk-input-container'>
-          <div> Accident Rate </div>
-          <div>
-            <input onInput={changeInputValue}
-              ref={accidentRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
-            <span className="risk-input-percentage">%</span>
-          </div>
-        </div>
-        <div className='risk-input-container'>
-          <div> Flag Safety </div>
-          <div>
-            <input onInput={changeInputValue}
-              ref={flagRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
-            <span className="risk-input-percentage">%</span>
-          </div>
-        </div>
-        <div className='risk-input-container'>
           <div> Event Entropy </div>
           <div>
             <input onInput={changeInputValue}
-              ref={eventRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+              ref={eventRef} type="number" min="0" max="100" step="0.1" defaultValue="16.7" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
@@ -73,15 +58,39 @@ function CustomriskPanelComponent() {
           <div> Investigation </div>
           <div>
             <input onInput={changeInputValue}
-              ref={investigationRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+              ref={investigationRef} type="number" min="0" max="100" step="0.1" defaultValue="16.7" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
         <div className='risk-input-container'>
-          <div> Trend Slope </div>
+          <div> Flag Safety </div>
           <div>
             <input onInput={changeInputValue}
-              ref={trendRef} type="number" min="0" max="100" defaultValue="20" disabled={!isCustom} />
+              ref={flagRef} type="number" min="0" max="100" step="0.1" defaultValue="16.7" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> Ship Type </div>
+          <div>
+            <input onInput={changeInputValue}
+              ref={shipTypeRef} type="number" min="0" max="100" step="0.1" defaultValue="16.7" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> Open Sea </div>
+          <div>
+            <input onInput={changeInputValue}
+              ref={openSeaRef} type="number" min="0" max="100" step="0.1" defaultValue="16.7" disabled={!isCustom} />
+            <span className="risk-input-percentage">%</span>
+          </div>
+        </div>
+        <div className='risk-input-container'>
+          <div> SOLAS Non-compliance </div>
+          <div>
+            <input onInput={changeInputValue}
+              ref={solasRef} type="number" min="0" max="100" step="0.1" defaultValue="16.7" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>

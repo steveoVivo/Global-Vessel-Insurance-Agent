@@ -16,7 +16,7 @@
   --mono: ui-monospace, Consolas, monospace;
 
   --country-info-gap: 2px;
-  --country-info-color: rgba(122, 138, 162, 0.8);
+  --country-info-color: rgba(170, 59, 255, 0.08);
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
@@ -43,6 +43,7 @@
     --accent: #c084fc;
     --accent-bg: rgba(192, 132, 252, 0.15);
     --accent-border: rgba(192, 132, 252, 0.5);
+    --country-info-color: rgba(192, 132, 252, 0.12);
     --social-bg: rgba(47, 48, 58, 0.5);
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
@@ -58,20 +59,25 @@ body {
 }
 
 #root {
-  /* width: 1126px; */
   width: 100svw;
   padding: 0 22px;
   max-width: 100%;
-  /* margin: 0 auto; */
   margin: 10px 0px;
   text-align: center;
   border-inline: 1px solid var(--border);
   height: 95svh;
   display: flex;
   box-sizing: border-box;
-
   flex-direction: column;
-  align-items: center;
+}
+
+.app-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
 }
 
 h1,
@@ -126,19 +132,32 @@ code {
 
 /*** Code from Steven and not VITE: ***/
 
-/** = = = CONTROL THE RATIO map:panel **/
-/* The first number of each represents the numerator in the ratio */
-.map-container { flex: 5; }
-.vessel-control-panel { flex: 2; }
-
 /** = = = MAP CONTAINER = = = **/
-.map-container { 
-  /* flex: SET AT TOP */
+.map-container {
+  flex: 6;
   position: relative;
   min-width: 100px;
-  min-height: 100px;
+  min-height: 0;
+}
+
+/** = = = RIGHT PANEL (country info + trend + accidents) = = = **/
+.right-panel {
+  flex: 4;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-left: 1px solid var(--border);
+  background: var(--bg);
+}
+
+/** = = = CUSTOM RISK BAR (fixed at bottom) = = = **/
+.custom-risk-bar {
+  flex-shrink: 0;
   width: 100%;
-  height: 100%;
+  border-top: 2px solid var(--border);
+  background: var(--bg);
+  padding: 2px 0;
 }
 
 /* This is the element the map is assigned to */
@@ -188,59 +207,6 @@ code {
 
 .current-selected-button {
   border-color: darkslategray;
-}
-
-/** = = = CONTROL PANEL = = = **/
-.vessel-control-panel {
-  /* flex: SET AT TOP */  
-  padding-top: 8px;
-  width: 90%;
-  border-radius: 20px;
-
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.control-panel-container {
-  padding: 5px;
-  border-radius: 5px;
-
-  flex: none;
-  display: flex;
-  flex-direction: column;
-}
-
-.control-panel-container.control-panel-expanded {
-  flex: 1;
-  min-height: 0;
-}
-
-.control-panel-header {
-  background-color: rgb(44, 50, 67);
-  /* height: 32px; */
-  font-size: 14px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  flex: 0 0 32px;
-}
-
-.control-panel-header:not(.control-panel-header-hoverable) {
-  border-color: darkgray;
-  border-bottom: 2px solid;
-}
-
-.control-panel-header-hoverable:hover {
-  background-color: rgb(54, 60, 77);
-  cursor: pointer;
-}
-
-.control-panel-content {
-  background-color: rgb(82, 98, 122);
-  /* For positioning within parent*/
-  flex: 1;
 }
 
 .hidden {
@@ -295,25 +261,38 @@ code {
 /** = = = SELECT COUNTRY PANEL = = = **/
 .country-panel-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+}
+
+.country-panel-info-row {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 90px;
 }
 
 .country-panel-container .country-panel-flag {
   margin-left: 8px;
   border: 3px solid darkslategray;
-  height: 80%;
-  object-fit: contain; /* Keep the correct width/height ratio TODO */
+  height: 80px;
+  object-fit: contain;
   width: auto;
 }
 
 .country-panel-container .country-panel-current {
   margin-left: 8px;
   font-weight: 900;
-  font-size: 50px;
-  line-height: 55px;
+  font-size: 22px;
+  line-height: 28px;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
 }
 
 .country-panel-container .country-panel-risk {
@@ -323,33 +302,278 @@ code {
   margin-top: 5px;
   margin-bottom: 5px;
 
-  /* It always takes 250px, even on mobile. */
-  width: 250px;
+  width: 170px;
   flex-shrink: 0;
-  /* TODO: Consider better ways of handling this */
-  overflow-x: hidden;
 
   align-self: stretch;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 20px;
+  font-size: 13px;
   border-radius: 4px;
+  white-space: nowrap;
 }
 
 .country-panel-container .country-panel-risk > * {
   padding: var(--country-info-gap);
 }
-/* TODO: Move variable closer if possible */
 .country-panel-container .country-panel-risk > :first-child {
-  /* padding-bottom: var(--country-info-gap); */
   border-bottom: 1px solid;
   width: auto;
   background-color: var(--country-info-color);
 }
 
 .country-panel-container .country-panel-risk > :last-child {
-  /* padding-top: var(--country-info-gap); */
   background-color: var(--country-info-color);
+}
+
+/** = = = TREND CHART = = = **/
+.trend-container {
+  flex: 0 0 auto;
+  height: 175px;
+  position: relative;
+  padding: 4px 8px 4px 0;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border);
+}
+
+.trend-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding-left: 52px;
+  padding-right: 4px;
+  margin-bottom: 2px;
+}
+
+.trend-title {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.trend-reset-btn {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1.4;
+  transition: background 0.1s;
+}
+
+.trend-reset-btn:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  color: var(--accent);
+}
+
+.trend-loading {
+  color: #6b7280;
+  font-size: 12px;
+  padding: 8px;
+  text-align: center;
+}
+
+.trend-container svg {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+}
+
+.trend-tooltip {
+  background: rgba(30, 30, 40, 0.92);
+  color: #f3f4f6;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  line-height: 1.5;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+}
+/** = = = ACCIDENT LIST = = = **/
+.accident-list-container {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.accident-list-header {
+  font-size: 11px;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 0 4px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+}
+
+.accident-list-count {
+  font-weight: 400;
+}
+
+.accident-list-loading {
+  color: #6b7280;
+  font-size: 12px;
+  padding: 12px 0;
+  text-align: center;
+}
+
+.accident-item {
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.12s;
+}
+
+.accident-item:hover {
+  background: var(--accent-bg);
+}
+
+.accident-item-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.accident-date {
+  font-size: 11px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.accident-severity-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.accident-vessel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-h);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.accident-meta {
+  font-size: 11px;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.accident-event {
+  font-size: 11px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/** = = = ACCIDENT DETAIL MODAL = = = **/
+.accident-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accident-modal {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  width: 560px;
+  max-width: 92vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.accident-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.accident-modal-title {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+.accident-modal-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.accident-modal-close:hover {
+  color: var(--text-h);
+}
+
+.accident-modal-body {
+  overflow-y: auto;
+  padding: 12px 16px;
+}
+
+.accident-modal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.accident-modal-table tr + tr td {
+  border-top: 1px solid var(--border);
+}
+
+.accident-modal-label {
+  color: #9ca3af;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 12px 6px 0;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 160px;
+}
+
+.accident-modal-value {
+  color: var(--text-h);
+  padding: 6px 0;
+  vertical-align: top;
+  word-break: break-word;
 }

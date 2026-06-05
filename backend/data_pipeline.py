@@ -7,116 +7,117 @@ from pathlib import Path
 
 
 BASE_DIR = Path(__file__).resolve().parent
-DATA_DIR = BASE_DIR / "data"
+DATA_DIR  = BASE_DIR / "data"
 ACCIDENT_CSV = DATA_DIR / "accident_data_20110101_20251231.csv"
-FLEET_CSV = DATA_DIR / "archive" / "Num_of_Ships_2011_2025.csv"
-PARIS_CSV = DATA_DIR / "paris_mou.csv"
+FLEET_CSV    = DATA_DIR / "Num_of_ships_by_flag.csv"
+PARIS_CSV    = DATA_DIR / "paris_mou.csv"
 
 FLEET_YEARS = list(range(2011, 2026))
 
+# ---------------------------------------------------------------------------
+# Risk component weights
+# ---------------------------------------------------------------------------
+# Default model selected from accident-rate-excluded evaluation:
+# event_entropy + investigation + flag_safety + ship_type + open_sea + solas_noncompliance.
 DEFAULT_WEIGHTS = {
-    # === Active components ===
-    # Selected based on single-variable Spearman r against future accident rates.
-    # These four are the only components with r >= 0.4 (all p < 0.05) individually.
-    "accident_rate":         0.20,  # r=+0.674** exposure-weighted accidents/ship-year
-    "event_entropy":         0.20,  # r=+0.477** Shannon entropy of accident-cause diversity
-    "trend":                 0.20,  # r=+0.458*  OLS slope of yearly accident rate (worsening = risky)
-    "investigation":         0.20,  # r=+0.439*  mean investigation reports per accident
-    "flag_safety":           0.20,  # detention rate (detentions/inspections from Paris MoU)
-    # === Optional components (enable via ?wN= query params) ===
-    # Individually weaker (r < 0.3 in top-30 evaluation) but may add information
-    # for specific use cases or smaller fleets.
-    "severity":              0.00,  # weighted avg casualty severity + VSMC proportion
-    "ship_type":             0.00,  # log-normalized ship type frequency risk
-    "multi_ship":            0.00,  # proportion of accidents involving 2+ vessels
-    "collision":             0.00,  # proportion of collision-type accidents
-    "open_sea":              0.00,  # proportion of accidents in open sea
-    "solas_noncompliance":   0.00,  # fraction with SOLAS non-compliant ships involved
-    "excess_factor":         0.00,  # mean Paris MoU excess factor (continuous)
-    "excess_factor_trend":   0.00,  # OLS slope of Paris MoU excess factor over time
-    "fleet_growth":          0.00,  # relative fleet growth rate
-    "fleet_volatility":      0.00,  # RMSE of annual fleet size changes / mean size
+    "accident_rate":       0.00,
+    "event_entropy":       1/6,    # Shannon entropy of accident-cause diversity
+    "trend":               0.00,
+    "investigation":       1/6,    # mean investigation reports per accident
+    "flag_safety":         1/6,    # detention rate (detentions/inspections, Paris MoU)
+    "severity":            0.00,
+    "ship_type":           1/6,    # accident-proneness of involved vessel types
+    "multi_ship":          0.00,
+    "collision":           0.00,
+    "open_sea":            1/6,    # share of accidents in open-sea locations
+    "solas_noncompliance": 1/6,    # share of known SOLAS non-compliance cases
+    "excess_factor":       0.00,
+    "excess_factor_trend": 0.00,
+    "fleet_growth":        0.00,
+    "fleet_volatility":    0.00,
 }
 
+# ---------------------------------------------------------------------------
+# Name normalisation
+# ---------------------------------------------------------------------------
+
+# Alternate / official names → canonical short keys used throughout the pipeline.
 NAME_ALIASES = {
-    "bahamas, the": "bahamas",
-    "bermuda (uk)": "bermuda",
-    "cayman islands (uk)": "cayman islands",
-    "gibraltar (uk)": "gibraltar",
-    "hong kong (china)": "hong kong",
-    "hong kong, china": "hong kong",
-    "iran (islamic republic of)": "iran",
-    "isle of man (uk)": "isle of man",
-    "jersey (uk)": "jersey",
-    "korea, republic of": "south korea",
-    "mar (portugal)": "portugal",
-    "moldova, republic of": "moldova",
-    "republic of korea": "south korea",
-    "russian federation": "russia",
-    "saint kitts and nevis": "st. kitts and nevis",
-    "saint vincent and the grenadines": "st. vincent and the grenadines",
-    "st vincent and the grenadines": "st. vincent and the grenadines",
-    "tanzania, united republic of": "tanzania",
-    "turkiye": "turkiye",
-    "türkiye": "turkiye",
-    "united states": "united states of america",
-    "venezuela (bolivarian republic of)": "venezuela",
-    "viet nam": "vietnam",
+    "bahamas, the":                        "bahamas",
+    "bermuda (uk)":                        "bermuda",
+    "cayman islands (uk)":                 "cayman islands",
+    "gibraltar (uk)":                      "gibraltar",
+    "hong kong (china)":                   "hong kong",
+    "hong kong, china":                    "hong kong",
+    "iran (islamic republic of)":          "iran",
+    "isle of man (uk)":                    "isle of man",
+    "jersey (uk)":                         "jersey",
+    "korea, republic of":                  "south korea",
+    "mar (portugal)":                      "portugal",
+    "moldova, republic of":                "moldova",
+    "republic of korea":                   "south korea",
+    "russian federation":                  "russia",
+    "saint kitts and nevis":               "st. kitts and nevis",
+    "saint vincent and the grenadines":    "st. vincent and the grenadines",
+    "st vincent and the grenadines":       "st. vincent and the grenadines",
+    "tanzania, united republic of":        "tanzania",
+    "turkiye":                             "turkiye",
+    "türkiye":                             "turkiye",
+    "united states":                       "united states of america",
+    "venezuela (bolivarian republic of)":  "venezuela",
+    "viet nam":                            "vietnam",
     "zanzibar (united republic of tanzania)": "tanzania",
+    # Accident CSV names → fleet canonical keys
+    "cape verde":                          "cabo verde",
+    "turkey":                              "turkiye",
+    "north korea":                         "dem. people s rep. of korea",
+    "czech republic":                      "czechia",
+    "myanmar [burma]":                     "myanmar",
+    "congo [drc]":                         "dem. rep. of the congo",
+    "são tomé and príncipe":               "sao tome and principe",
+    "falkland islands [islas malvinas]":   "falkland islands",
+    "st. vincent and grenadines":          "st. vincent and the grenadines",
+    "republic of south korea korea":       "south korea",
+    # Fleet official names → canonical short keys
+    "china, hong kong sar":                "hong kong",
+    "china, macao sar":                    "macau",
+    "china, taiwan province of":           "taiwan",
+    "united republic of tanzania":         "tanzania",
+    "republic of moldova":                 "moldova",
+    "syrian arab republic":                "syria",
 }
 
+# Countries with commas in their names need a temporary placeholder before
+# splitting the comma-separated "Flag Administrations" field.
 COMMA_NAME_PLACEHOLDERS = {
-    "Hong Kong, China": "__HONG_KONG_CHINA__",
-    "Korea, Republic of": "__KOREA_REPUBLIC_OF__",
-    "Moldova, Republic of": "__MOLDOVA_REPUBLIC_OF__",
-    "Tanzania, United Republic of": "__TANZANIA_UNITED_REPUBLIC_OF__",
+    "Hong Kong, China":              "__HONG_KONG_CHINA__",
+    "Korea, Republic of":            "__KOREA_REPUBLIC_OF__",
+    "Moldova, Republic of":          "__MOLDOVA_REPUBLIC_OF__",
+    "Tanzania, United Republic of":  "__TANZANIA_UNITED_REPUBLIC_OF__",
 }
 
+# Rows to skip when reading the fleet CSV (continents, aggregates, etc.)
 REGION_ROWS = {
-    "africa",
-    "northern africa",
-    "sub-saharan africa",
-    "eastern africa",
-    "middle africa",
-    "southern africa",
-    "western africa",
-    "americas",
-    "northern america",
-    "latin america and the caribbean",
-    "caribbean",
-    "central america",
-    "south america",
-    "asia",
-    "central asia",
-    "eastern asia",
-    "south-eastern asia",
-    "southern asia",
-    "western asia",
-    "europe",
-    "eastern europe",
-    "northern europe",
-    "southern europe",
-    "western europe",
-    "oceania",
-    "australia and new zealand",
-    "oceania excluding australia and new zealand",
-    "world",
-    "developing economies",
-    "developed economies",
+    "africa", "northern africa", "sub-saharan africa",
+    "eastern africa", "middle africa", "southern africa", "western africa",
+    "americas", "northern america", "latin america and the caribbean",
+    "caribbean", "central america", "south america",
+    "asia", "central asia", "eastern asia", "south-eastern asia", "southern asia", "western asia",
+    "europe", "eastern europe", "northern europe", "southern europe", "western europe",
+    "oceania", "australia and new zealand", "oceania excluding australia and new zealand",
+    "world", "developing economies", "developed economies", "individual economies",
 }
 
 SEVERITY_SCORES = {
-    "marine incident": 0.25,
-    "marine casualty": 0.65,
-    "very serious marine casualty": 1.0,
+    "marine incident":              0.25,
+    "marine casualty":              0.65,
+    "very serious marine casualty": 1.00,
 }
 
-# ---------------------------------------------------------------------------
-# Name normalization
-# ---------------------------------------------------------------------------
 
-def normalize_flag_name(name):
+def normalize_flag_name(name: str) -> str:
     cleaned = re.sub(r"\s+", " ", (name or "").strip())
+    # Strip trailing parenthesised suffixes, but keep "(UK)" and "(China)"
     cleaned = re.sub(
         r"\s*\([^)]*\)\s*$",
         lambda m: m.group(0) if "(UK)" in m.group(0) or "(China)" in m.group(0) else "",
@@ -129,7 +130,8 @@ def normalize_flag_name(name):
     return key
 
 
-def split_flag_administrations(value):
+def split_flag_administrations(value: str) -> list[str]:
+    """Split a "Flag Administrations" cell into individual flag strings."""
     cleaned = re.sub(r"\s+", " ", (value or "").strip())
     if not cleaned:
         return []
@@ -138,8 +140,7 @@ def split_flag_administrations(value):
     for original, placeholder in COMMA_NAME_PLACEHOLDERS.items():
         cleaned = cleaned.replace(original, placeholder)
 
-    flags = []
-    seen = set()
+    flags, seen = [], set()
     for flag in re.split(r"\s*,\s*|\s*;\s*", cleaned):
         flag = placeholder_to_name.get(flag.strip(), flag.strip())
         flag_key = normalize_flag_name(flag)
@@ -154,14 +155,14 @@ def split_flag_administrations(value):
 # Parsing helpers
 # ---------------------------------------------------------------------------
 
-def parse_int(value, default=0):
+def parse_int(value, default: int = 0) -> int:
     try:
         return int(str(value).replace(",", "").strip())
     except (TypeError, ValueError):
         return default
 
 
-def parse_float(value, default=0.0):
+def parse_float(value, default: float = 0.0) -> float:
     try:
         return float(str(value).replace(",", "").strip())
     except (TypeError, ValueError):
@@ -169,100 +170,82 @@ def parse_float(value, default=0.0):
 
 
 # ---------------------------------------------------------------------------
-# Normalization
+# Normalization utilities
 # ---------------------------------------------------------------------------
 
-def minmax_capped(values, percentile=95):
-    """Min-max normalization capped at a percentile of nonzero values.
+def minmax_capped(values, percentile: int = 95):
+    """Min-max normalisation capped at a percentile of nonzero values.
 
     Prevents a handful of extreme outliers from compressing the rest of the
-    scale so badly that tiny-but-real nonzero values are indistinguishable
-    from 0. Flags with value==0 remain at 0; flags above the cap are
-    clamped to 1.0.
+    scale. Flags with value == 0 stay at 0; values above the cap are clamped
+    to 1.0.
     """
     nonzero = sorted(v for v in values if v is not None and v > 0)
     if not nonzero:
         return lambda _: 0.0
-    cap_idx = min(int(len(nonzero) * percentile / 100), len(nonzero) - 1)
-    cap = nonzero[cap_idx]
+    cap = nonzero[min(int(len(nonzero) * percentile / 100), len(nonzero) - 1)]
     if cap <= 0:
         return lambda _: 0.0
-    return lambda value: min((value if value is not None else 0.0) / cap, 1.0)
+    return lambda v: min((v if v is not None else 0.0) / cap, 1.0)
 
 
-def ols_slope(xy_pairs):
-    """Compute ordinary-least-squares slope from [(x, y), ...] pairs.
-
-    Returns 0.0 when fewer than 3 points are available, preventing
-    noisy two-point estimates from dominating the signal.
-    """
+def ols_slope(xy_pairs: list) -> float:
+    """OLS slope of [(x, y), …]. Returns 0.0 for fewer than 3 points."""
     if len(xy_pairs) < 3:
         return 0.0
-    xs = [p[0] for p in xy_pairs]
-    ys = [p[1] for p in xy_pairs]
-    n = len(xs)
-    sx  = sum(xs)
-    sy  = sum(ys)
+    xs  = [p[0] for p in xy_pairs]
+    ys  = [p[1] for p in xy_pairs]
+    n   = len(xs)
+    sx  = sum(xs);  sy  = sum(ys)
     sxy = sum(x * y for x, y in zip(xs, ys))
     sx2 = sum(x * x for x in xs)
     d   = n * sx2 - sx ** 2
     return (n * sxy - sx * sy) / d if d else 0.0
 
 
-def shannon_entropy(counts) -> float:
-    """Shannon entropy (base-2) of a frequency distribution."""
+def shannon_entropy(counts: dict) -> float:
     total = sum(counts.values())
     if total == 0:
         return 0.0
-    return -sum(
-        (c / total) * math.log2(c / total)
-        for c in counts.values() if c > 0
-    )
+    return -sum((c / total) * math.log2(c / total) for c in counts.values() if c > 0)
 
 
 # ---------------------------------------------------------------------------
-# Fleet helpers — monthly linear interpolation
+# Fleet size interpolation
 # ---------------------------------------------------------------------------
 
-def interpolate_fleet_size(year_sizes, year, month):
-    """Fleet size at a given month, linearly interpolated between annual snapshots.
+def interpolate_fleet_size(year_sizes: dict, year: int, month: int) -> float:
+    """Fleet size at (year, month) via linear interpolation between annual snapshots.
 
-    Formula (user-specified):
-        monthly_increment = (fleet[year+1] - fleet[year]) / 12
-        fleet_at_month    = fleet[year] + monthly_increment * (month - 1)
+    monthly_increment = (fleet[year+1] - fleet[year]) / 12
+    fleet_at_month    = fleet[year] + monthly_increment * (month - 1)
 
-    If the next year is not available (e.g. month in 2025), the current
-    year's snapshot is returned unchanged.
+    Falls back to fleet[year] if the next year is unavailable.
     """
     current = year_sizes.get(year, 0)
     if current <= 0:
         return 0.0
     next_val = year_sizes.get(year + 1, 0)
     if next_val > 0:
-        monthly_increment = (next_val - current) / 12
-        return current + monthly_increment * (month - 1)
+        return current + (next_val - current) / 12 * (month - 1)
     return float(current)
 
 
-def year_exposure(year_sizes, year):
-    """Total ship-year exposure for a flag in one calendar year.
-
-    Sums the monthly-interpolated fleet sizes across all 12 months and
-    divides by 12 to convert from ship-months to ship-years.
-    """
+def year_exposure(year_sizes: dict, year: int) -> float:
+    """Total ship-year exposure for one calendar year (sum of monthly interpolations / 12)."""
     return sum(interpolate_fleet_size(year_sizes, year, m) for m in range(1, 13)) / 12
 
 
 # ---------------------------------------------------------------------------
-# CSV loading
+# CSV loaders
 # ---------------------------------------------------------------------------
 
-def read_csv(path):
+def read_csv(path: Path) -> list[dict]:
     with path.open(newline="", encoding="utf-8-sig") as f:
         return list(csv.DictReader(f))
 
 
-def accident_date(row):
+def accident_date(row: dict):
     value = row.get("Occurrence date and time", "")
     try:
         return datetime.strptime(value[:10], "%Y-%m-%d").date()
@@ -270,20 +253,21 @@ def accident_date(row):
         return None
 
 
-def load_fleet_rows():
-    """2025 fleet size per flag, used for vessel_count in the API payload."""
-    rows = []
+def load_fleet_rows() -> list[dict]:
+    """2025 fleet size per flag (used for vessel_count in the API payload)."""
+    best: dict = {}
     for row in read_csv(FLEET_CSV):
         flag = row.get("Economy_Label", "").strip()
         flag_key = normalize_flag_name(flag)
         if flag_key in REGION_ROWS:
             continue
         fleet_size = parse_int(row.get("2025_Number_of_ships_Value"))
-        rows.append({"flag": flag, "flag_key": flag_key, "fleet_size": fleet_size})
-    return rows
+        if flag_key not in best or fleet_size > best[flag_key]["fleet_size"]:
+            best[flag_key] = {"flag": flag, "flag_key": flag_key, "fleet_size": fleet_size}
+    return list(best.values())
 
 
-def load_fleet_by_year():
+def load_fleet_by_year() -> dict:
     """Annual fleet sizes per flag: {flag_key: (display_name, {year: fleet_size})}"""
     result = {}
     for row in read_csv(FLEET_CSV):
@@ -291,18 +275,29 @@ def load_fleet_by_year():
         flag_key = normalize_flag_name(flag)
         if flag_key in REGION_ROWS:
             continue
-        year_sizes = {}
-        for year in FLEET_YEARS:
-            size = parse_int(row.get(f"{year}_Number_of_ships_Value", ""))
-            if size > 0:
-                year_sizes[year] = size
-        if year_sizes:
+        year_sizes = {
+            year: size
+            for year in FLEET_YEARS
+            for size in [parse_int(row.get(f"{year}_Number_of_ships_Value", ""))]
+            if size > 0
+        }
+        if not year_sizes:
+            continue
+        existing = result.get(flag_key)
+        if existing is None:
             result[flag_key] = (flag, year_sizes)
+        else:
+            # Fill in missing years from secondary rows (e.g. "Sudan (...2011)")
+            merged = dict(existing[1])
+            for yr, sz in year_sizes.items():
+                if yr not in merged:
+                    merged[yr] = sz
+            result[flag_key] = (existing[0], merged)
     return result
 
 
-def load_paris_data():
-    """Load multi-year Paris MoU data from paris_mou.csv."""
+def load_paris_data() -> list[dict]:
+    """Multi-year Paris MoU data from paris_mou.csv."""
     rows = []
     for row in read_csv(PARIS_CSV):
         flag = row.get("flag", "").strip()
@@ -310,98 +305,76 @@ def load_paris_data():
         if not flag_key:
             continue
         rows.append({
-            "year":            parse_int(row.get("year", 0)),
-            "flag":            flag,
-            "flag_key":        flag_key,
-            "category":        row.get("category", "").strip().lower(),
+            "year":             parse_int(row.get("year", 0)),
+            "flag":             flag,
+            "flag_key":         flag_key,
+            "category":         row.get("category", "").strip().lower(),
             "flag_safety_risk": parse_float(row.get("flag_safety_risk"), 0.5),
-            "inspections":     parse_int(row.get("inspections", 0)),
-            "detentions":      parse_int(row.get("detentions", 0)),
-            "excess_factor":   parse_float(row.get("excess_factor", 0.0)),
+            "inspections":      parse_int(row.get("inspections", 0)),
+            "detentions":       parse_int(row.get("detentions", 0)),
+            "excess_factor":    parse_float(row.get("excess_factor", 0.0)),
         })
     return rows
 
 
-def aggregate_paris(paris_data, start_year, end_year):
+def aggregate_paris(paris_data: list, start_year: int, end_year: int,
+                    valid_flag_keys: set = None) -> dict:
+    """Per-flag Paris MoU aggregates for a given analysis period.
+
+    valid_flag_keys: if provided, skips OCR-artifact entries (e.g. classification
+        society names that appear as flags in corrupted PDF extracts).
+
+    Returns {flag_key: {detention_rate, excess_factor_avg, excess_factor_trend, …}}
     """
-    Compute per-flag Paris MoU aggregates for a given analysis period:
-
-    detention_rate        = total_detentions / total_inspections
-                            Process indicator: fraction of inspections that
-                            result in ship detention; independent of accident
-                            outcomes since detentions happen in port, accidents
-                            at sea.
-
-    excess_factor_avg     = mean(excess_factor) across period years
-                            Continuous version of the categorical
-                            White(0)/Grey(0.5)/Black(1.0) score. Negative
-                            values = better-than-expected; positive = worse.
-
-    excess_factor_trend   = OLS slope of excess_factor over time
-                            Captures whether a flag's Port State Control
-                            performance is improving (negative slope) or
-                            worsening (positive slope) over the period.
-
-    Falls back to all available years if none exist within the period.
-    """
-    relevant = [r for r in paris_data if start_year <= r["year"] <= end_year]
-    if not relevant:
-        relevant = paris_data
+    relevant = [r for r in paris_data if start_year <= r["year"] <= end_year] or paris_data
 
     by_flag = {}
     for row in relevant:
         key = row["flag_key"]
+        if valid_flag_keys is not None and key not in valid_flag_keys:
+            continue
         if key not in by_flag:
             by_flag[key] = {
                 "flag": row["flag"], "flag_key": key,
                 "inspections_sum": 0, "detentions_sum": 0,
-                "excess_factor_pairs": [],  # [(year, excess_factor), ...]
+                "excess_factor_pairs": [],
                 "categories": [],
             }
         by_flag[key]["inspections_sum"] += parse_int(row.get("inspections", 0))
         by_flag[key]["detentions_sum"]  += parse_int(row.get("detentions", 0))
         by_flag[key]["categories"].append(row.get("category", "unlisted"))
-
-        ef = row.get("excess_factor")
-        if ef is not None and ef != "":
+        if row.get("excess_factor") not in (None, ""):
             try:
-                by_flag[key]["excess_factor_pairs"].append(
-                    (float(row["year"]), float(ef))
-                )
+                by_flag[key]["excess_factor_pairs"].append((float(row["year"]), float(row["excess_factor"])))
             except (ValueError, KeyError):
                 pass
 
     result = {}
     for key, data in by_flag.items():
-        insp = data["inspections_sum"]
-        det  = data["detentions_sum"]
-        detention_rate = det / insp if insp > 0 else 0.0
+        insp, det = data["inspections_sum"], data["detentions_sum"]
+        # det > insp is physically impossible; such entries are OCR-corrupted rows.
+        detention_rate = det / insp if insp > 0 and det <= insp else 0.0
 
         ef_pairs = data["excess_factor_pairs"]
-        if ef_pairs:
-            excess_factor_avg = sum(ef for _, ef in ef_pairs) / len(ef_pairs)
-            excess_factor_trend = ols_slope(ef_pairs)
-        else:
-            excess_factor_avg   = 0.0
-            excess_factor_trend = 0.0
+        excess_factor_avg   = sum(ef for _, ef in ef_pairs) / len(ef_pairs) if ef_pairs else 0.0
+        excess_factor_trend = ols_slope(ef_pairs) if ef_pairs else 0.0
 
         cat_counts = {}
         for c in data["categories"]:
             cat_counts[c] = cat_counts.get(c, 0) + 1
-        most_common = max(cat_counts, key=lambda c: cat_counts[c])
 
         result[key] = {
-            "flag":                 data["flag"],
-            "flag_key":             key,
-            "paris_mou_category":   most_common,
-            "detention_rate":       detention_rate,
-            "excess_factor_avg":    excess_factor_avg,
-            "excess_factor_trend":  excess_factor_trend,
+            "flag":                data["flag"],
+            "flag_key":            key,
+            "paris_mou_category":  max(cat_counts, key=lambda c: cat_counts[c]),
+            "detention_rate":      detention_rate,
+            "excess_factor_avg":   excess_factor_avg,
+            "excess_factor_trend": excess_factor_trend,
         }
     return result
 
 
-def load_accident_rows(start_year=None, end_year=None):
+def load_accident_rows(start_year: int = None, end_year: int = None) -> list[dict]:
     rows = []
     for row in read_csv(ACCIDENT_CSV):
         date = accident_date(row)
@@ -418,178 +391,123 @@ def load_accident_rows(start_year=None, end_year=None):
 
 
 # ---------------------------------------------------------------------------
-# Accident metrics (exposure-weighted)
+# Accident metrics
 # ---------------------------------------------------------------------------
 
-def compute_accident_metrics(start_year=None, end_year=None):
-    """Compute per-flag accident metrics using monthly-interpolated fleet exposure.
+# Location values treated as "open sea" and "known location" for open_sea_rate
+_OPEN_SEA  = {"open sea"}
+_VALID_LOC = {
+    "open sea", "coastal waters", "port", "at berth", "anchorage",
+    "port approach", "river", "inland waters", "strait/channel",
+    "canal", "archipelagos", "offshore installation", "traffic separation scheme",
+}
+
+
+def compute_accident_metrics(start_year: int = None, end_year: int = None) -> list[dict]:
+    """Per-flag accident metrics using monthly-interpolated fleet exposure.
 
     accident_rate = accident_count / total_ship_year_exposure
-
-    where exposure is computed by summing monthly-interpolated fleet sizes
-    (per the user formula: monthly_increment = (next_year - current) / 12)
-    over the given period and converting ship-months to ship-years.
-    This corrects the previous approach of dividing by the 2025 fleet size,
-    which introduced a systematic bias for countries whose fleet changed
-    significantly over the training period.
+    where exposure uses monthly interpolation:
+        fleet_at(Y, m) = fleet[Y] + (fleet[Y+1] - fleet[Y]) / 12 * (m - 1)
     """
-    fleet_by_year_all = load_fleet_by_year()
-    fleet_year_sizes = {k: v[1] for k, v in fleet_by_year_all.items()}
-
+    fleet_year_sizes = {k: v[1] for k, v in load_fleet_by_year().items()}
     _start = start_year or FLEET_YEARS[0]
-    _end = end_year or FLEET_YEARS[-1]
+    _end   = end_year   or FLEET_YEARS[-1]
 
     accidents = load_accident_rows(start_year, end_year)
 
-    # Ship-type risk uses log scale to compress the 788x count range
     ship_type_counts = Counter(
         row.get("Ship types", "").strip()
-        for row in accidents
-        if row.get("Ship types", "").strip()
+        for row in accidents if row.get("Ship types", "").strip()
     )
-    max_ship_type_count = max(ship_type_counts.values(), default=1)
+    max_stc = max(ship_type_counts.values(), default=1)
     ship_type_risk = {
-        ship_type: math.log1p(count) / math.log1p(max_ship_type_count)
-        for ship_type, count in ship_type_counts.items()
-    }
-
-    # Location categories treated as "open sea" for open_sea_rate
-    OPEN_SEA_LOCATIONS = {"open sea"}
-    # Location values that indicate usable (non-missing) data
-    VALID_LOCATIONS = {
-        "open sea", "coastal waters", "port", "at berth", "anchorage",
-        "port approach", "river", "inland waters", "strait/channel",
-        "canal", "archipelagos", "offshore installation",
-        "traffic separation scheme",
+        st: math.log1p(c) / math.log1p(max_stc)
+        for st, c in ship_type_counts.items()
     }
 
     by_flag = defaultdict(lambda: {
-        "flag": "",
-        "flag_key": "",
+        "flag": "", "flag_key": "",
         "accident_count": 0,
-        "vsmc_count": 0,
-        "severity_total": 0.0,
-        "severity_count": 0,
-        "ship_type_risk_total": 0.0,
-        "ship_type_count": 0,
-        # New accident-based accumulators
-        "multi_ship_count": 0,
-        "collision_count": 0,
-        "open_sea_count": 0,
-        "location_known_count": 0,
+        "vsmc_count": 0, "severity_total": 0.0, "severity_count": 0,
+        "ship_type_risk_total": 0.0, "ship_type_count": 0,
+        "multi_ship_count": 0, "collision_count": 0,
+        "open_sea_count": 0, "location_known_count": 0,
         "event_counts": {},
         "investigation_total": 0,
-        "solas_noncompliant_count": 0,
-        "solas_known_count": 0,
+        "solas_noncompliant_count": 0, "solas_known_count": 0,
     })
 
     for row in accidents:
-        bucket = by_flag[row["flag_key"]]
-        bucket["flag"]           = row["flag"]
-        bucket["flag_key"]       = row["flag_key"]
-        bucket["accident_count"] += 1
+        b = by_flag[row["flag_key"]]
+        b["flag"]     = row["flag"]
+        b["flag_key"] = row["flag_key"]
+        b["accident_count"] += 1
 
-        # --- Existing: severity ---
         sev_label = row.get("Casualty severity", "").strip().casefold()
-        severity = SEVERITY_SCORES.get(sev_label)
-        if severity is not None:
-            bucket["severity_total"] += severity
-            bucket["severity_count"] += 1
+        sev_score = SEVERITY_SCORES.get(sev_label)
+        if sev_score is not None:
+            b["severity_total"] += sev_score
+            b["severity_count"] += 1
         if sev_label == "very serious marine casualty":
-            bucket["vsmc_count"] += 1
+            b["vsmc_count"] += 1
 
-        # --- Existing: ship type ---
         ship_type = row.get("Ship types", "").strip()
         if ship_type:
-            bucket["ship_type_risk_total"] += ship_type_risk.get(ship_type, 0.0)
-            bucket["ship_type_count"] += 1
+            b["ship_type_risk_total"] += ship_type_risk.get(ship_type, 0.0)
+            b["ship_type_count"] += 1
 
-        # --- New: multi-ship incident ---
-        n_ships = parse_int(row.get("Number of ships involved", "1"), default=1)
-        if n_ships >= 2:
-            bucket["multi_ship_count"] += 1
+        if parse_int(row.get("Number of ships involved", "1"), default=1) >= 2:
+            b["multi_ship_count"] += 1
 
-        # --- New: collision event type ---
         ev = row.get("Casualty event", "").strip()
         ev_cat = ev.split(" - ")[0].strip() if " - " in ev else ev
         if ev_cat:
-            bucket["event_counts"][ev_cat] = bucket["event_counts"].get(ev_cat, 0) + 1
+            b["event_counts"][ev_cat] = b["event_counts"].get(ev_cat, 0) + 1
         if ev_cat.lower().startswith("collision"):
-            bucket["collision_count"] += 1
+            b["collision_count"] += 1
 
-        # --- New: location (open sea vs other) ---
         loc = row.get("Location", "").strip().lower()
-        if loc in VALID_LOCATIONS:
-            bucket["location_known_count"] += 1
-            if loc in OPEN_SEA_LOCATIONS:
-                bucket["open_sea_count"] += 1
+        if loc in _VALID_LOC:
+            b["location_known_count"] += 1
+            if loc in _OPEN_SEA:
+                b["open_sea_count"] += 1
 
-        # --- New: investigation reports ---
-        bucket["investigation_total"] += parse_int(
-            row.get("Number of investigation reports", "0")
-        )
+        b["investigation_total"] += parse_int(row.get("Number of investigation reports", "0"))
 
-        # --- New: SOLAS non-compliance ---
         solas = row.get("SOLAS status", "").strip()
         if solas:
-            bucket["solas_known_count"] += 1
-            # ": N" = non-compliant; ": U" = unknown/not SOLAS ship
+            b["solas_known_count"] += 1
             if ": N" in solas:
-                bucket["solas_noncompliant_count"] += 1
+                b["solas_noncompliant_count"] += 1
 
     metrics = []
     for bucket in by_flag.values():
-        severity_count       = bucket.pop("severity_count")
-        ship_type_count      = bucket.pop("ship_type_count")
-        severity_total       = bucket.pop("severity_total")
-        ship_type_risk_total = bucket.pop("ship_type_risk_total")
-        event_counts         = bucket.pop("event_counts")
-
-        acc = bucket["accident_count"]
-
-        bucket["avg_severity_risk"] = severity_total / severity_count if severity_count else 0.0
-        bucket["avg_ship_type_risk"] = (
-            ship_type_risk_total / ship_type_count if ship_type_count else 0.0
-        )
-        # Tail-risk: proportion of very serious casualties
-        bucket["vsmc_rate"] = bucket["vsmc_count"] / acc if acc else 0.0
-
-        # Multi-ship: fraction of accidents involving 2+ vessels
-        bucket["multi_ship_rate"] = bucket["multi_ship_count"] / acc if acc else 0.0
-
-        # Collision: fraction of accidents categorised as collisions
-        bucket["collision_rate"] = bucket["collision_count"] / acc if acc else 0.0
-
-        # Open-sea: fraction of accidents occurring in open sea
+        sev_cnt   = bucket.pop("severity_count")
+        st_cnt    = bucket.pop("ship_type_count")
+        sev_tot   = bucket.pop("severity_total")
+        st_tot    = bucket.pop("ship_type_risk_total")
+        ev_counts = bucket.pop("event_counts")
+        acc       = bucket["accident_count"]
         loc_known = bucket["location_known_count"]
-        bucket["open_sea_rate"] = (
-            bucket["open_sea_count"] / loc_known if loc_known > 0 else 0.0
-        )
 
-        # Event entropy: Shannon entropy of top-level accident-cause distribution.
-        # High entropy -> diverse causes (systemic/multi-dimensional risk).
-        # Low entropy  -> one dominant cause (potentially addressable).
-        bucket["event_entropy"] = shannon_entropy(event_counts)
-
-        # Investigation rate: mean reports per accident.
-        # Low rate may indicate underreporting or poor governance.
-        bucket["investigation_rate"] = (
-            bucket["investigation_total"] / acc if acc else 0.0
-        )
-
-        # SOLAS non-compliance: fraction of accidents where a non-SOLAS-compliant
-        # ship was involved, among accidents with known SOLAS data.
-        solas_known = bucket["solas_known_count"]
+        bucket["avg_severity_risk"]  = sev_tot / sev_cnt if sev_cnt else 0.0
+        bucket["avg_ship_type_risk"] = st_tot  / st_cnt  if st_cnt  else 0.0
+        bucket["vsmc_rate"]          = bucket["vsmc_count"]       / acc       if acc       else 0.0
+        bucket["multi_ship_rate"]    = bucket["multi_ship_count"]  / acc       if acc       else 0.0
+        bucket["collision_rate"]     = bucket["collision_count"]   / acc       if acc       else 0.0
+        bucket["open_sea_rate"]      = bucket["open_sea_count"]    / loc_known if loc_known else 0.0
+        bucket["event_entropy"]      = shannon_entropy(ev_counts)
+        bucket["investigation_rate"] = bucket["investigation_total"] / acc     if acc       else 0.0
+        solas_k = bucket["solas_known_count"]
         bucket["solas_noncompliance_rate"] = (
-            bucket["solas_noncompliant_count"] / solas_known if solas_known > 0 else 0.0
+            bucket["solas_noncompliant_count"] / solas_k if solas_k else 0.0
         )
 
-        # Exposure in ship-years over the analysis period
         year_sizes = fleet_year_sizes.get(bucket["flag_key"], {})
         exposure = sum(year_exposure(year_sizes, y) for y in range(_start, _end + 1))
         bucket["accident_rate"] = bucket["accident_count"] / exposure if exposure > 0 else 0.0
 
-        # Clean up intermediate accumulators
         for key in ("vsmc_count", "multi_ship_count", "collision_count",
                     "open_sea_count", "location_known_count",
                     "investigation_total", "solas_noncompliant_count", "solas_known_count"):
@@ -597,28 +515,26 @@ def compute_accident_metrics(start_year=None, end_year=None):
 
         metrics.append(bucket)
 
-    metrics.sort(key=lambda row: row["flag"])
+    metrics.sort(key=lambda r: r["flag"])
     return metrics
 
 
 # ---------------------------------------------------------------------------
-# Trend slope computation
+# Trend slope
 # ---------------------------------------------------------------------------
 
-def compute_trend_slopes(start_year=None, end_year=None):
-    """
-    OLS slope of yearly exposure-weighted accident rate for each flag.
+def compute_trend_slopes(start_year: int = None, end_year: int = None) -> dict:
+    """OLS slope of yearly exposure-weighted accident rate per flag.
 
-    slope > 0  →  accident rate is worsening  (higher future risk)
-    slope < 0  →  accident rate is improving   (lower future risk)
+    slope > 0 → worsening (higher future risk)
+    slope < 0 → improving
+
     Returns {flag_key: slope} in units of accidents/ship-year per year.
     """
-    fleet_by_year_all = load_fleet_by_year()
-    fleet_year_sizes  = {k: v[1] for k, v in fleet_by_year_all.items()}
-
+    fleet_year_sizes = {k: v[1] for k, v in load_fleet_by_year().items()}
     _start = start_year or FLEET_YEARS[0]
     _end   = end_year   or FLEET_YEARS[-1]
-    years_in_range = [y for y in FLEET_YEARS if _start <= y <= _end]
+    years  = [y for y in FLEET_YEARS if _start <= y <= _end]
 
     accidents_by_flag_year = defaultdict(lambda: defaultdict(int))
     for row in load_accident_rows(start_year, end_year):
@@ -626,66 +542,50 @@ def compute_trend_slopes(start_year=None, end_year=None):
             continue
         accidents_by_flag_year[row["flag_key"]][row["date"].year] += 1
 
-    all_keys = set(fleet_year_sizes) | set(accidents_by_flag_year)
     slopes = {}
-
-    for key in all_keys:
+    for key in set(fleet_year_sizes) | set(accidents_by_flag_year):
         year_sizes    = fleet_year_sizes.get(key, {})
         accident_data = accidents_by_flag_year.get(key, {})
-
         pairs = [
-            (float(year), accident_data.get(year, 0) / year_exposure(year_sizes, year))
-            for year in years_in_range
-            if year_exposure(year_sizes, year) > 0
+            (float(y), accident_data.get(y, 0) / year_exposure(year_sizes, y))
+            for y in years if year_exposure(year_sizes, y) > 0
         ]
         slopes[key] = ols_slope(pairs)
-
     return slopes
 
 
-def compute_fleet_features(start_year=None, end_year=None):
+# ---------------------------------------------------------------------------
+# Fleet features
+# ---------------------------------------------------------------------------
+
+def compute_fleet_features(start_year: int = None, end_year: int = None) -> dict:
+    """Fleet-based risk features from annual fleet size data.
+
+    fleet_growth_rate = (fleet[end] - fleet[start]) / fleet[start]
+    fleet_volatility  = RMSE of annual changes / mean fleet size
+
+    Returns {flag_key: {fleet_growth_rate, fleet_volatility}}
     """
-    Fleet-based risk features derived from annual fleet size data.
-
-    fleet_growth_rate  = (fleet[end] - fleet[start]) / fleet[start]
-        Rapidly expanding flags may register ships faster than safety
-        oversight infrastructure can keep up. Flags shedding ships may
-        indicate loss of confidence in the registry.
-
-    fleet_volatility   = RMSE of annual changes / mean fleet size
-        High volatility signals unstable flag-of-convenience behaviour:
-        ships registering and de-registering frequently, indicating
-        opportunistic use rather than committed national oversight.
-
-    Returns {flag_key: {"fleet_growth_rate": float, "fleet_volatility": float}}
-    """
-    fleet_by_year_all = load_fleet_by_year()
     _start = start_year or FLEET_YEARS[0]
     _end   = end_year   or FLEET_YEARS[-1]
 
     result = {}
-    for flag_key, (_, year_sizes) in fleet_by_year_all.items():
+    for flag_key, (_, year_sizes) in load_fleet_by_year().items():
         sizes = [year_sizes[y] for y in range(_start, _end + 1) if y in year_sizes]
         if not sizes:
             continue
-
-        # Growth rate: use first and last available values in the period
         first, last = sizes[0], sizes[-1]
         growth_rate = (last - first) / first if first > 0 else 0.0
 
-        # Volatility: RMSE of year-on-year changes, normalised by mean size
         if len(sizes) >= 2:
-            changes = [abs(sizes[i + 1] - sizes[i]) for i in range(len(sizes) - 1)]
+            changes   = [abs(sizes[i + 1] - sizes[i]) for i in range(len(sizes) - 1)]
             mean_size = sum(sizes) / len(sizes)
-            rmse_changes = (sum(c ** 2 for c in changes) / len(changes)) ** 0.5
-            volatility = rmse_changes / mean_size if mean_size > 0 else 0.0
+            rmse      = (sum(c ** 2 for c in changes) / len(changes)) ** 0.5
+            volatility = rmse / mean_size if mean_size > 0 else 0.0
         else:
             volatility = 0.0
 
-        result[flag_key] = {
-            "fleet_growth_rate": growth_rate,
-            "fleet_volatility":  volatility,
-        }
+        result[flag_key] = {"fleet_growth_rate": growth_rate, "fleet_volatility": volatility}
     return result
 
 
@@ -693,32 +593,22 @@ def compute_fleet_features(start_year=None, end_year=None):
 # Risk score assembly
 # ---------------------------------------------------------------------------
 
-def build_merged_rows(start_year=None, end_year=None, weights=None):
-    """
-    Assemble per-flag risk rows with all computed features.
+def build_merged_rows(start_year: int = None, end_year: int = None, weights: dict = None) -> list[dict]:
+    """Assemble per-flag risk rows with all computed features and normalised scores.
 
-    Core risk score uses DEFAULT_WEIGHTS; extra variables are all included in
-    the response payload (normalized to [0,1]) so callers can use them via
-    query-param weight overrides without changing the response format.
-
-    API field names for the four original components are preserved for
-    frontend compatibility:
-      flag_safety_risk_norm  ← detention_rate  (was Paris MoU 0/0.5/1.0)
-      severity_risk_norm     ← blend of avg_severity + vsmc_rate
+    All normalised fields are included in the payload so callers can override
+    weights via query params without changing the response format.
     """
     weights = weights or DEFAULT_WEIGHTS
+    _start  = start_year or FLEET_YEARS[0]
+    _end    = end_year   or FLEET_YEARS[-1]
 
-    _start = start_year or FLEET_YEARS[0]
-    _end   = end_year   or FLEET_YEARS[-1]
-
-    fleet_by_key    = {row["flag_key"]: row for row in load_fleet_rows()}
-    paris_by_key    = aggregate_paris(load_paris_data(), _start, _end)
-    accident_by_key = {
-        row["flag_key"]: row
-        for row in compute_accident_metrics(start_year, end_year)
-    }
-    trend_by_key  = compute_trend_slopes(start_year, end_year)
-    fleet_feat_by = compute_fleet_features(start_year, end_year)
+    fleet_by_key    = {r["flag_key"]: r for r in load_fleet_rows()}
+    accident_by_key = {r["flag_key"]: r for r in compute_accident_metrics(start_year, end_year)}
+    valid_keys      = set(fleet_by_key) | set(accident_by_key)
+    paris_by_key    = aggregate_paris(load_paris_data(), _start, _end, valid_flag_keys=valid_keys)
+    trend_by_key    = compute_trend_slopes(start_year, end_year)
+    fleet_feat_by   = compute_fleet_features(start_year, end_year)
 
     all_keys = sorted(set(fleet_by_key) | set(paris_by_key) | set(accident_by_key))
 
@@ -727,16 +617,14 @@ def build_merged_rows(start_year=None, end_year=None, weights=None):
 
     rows = []
     for key in all_keys:
-        fleet    = fleet_by_key.get(key,    {})
-        paris    = paris_by_key.get(key,    {})
+        fleet    = fleet_by_key.get(key, {})
+        paris    = paris_by_key.get(key, {})
         acc      = accident_by_key.get(key, {})
-        fleet_ft = fleet_feat_by.get(key,   {})
-
+        fleet_ft = fleet_feat_by.get(key, {})
         rows.append({
-            "flag":        fleet.get("flag") or paris.get("flag") or acc.get("flag") or key.title(),
-            "flag_key":    key,
-            "fleet_size":  parse_int(fleet.get("fleet_size")),
-            # --- Accident metrics ---
+            "flag":     fleet.get("flag") or paris.get("flag") or acc.get("flag") or key.title(),
+            "flag_key": key,
+            "fleet_size": parse_int(fleet.get("fleet_size")),
             "accident_count":           parse_int(acc.get("accident_count")),
             "accident_rate":            af(acc, "accident_rate"),
             "avg_severity_risk":        af(acc, "avg_severity_risk"),
@@ -748,84 +636,82 @@ def build_merged_rows(start_year=None, end_year=None, weights=None):
             "event_entropy":            af(acc, "event_entropy"),
             "investigation_rate":       af(acc, "investigation_rate"),
             "solas_noncompliance_rate": af(acc, "solas_noncompliance_rate"),
-            # --- Paris MoU metrics ---
-            "paris_mou_category":  paris.get("paris_mou_category", "unlisted"),
-            "detention_rate":      af(paris, "detention_rate"),
-            "excess_factor_avg":   af(paris, "excess_factor_avg"),
-            "excess_factor_trend": af(paris, "excess_factor_trend"),
-            # --- Trend slope ---
-            "trend_slope": trend_by_key.get(key, 0.0),
-            # --- Fleet features ---
-            "fleet_growth_rate": af(fleet_ft, "fleet_growth_rate"),
-            "fleet_volatility":  af(fleet_ft, "fleet_volatility"),
+            "paris_mou_category":       paris.get("paris_mou_category", "unlisted"),
+            "detention_rate":           af(paris, "detention_rate"),
+            "excess_factor_avg":        af(paris, "excess_factor_avg"),
+            "excess_factor_trend":      af(paris, "excess_factor_trend"),
+            "trend_slope":              trend_by_key.get(key, 0.0),
+            "fleet_growth_rate":        af(fleet_ft, "fleet_growth_rate"),
+            "fleet_volatility":         af(fleet_ft, "fleet_volatility"),
         })
 
     # ------------------------------------------------------------------
-    # Normalization helpers
-    # For variables where higher = riskier: use minmax_capped directly.
-    # For trend/excess_factor variables: clip negatives to 0 first
-    #   (improving flags → 0 risk, not negative).
-    # investigation_rate: higher = safer → invert before normalizing.
-    # fleet_growth_rate: signed (can be negative); use max(., 0) to
-    #   treat shrinking fleets as 0 risk from growth perspective.
+    # Normalisation functions
     # ------------------------------------------------------------------
-    def norm_positive(field):
-        return minmax_capped([row[field] for row in rows])
+    def norm_pos(field):
+        return minmax_capped([r[field] for r in rows])
 
-    def norm_clipped(field):
-        """Clip negatives to 0, then normalize (for trend-like variables)."""
-        return minmax_capped([max(row[field], 0.0) for row in rows])
+    def norm_clip(field):
+        return minmax_capped([max(r[field], 0.0) for r in rows])
 
-    acc_rate_nfn    = norm_positive("accident_rate")
-    severity_nfn    = norm_positive("avg_severity_risk")
-    vsmc_nfn        = norm_positive("vsmc_rate")
-    ship_type_nfn   = norm_positive("avg_ship_type_risk")
-    detention_nfn   = norm_positive("detention_rate")
-    trend_nfn       = norm_clipped("trend_slope")
-    multi_ship_nfn  = norm_positive("multi_ship_rate")
-    collision_nfn   = norm_positive("collision_rate")
-    open_sea_nfn    = norm_positive("open_sea_rate")
-    # Event entropy: higher = more diverse causes = more systemic risk
-    entropy_nfn     = norm_positive("event_entropy")
-    # Investigation rate: higher = more reports filed per accident.
-    # Empirically correlates POSITIVELY with future accidents (r≈+0.44):
-    # countries with many investigations tend to have more/severer accidents.
-    # Do NOT invert — treat as a risk amplifier, not safety indicator.
-    invest_nfn = norm_positive("investigation_rate")
-    solas_nfn       = norm_positive("solas_noncompliance_rate")
-    # Excess factor: higher positive = riskier; clip negatives to 0
-    excess_nfn      = norm_clipped("excess_factor_avg")
-    excess_tr_nfn   = norm_clipped("excess_factor_trend")
-    # Fleet growth: rapid positive growth = more ships, less oversight
-    fleet_gr_nfn    = norm_clipped("fleet_growth_rate")
-    fleet_vol_nfn   = norm_positive("fleet_volatility")
+    def norm_trend(field, min_accidents=5, lo_pct=5, hi_pct=95):
+        """Signed normalisation using percentile-clipped range of qualified flags.
+
+        Maps [lo_pct-ile, hi_pct-ile] → [0, 1].  Improves (negative) → 0,
+        worsens (positive) → 1.  Percentile clipping prevents micro-state
+        outliers from compressing all other countries near the midpoint.
+        """
+        qualified = sorted(
+            r[field] for r in rows if r.get("accident_count", 0) >= min_accidents
+        )
+        if not qualified:
+            return lambda _: 0.0
+        n  = len(qualified)
+        lo = qualified[int(n * lo_pct / 100)]
+        hi = qualified[min(int(n * hi_pct / 100), n - 1)]
+        if lo >= hi:
+            return lambda _: 0.5
+        return lambda v: max(0.0, min(1.0, (v - lo) / (hi - lo)))
+
+    acc_rate_nfn   = norm_pos("accident_rate")
+    severity_nfn   = norm_pos("avg_severity_risk")
+    vsmc_nfn       = norm_pos("vsmc_rate")
+    ship_type_nfn  = norm_pos("avg_ship_type_risk")
+    detention_nfn  = norm_pos("detention_rate")
+    trend_nfn      = norm_trend("trend_slope")
+    multi_ship_nfn = norm_pos("multi_ship_rate")
+    collision_nfn  = norm_pos("collision_rate")
+    open_sea_nfn   = norm_pos("open_sea_rate")
+    entropy_nfn    = norm_pos("event_entropy")
+    invest_nfn     = norm_pos("investigation_rate")
+    solas_nfn      = norm_pos("solas_noncompliance_rate")
+    excess_nfn     = norm_clip("excess_factor_avg")
+    excess_tr_nfn  = norm_clip("excess_factor_trend")
+    fleet_gr_nfn   = norm_clip("fleet_growth_rate")
+    fleet_vol_nfn  = norm_pos("fleet_volatility")
 
     total_weight = sum(weights.values()) or 1.0
 
     for row in rows:
-        def clip0(v):
-            return max(v, 0.0)
+        c = lambda v: max(v, 0.0)  # noqa: E731 — clip-to-zero shorthand
 
-        row["accident_rate_norm"]          = acc_rate_nfn(row["accident_rate"])
-        # Severity blend: weighted severity + tail-risk proportion
-        row["severity_risk_norm"]          = (
-            severity_nfn(row["avg_severity_risk"]) * 0.6
-            + vsmc_nfn(row["vsmc_rate"]) * 0.4
+        row["accident_rate_norm"]       = acc_rate_nfn(row["accident_rate"])
+        row["severity_risk_norm"]       = (
+            severity_nfn(row["avg_severity_risk"]) * 0.6 + vsmc_nfn(row["vsmc_rate"]) * 0.4
         )
-        row["ship_type_risk_norm"]         = ship_type_nfn(row["avg_ship_type_risk"])
-        row["flag_safety_risk_norm"]       = detention_nfn(row["detention_rate"])
-        # Clip-before-norm for signed variables (improving direction → 0, not negative)
-        row["trend_slope_norm"]            = trend_nfn(clip0(row["trend_slope"]))
-        row["multi_ship_rate_norm"]        = multi_ship_nfn(row["multi_ship_rate"])
-        row["collision_rate_norm"]         = collision_nfn(row["collision_rate"])
-        row["open_sea_rate_norm"]          = open_sea_nfn(row["open_sea_rate"])
-        row["event_entropy_norm"]          = entropy_nfn(row["event_entropy"])
-        row["investigation_rate_norm"]     = invest_nfn(row["investigation_rate"])
-        row["solas_noncompliance_norm"]    = solas_nfn(row["solas_noncompliance_rate"])
-        row["excess_factor_norm"]          = excess_nfn(clip0(row["excess_factor_avg"]))
-        row["excess_factor_trend_norm"]    = excess_tr_nfn(clip0(row["excess_factor_trend"]))
-        row["fleet_growth_norm"]           = fleet_gr_nfn(clip0(row["fleet_growth_rate"]))
-        row["fleet_volatility_norm"]       = fleet_vol_nfn(row["fleet_volatility"])
+        row["ship_type_risk_norm"]      = ship_type_nfn(row["avg_ship_type_risk"])
+        row["flag_safety_risk_norm"]    = detention_nfn(row["detention_rate"])
+        row["trend_slope_norm"]         = trend_nfn(row["trend_slope"])
+        row["multi_ship_rate_norm"]     = multi_ship_nfn(row["multi_ship_rate"])
+        row["collision_rate_norm"]      = collision_nfn(row["collision_rate"])
+        row["open_sea_rate_norm"]       = open_sea_nfn(row["open_sea_rate"])
+        row["event_entropy_norm"]       = entropy_nfn(row["event_entropy"])
+        row["investigation_rate_norm"]  = invest_nfn(row["investigation_rate"])
+        row["solas_noncompliance_norm"] = solas_nfn(row["solas_noncompliance_rate"])
+        row["excess_factor_norm"]       = excess_nfn(c(row["excess_factor_avg"]))
+        row["excess_factor_trend_norm"] = excess_tr_nfn(c(row["excess_factor_trend"]))
+        row["fleet_growth_norm"]        = fleet_gr_nfn(c(row["fleet_growth_rate"]))
+        row["fleet_volatility_norm"]    = fleet_vol_nfn(row["fleet_volatility"])
 
         row["risk_score"] = (
             weights.get("accident_rate",       0) * row["accident_rate_norm"]
@@ -845,92 +731,72 @@ def build_merged_rows(start_year=None, end_year=None, weights=None):
             + weights.get("fleet_volatility",  0) * row["fleet_volatility_norm"]
         ) / total_weight
 
-    rows.sort(key=lambda row: row["risk_score"], reverse=True)
+    rows.sort(key=lambda r: r["risk_score"], reverse=True)
     return rows
 
 
 # ---------------------------------------------------------------------------
-# Temporal trend detection (monthly-interpolated exposure)
+# Temporal trends (monthly granularity for the trend chart)
 # ---------------------------------------------------------------------------
 
-def compute_temporal_trends():
-    """Per-flag accident rates computed with monthly-interpolated fleet exposure.
+def compute_temporal_trends() -> list[dict]:
+    """Per-flag accident rates at yearly and monthly granularity.
 
     For each year Y and flag F:
-        exposure_Y = sum of interpolate_fleet_size(Y, month) / 12  (ship-years)
+        exposure_Y = sum of interpolate_fleet_size(Y, m) / 12  (ship-years)
         rate_Y     = accidents_in_Y / exposure_Y
 
     For each month M:
         exposure_M = interpolate_fleet_size(Y, M) / 12  (ship-years)
         rate_M     = accidents_in_M / exposure_M
-
-    The monthly interpolation uses the user-specified formula:
-        fleet_at(Y, m) = fleet[Y] + (fleet[Y+1] - fleet[Y]) / 12 * (m - 1)
-
-    This corrects the previous approach of using a single annual snapshot,
-    which was inaccurate for countries with rapidly growing or shrinking fleets.
     """
     fleet_by_year_all = load_fleet_by_year()
-    fleet_year_sizes = {k: v[1] for k, v in fleet_by_year_all.items()}
+    fleet_year_sizes  = {k: v[1] for k, v in fleet_by_year_all.items()}
 
-    # Count accidents per flag by year and by month
-    accidents_by_flag_year = defaultdict(lambda: defaultdict(int))
+    accidents_by_flag_year  = defaultdict(lambda: defaultdict(int))
     accidents_by_flag_month = defaultdict(lambda: defaultdict(int))
     flag_display_name = {}
+
     for row in load_accident_rows():
         if row["date"] is None:
             continue
         key = row["flag_key"]
         accidents_by_flag_year[key][row["date"].year] += 1
-        month_key = (row["date"].year, row["date"].month)
-        accidents_by_flag_month[key][month_key] += 1
+        accidents_by_flag_month[key][(row["date"].year, row["date"].month)] += 1
         flag_display_name[key] = row["flag"]
 
-    all_keys = sorted(set(fleet_year_sizes.keys()) | set(accidents_by_flag_year.keys()))
-
     trends = []
-    for key in all_keys:
-        fleet_entry = fleet_by_year_all.get(key)
+    for key in sorted(set(fleet_year_sizes) | set(accidents_by_flag_year)):
+        fleet_entry  = fleet_by_year_all.get(key)
         display_name = fleet_entry[0] if fleet_entry else flag_display_name.get(key, key.title())
-        year_sizes = fleet_entry[1] if fleet_entry else {}
-        yearly_accident_data = accidents_by_flag_year.get(key, {})
-        monthly_accident_data = accidents_by_flag_month.get(key, {})
+        year_sizes   = fleet_entry[1] if fleet_entry else {}
+        by_year      = accidents_by_flag_year.get(key, {})
+        by_month     = accidents_by_flag_month.get(key, {})
 
-        yearly = []
-        monthly = []
+        yearly, monthly = [], []
         for year in FLEET_YEARS:
-            exp = year_exposure(year_sizes, year)
-            acc_count = yearly_accident_data.get(year, 0)
-            rate = acc_count / exp if exp > 0 else 0.0
+            exp       = year_exposure(year_sizes, year)
+            acc_count = by_year.get(year, 0)
             yearly.append({
-                "year": year,
-                "accident_rate": rate,
+                "year":           year,
+                "accident_rate":  acc_count / exp if exp > 0 else 0.0,
                 "accident_count": acc_count,
-                "exposure": exp,
+                "exposure":       exp,
                 "has_fleet_data": exp > 0,
             })
-
             for month in range(1, 13):
-                monthly_exp = interpolate_fleet_size(year_sizes, year, month) / 12
-                monthly_acc_count = monthly_accident_data.get((year, month), 0)
-                monthly_rate = (
-                    monthly_acc_count / monthly_exp if monthly_exp > 0 else 0.0
-                )
+                m_exp   = interpolate_fleet_size(year_sizes, year, month) / 12
+                m_acc   = by_month.get((year, month), 0)
                 monthly.append({
-                    "date": f"{year}-{month:02d}",
-                    "year": year,
-                    "month": month,
-                    "accident_rate": monthly_rate,
-                    "accident_count": monthly_acc_count,
-                    "exposure": monthly_exp,
-                    "has_fleet_data": monthly_exp > 0,
+                    "date":           f"{year}-{month:02d}",
+                    "year":           year,
+                    "month":          month,
+                    "accident_rate":  m_acc / m_exp if m_exp > 0 else 0.0,
+                    "accident_count": m_acc,
+                    "exposure":       m_exp,
+                    "has_fleet_data": m_exp > 0,
                 })
 
-        trends.append({
-            "flag": display_name,
-            "flag_key": key,
-            "yearly": yearly,
-            "monthly": monthly,
-        })
+        trends.append({"flag": display_name, "flag_key": key, "yearly": yearly, "monthly": monthly})
 
     return trends

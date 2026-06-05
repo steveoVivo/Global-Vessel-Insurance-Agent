@@ -1,17 +1,24 @@
+import csv
+import os
+
 from flask import Flask, jsonify, request
 
-from data_pipeline import DEFAULT_WEIGHTS, build_merged_rows, compute_temporal_trends
+from data_pipeline import DEFAULT_WEIGHTS, build_merged_rows, compute_temporal_trends, normalize_flag_name
+from country_lookup import get_country_info
+
+ACCIDENT_CSV = os.path.join(os.path.dirname(__file__), "data", "accident_data_20110101_20251231.csv")
 
 
 app = Flask(__name__)
 
 WEIGHT_ARGS = {
-    # Five components validated in evaluation_results_05282248.txt (Spearman r >= 0.4 individually)
-    "accident_rate":   ("accident_rate_weight",   "w1"),
-    "event_entropy":   ("event_entropy_weight",   "w2"),
-    "trend":           ("trend_weight",           "w3"),
-    "investigation":   ("investigation_weight",   "w4"),
-    "flag_safety":     ("flag_safety_weight",     "w5"),
+    # Selected accident-rate-excluded model from evaluation_results_06050020.txt.
+    "event_entropy":         ("event_entropy_weight",         "w1"),
+    "investigation":         ("investigation_weight",         "w2"),
+    "flag_safety":           ("flag_safety_weight",           "w3"),
+    "ship_type":             ("ship_type_weight",             "w4"),
+    "open_sea":              ("open_sea_weight",              "w5"),
+    "solas_noncompliance":   ("solas_noncompliance_weight",   "w6"),
 }
 
 
@@ -42,16 +49,20 @@ def get_weights():
 
 
 def flag_risk_payload(row):
+    country_code, coordinates = get_country_info(row["flag_key"])
     return {
         "flag":                    row["flag"],
+        "country_code":            country_code,
+        "coordinates":             coordinates,
         "vessel_count":            row["fleet_size"],
         "risk_score":              row["risk_score"],
-        # Five validated components (evaluation_results_05282248.txt — Spearman r >= 0.5)
-        "accident_rate_norm":      row["accident_rate_norm"],
+        # Selected non-accident components (evaluation_results_06050020.txt).
         "event_entropy_norm":      row["event_entropy_norm"],
-        "trend_slope_norm":        row["trend_slope_norm"],
         "investigation_rate_norm": row["investigation_rate_norm"],
         "flag_safety_risk_norm":   row["flag_safety_risk_norm"],
+        "ship_type_risk_norm":     row["ship_type_risk_norm"],
+        "open_sea_rate_norm":      row["open_sea_rate_norm"],
+        "solas_noncompliance_norm": row["solas_noncompliance_norm"],
     }
 
 
@@ -85,6 +96,49 @@ def get_data():
 def get_trends():
     trends = compute_temporal_trends()
     return jsonify({"count": len(trends), "data": trends})
+
+
+@app.route("/api/accidents")
+def get_accidents():
+    country = request.args.get("country", "").strip()
+    if not country:
+        return jsonify({"error": "country parameter required"}), 400
+
+    target_key = normalize_flag_name(country)
+    accidents = []
+    try:
+        with open(ACCIDENT_CSV, newline="", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                flags = row.get("Flag Administrations", "")
+                flag_keys = {normalize_flag_name(f) for f in flags.split(",") if f.strip()}
+                if target_key not in flag_keys:
+                    continue
+                severity = row.get("Casualty severity", "").strip()
+                # Skip rows where severity field contains non-severity data (CSV parse artifacts)
+                if not severity or severity[0].isdigit() or "°" in severity:
+                    severity = ""
+                accidents.append({
+                    "reference":        row.get("Reference", ""),
+                    "num_ships":        row.get("Number of ships involved", ""),
+                    "ships":            row.get("Ships involved", ""),
+                    "solas_status":     row.get("SOLAS status", ""),
+                    "flags":            flags,
+                    "ship_types":       row.get("Ship types", ""),
+                    "date":             row.get("Occurrence date and time", ""),
+                    "event":            row.get("Casualty event", ""),
+                    "severity":         severity,
+                    "geo_coordinates":  row.get("Coordinates", ""),
+                    "place":            row.get("Place", ""),
+                    "location":         row.get("Location", ""),
+                    "num_reports":      row.get("Number of investigation reports", ""),
+                    "reporting_admins": row.get("Administrations submitting investigation reports", ""),
+                })
+    except FileNotFoundError:
+        return jsonify({"error": "Accident data file not found"}), 500
+
+    accidents.sort(key=lambda x: x["date"], reverse=True)
+    return jsonify({"country": country, "count": len(accidents), "data": accidents})
 
 
 if __name__ == "__main__":

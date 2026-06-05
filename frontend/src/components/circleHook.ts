@@ -12,7 +12,6 @@ import { fromLonLat } from 'ol/proj';
 import { Style, Fill, Stroke } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
 
-import centroids from './../data/countries';
 import { MapBrowserEvent } from 'ol';
 import BaseLayer from 'ol/layer/Base';
 import { EventsKey } from 'ol/events';
@@ -20,16 +19,20 @@ import { EventTypes } from 'ol/Observable';
 
 interface CountryData {
   "flag": string,
+  "country_code": string | null,
+  "coordinates": [number, number] | null,
   "vessel_count": number,
   "risk_score": number,
-  "accident_rate_norm": number,
-  "flag_safety_risk_norm": number,
   "event_entropy_norm": number,
   "investigation_rate_norm": number,
-  "trend_slope_norm": number
+  "flag_safety_risk_norm": number,
+  "ship_type_risk_norm": number,
+  "open_sea_rate_norm": number,
+  "solas_noncompliance_norm": number
 }
 
 const CountryNameKey: string = 'countryName';
+const CountryCodeKey: string = 'countryCode';
 // TODO: Unify the types
 const CountryRiskKey: string = 'riskArray';
 const CountryFleetKey: string = 'fleetSize';
@@ -46,7 +49,7 @@ export default function circleHook() {
   const { setSelectedCountry } = getSelectionContext();
 
   // We have to do this to prevent the style function (a closure inside of useEffect) from using stale values
-  const riskDistributionClosure = useRef<[number, number, number, number, number]>(riskDistribution);
+  const riskDistributionClosure = useRef<NumericRisk>(riskDistribution);
   useEffect(() => {
     riskDistributionClosure.current = riskDistribution;
   }, [riskDistribution]);
@@ -100,63 +103,41 @@ export default function circleHook() {
 
         if (!isMounted) return;
 
-        // Mesaured in meters
-        const radiusMin: number = 50000;
-        const radiusMax: number = 550000;
+        // Measured in meters
+        const radiusMin: number = 75000;
+        const radiusMax: number = 700000;
 
-        // This code effectively normalizes country count - pushing all values to a scale between [0, 1]
-        const fleetSizes = riskData.map((country: CountryData) => country.vessel_count);
+        // Normalize fleet sizes to [0, 1] for radius scaling
+        const mappableData = riskData.filter(
+          (country: CountryData) => country.country_code !== null && country.coordinates !== null
+        );
 
-        // NOTE: To use this code, just set the `exponential` variable up top to 1
-        // const smallestFleet = Math.min(...fleetSizes);
-        // const largestFleet = Math.max(...fleetSizes);
+        const fleetSizes = mappableData.map((country: CountryData) => country.vessel_count);
+        const smallestFleet = Math.min(...fleetSizes);
+        const largestFleet = Math.max(...fleetSizes);
+        const fleetNormalizer = (size: number): number =>
+          largestFleet > smallestFleet ? (size - smallestFleet) / (largestFleet - smallestFleet) : 0.5;
 
-        // const fleetNormaizer = (size: number): number => ((size - smallestFleet) / (largestFleet - smallestFleet));
-        // const fleetToRadius = (size: number): number => (radiusMin + ((radiusMax - radiusMin) * size));
+        const circleFeatures = mappableData.map((countryData: CountryData) => {
+          const normalizedFleetSize = fleetNormalizer(countryData.vessel_count);
+          const radius = radiusMin + (radiusMax - radiusMin) * normalizedFleetSize;
 
-        // -----------> EXPERIMENT (START)
-        // Exponential fleet functions
-        const exponentiatedData = fleetSizes.map(size => (size ** exponential));
-        const smallestFleetExp = Math.min(...exponentiatedData)
-        const largestFleetExp = Math.max(...exponentiatedData)
+          // coordinates from backend: [lat, lon] → OpenLayers expects [lon, lat]
+          const [lat, lon] = countryData.coordinates!;
+          const circleGeom = new Circle(fromLonLat([lon, lat]), radius * 2);
 
-        const fleetNormaizerExp = (size: number): number => (size ** exponential);
-        const fleetToRadiusExp = (size: number): number => (radiusMin + (((size - smallestFleetExp) / (largestFleetExp - smallestFleetExp)) * (radiusMax - radiusMin)) );
-        // -----------> EXPERIMENT (END)
+          const circleFeat = new Feature({ geometry: circleGeom });
 
-        const countryCodes = Object.keys(centroids);
-        const backendMatchingCountryCodes = countryCodes.filter((code: string) => {
-          const countryName = centroids[code].name;
-          return riskData.find(country => country.flag == countryName);
-        });
-
-        const circleFeatures = backendMatchingCountryCodes.map((countryCode: string) => {
-          // Not great, you do the same thing that you do in the filter function. You can mesh this into that
-          const countryName = centroids[countryCode].name;
-          const countryData = riskData.find(country => country.flag == countryName);
-
-          // Create radius (from fleet count)
-          // NOTE: This is a basic LERP function, similar to Math.LERP from C# (used a lot in gamedev)
-          const normalizedFleetSize = fleetNormaizerExp(countryData.vessel_count);
-          const radius = fleetToRadiusExp(normalizedFleetSize);
-
-          // Get Coordinates
-          const coordinate = centroids[countryCode].coordinates;
-          const coordinateFlip = [coordinate[1], coordinate[0]];
-          // Create Geometry
-          const circleGeom = new Circle(
-            fromLonLat(coordinateFlip),
-            radius * 2  // TODO: Remove this multiplication factor once Yoshiki fixes the output risk range
-          )
-          // Create Feature
-          const circleFeat = new Feature({
-            geometry: circleGeom
-          });
-
-          // Set properties in the feature to be pulled later when rendering circles
-          circleFeat.set(CountryNameKey, centroids[countryCode].name);
-          circleFeat.set(CountryRiskKey, [countryData.accident_rate_norm, countryData.flag_safety_risk_norm,
-          countryData.event_entropy_norm, countryData.investigation_rate_norm, countryData.trend_slope_norm]);
+          circleFeat.set(CountryNameKey, countryData.flag);
+          circleFeat.set(CountryCodeKey, countryData.country_code);
+          circleFeat.set(CountryRiskKey, [
+            countryData.event_entropy_norm,
+            countryData.investigation_rate_norm,
+            countryData.flag_safety_risk_norm,
+            countryData.ship_type_risk_norm,
+            countryData.open_sea_rate_norm,
+            countryData.solas_noncompliance_norm,
+          ]);
           circleFeat.set(CountryFleetKey, countryData.vessel_count);
 
           return circleFeat;
@@ -270,6 +251,7 @@ export default function circleHook() {
           if (currentSelectedCircle) {
             setSelectedCountry({
               country: currentSelectedCircle.get(CountryNameKey),
+              countryCode: currentSelectedCircle.get(CountryCodeKey),
               risk: currentSelectedCircle.get(CountryRiskKey),
               fleetSize: currentSelectedCircle.get(CountryFleetKey)
             });
@@ -411,9 +393,9 @@ function getCircleDataAnalytics(data: CountryData[]): void {
   const vesselCountMax = Math.max(...vesselCount);
   const vesselCountMin = Math.min(...vesselCount);
 
-  const accidents = data.map(country => country.accident_rate_norm);
-  const accidentsMax = Math.max(...accidents);
-  const accidentsMin = Math.min(...accidents);
+  const events = data.map(country => country.event_entropy_norm);
+  const eventsMax = Math.max(...events);
+  const eventsMin = Math.min(...events);
   const flags = data.map(country => country.flag_safety_risk_norm);
   const flagsMax = Math.max(...flags);
   const flagsMin = Math.min(...flags);
@@ -427,7 +409,7 @@ function getCircleDataAnalytics(data: CountryData[]): void {
   console.log('Count Max: ', vesselCountMax, ', and min: ', vesselCountMin);
 
   // console.log('ALL Risk Max: ', riskScoreMax, ', and min: ', riskScoreMin);
-  console.log('Accident Risk Max: ', accidentsMax, ', and min: ', accidentsMin);
+  console.log('Event Entropy Risk Max: ', eventsMax, ', and min: ', eventsMin);
   console.log('Flags Risk Max: ', flagsMax, ', and min: ', flagsMin);
   // console.log('Severities Risk Max: ', severitiesMax, ', and min: ', severitiesMin);
   // console.log('Ships Risk Max: ', shipsMax, ', and min: ', shipsMin);
