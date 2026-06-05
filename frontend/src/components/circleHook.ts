@@ -36,6 +36,10 @@ const CountryFleetKey: string = 'fleetSize';
 const CountryIsHovered: string = 'isHovered';
 const CountryIsSelected: string = 'isSelected';
 
+// Determines how quickly smaller radii grow compared to larger ones
+// Set in a range [0, 1]. Lower values means more varriation. (1/3) is a good standard. 1 is a regular linear size mapping.
+const exponential = (1 / 3);
+
 export default function circleHook() {
   const { map } = getMapContext();
   const { riskDistribution } = getRiskContext();
@@ -97,14 +101,28 @@ export default function circleHook() {
         if (!isMounted) return;
 
         // Mesaured in meters
-        const radiusMin: number = 75000;
-        const radiusMax: number = 700000;
+        const radiusMin: number = 50000;
+        const radiusMax: number = 550000;
 
         // This code effectively normalizes country count - pushing all values to a scale between [0, 1]
         const fleetSizes = riskData.map((country: CountryData) => country.vessel_count);
-        const smallestFleet = Math.min(...fleetSizes);
-        const largestFleet = Math.max(...fleetSizes);
-        const fleetNormaizer = (size: number): number => ((size - smallestFleet) / (largestFleet - smallestFleet));
+
+        // NOTE: To use this code, just set the `exponential` variable up top to 1
+        // const smallestFleet = Math.min(...fleetSizes);
+        // const largestFleet = Math.max(...fleetSizes);
+
+        // const fleetNormaizer = (size: number): number => ((size - smallestFleet) / (largestFleet - smallestFleet));
+        // const fleetToRadius = (size: number): number => (radiusMin + ((radiusMax - radiusMin) * size));
+
+        // -----------> EXPERIMENT (START)
+        // Exponential fleet functions
+        const exponentiatedData = fleetSizes.map(size => (size ** exponential));
+        const smallestFleetExp = Math.min(...exponentiatedData)
+        const largestFleetExp = Math.max(...exponentiatedData)
+
+        const fleetNormaizerExp = (size: number): number => (size ** exponential);
+        const fleetToRadiusExp = (size: number): number => (radiusMin + (((size - smallestFleetExp) / (largestFleetExp - smallestFleetExp)) * (radiusMax - radiusMin)) );
+        // -----------> EXPERIMENT (END)
 
         const countryCodes = Object.keys(centroids);
         const backendMatchingCountryCodes = countryCodes.filter((code: string) => {
@@ -119,8 +137,8 @@ export default function circleHook() {
 
           // Create radius (from fleet count)
           // NOTE: This is a basic LERP function, similar to Math.LERP from C# (used a lot in gamedev)
-          const normalizedFleetSize = fleetNormaizer(countryData.vessel_count);
-          const radius = radiusMin + ((radiusMax - radiusMin) * normalizedFleetSize);
+          const normalizedFleetSize = fleetNormaizerExp(countryData.vessel_count);
+          const radius = fleetToRadiusExp(normalizedFleetSize);
 
           // Get Coordinates
           const coordinate = centroids[countryCode].coordinates;
