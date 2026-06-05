@@ -13,6 +13,7 @@ function CustomriskPanelComponent() {
   const eventRef = useRef<HTMLInputElement>(null);
   const investigationRef = useRef<HTMLInputElement>(null);
   const trendRef = useRef<HTMLInputElement>(null);
+  const indexedRefs = [accidentRef, flagRef, eventRef, investigationRef, trendRef];
 
   const isCustom = riskDistributionName == 'Custom';
   const riskTypeName = riskTypeToEnglishName(riskDistributionName);
@@ -21,6 +22,13 @@ function CustomriskPanelComponent() {
   const isRiskSum100 = totalRiskSum == 100;
 
   const changeInputValue = () => {
+    // Data cleaning - remove trailing 0s, ensure values cannot drop below 0 or above 1000
+    indexedRefs.forEach(ref => {
+      ref.current.value = '' + (Number(ref.current.value));
+      if (Number(ref.current.value) < 0) ref.current.value = '0';
+      if (Number(ref.current.value) > 1000) ref.current.value = '1000';
+    });
+
     setCustomDistribution([
       (Number(accidentRef.current.value) / 100), (Number(flagRef.current.value) / 100),
       (Number(eventRef.current.value) / 100), (Number(investigationRef.current.value) / 100),
