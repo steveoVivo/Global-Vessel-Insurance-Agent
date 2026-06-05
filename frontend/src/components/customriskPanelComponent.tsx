@@ -9,12 +9,9 @@ function CustomriskPanelComponent() {
   const { riskDistribution, riskDistributionName, setCustomDistribution, setDistribution } = getRiskContext();
 
   const eventRef = useRef<HTMLInputElement>(null);
-  const investigationRef = useRef<HTMLInputElement>(null);
-  const flagRef = useRef<HTMLInputElement>(null);
   const shipTypeRef = useRef<HTMLInputElement>(null);
   const openSeaRef = useRef<HTMLInputElement>(null);
-  const solasRef = useRef<HTMLInputElement>(null);
-  const indexedRefs = [eventRef, investigationRef, flagRef, shipTypeRef, openSeaRef, solasRef];
+  const indexedRefs = [eventRef, shipTypeRef, openSeaRef];
 
   const isCustom = riskDistributionName == 'Custom';
   const riskTypeName = riskTypeToEnglishName(riskDistributionName);
@@ -31,9 +28,9 @@ function CustomriskPanelComponent() {
     });
 
     setCustomDistribution([
-      (Number(eventRef.current.value) / 100), (Number(investigationRef.current.value) / 100),
-      (Number(flagRef.current.value) / 100), (Number(shipTypeRef.current.value) / 100),
-      (Number(openSeaRef.current.value) / 100), (Number(solasRef.current.value) / 100)]);
+      (Number(eventRef.current.value) / 100),
+      (Number(shipTypeRef.current.value) / 100),
+      (Number(openSeaRef.current.value) / 100)]);
   }
 
   return (
@@ -50,23 +47,7 @@ function CustomriskPanelComponent() {
           <div> Event Entropy </div>
           <div>
             <input onInput={changeInputValue}
-              ref={eventRef} type="number" min="0" max="100" step="1" defaultValue="17" disabled={!isCustom} />
-            <span className="risk-input-percentage">%</span>
-          </div>
-        </div>
-        <div className='risk-input-container'>
-          <div> Investigation </div>
-          <div>
-            <input onInput={changeInputValue}
-              ref={investigationRef} type="number" min="0" max="100" step="1" defaultValue="17" disabled={!isCustom} />
-            <span className="risk-input-percentage">%</span>
-          </div>
-        </div>
-        <div className='risk-input-container'>
-          <div> Flag Safety </div>
-          <div>
-            <input onInput={changeInputValue}
-              ref={flagRef} type="number" min="0" max="100" step="1" defaultValue="17" disabled={!isCustom} />
+              ref={eventRef} type="number" min="0" max="100" step="0.1" defaultValue="33.3" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
@@ -74,7 +55,7 @@ function CustomriskPanelComponent() {
           <div> Ship Type </div>
           <div>
             <input onInput={changeInputValue}
-              ref={shipTypeRef} type="number" min="0" max="100" step="1" defaultValue="17" disabled={!isCustom} />
+              ref={shipTypeRef} type="number" min="0" max="100" step="0.1" defaultValue="33.3" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
@@ -82,15 +63,7 @@ function CustomriskPanelComponent() {
           <div> Open Sea </div>
           <div>
             <input onInput={changeInputValue}
-              ref={openSeaRef} type="number" min="0" max="100" step="1" defaultValue="16" disabled={!isCustom} />
-            <span className="risk-input-percentage">%</span>
-          </div>
-        </div>
-        <div className='risk-input-container'>
-          <div> SOLAS Non-compliance </div>
-          <div>
-            <input onInput={changeInputValue}
-              ref={solasRef} type="number" min="0" max="100" step="1" defaultValue="16" disabled={!isCustom} />
+              ref={openSeaRef} type="number" min="0" max="100" step="0.1" defaultValue="33.3" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>

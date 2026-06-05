@@ -12,13 +12,10 @@ ACCIDENT_CSV = os.path.join(os.path.dirname(__file__), "data", "accident_data_20
 app = Flask(__name__)
 
 WEIGHT_ARGS = {
-    # Selected accident-rate-excluded model from evaluation_results_06050020.txt.
+    # Selected accident-rate-excluded model from evaluation_results_06050020.txt (highest test acc).
     "event_entropy":         ("event_entropy_weight",         "w1"),
-    "investigation":         ("investigation_weight",         "w2"),
-    "flag_safety":           ("flag_safety_weight",           "w3"),
-    "ship_type":             ("ship_type_weight",             "w4"),
-    "open_sea":              ("open_sea_weight",              "w5"),
-    "solas_noncompliance":   ("solas_noncompliance_weight",   "w6"),
+    "ship_type":             ("ship_type_weight",             "w2"),
+    "open_sea":              ("open_sea_weight",              "w3"),
 }
 
 
@@ -56,13 +53,10 @@ def flag_risk_payload(row):
         "coordinates":             coordinates,
         "vessel_count":            row["fleet_size"],
         "risk_score":              row["risk_score"],
-        # Selected non-accident components (evaluation_results_06050020.txt).
+        # Selected non-accident components (evaluation_results_06050020.txt, highest test acc).
         "event_entropy_norm":      row["event_entropy_norm"],
-        "investigation_rate_norm": row["investigation_rate_norm"],
-        "flag_safety_risk_norm":   row["flag_safety_risk_norm"],
         "ship_type_risk_norm":     row["ship_type_risk_norm"],
         "open_sea_rate_norm":      row["open_sea_rate_norm"],
-        "solas_noncompliance_norm": row["solas_noncompliance_norm"],
     }
 
 

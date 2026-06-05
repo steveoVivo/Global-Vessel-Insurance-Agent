@@ -124,7 +124,7 @@ def combination_search(
             future_r, future_p = spearmanr(train_scores, test_accident_rates)
             results.append((target_r, target_p, future_r, future_p, combo))
 
-    results.sort(key=lambda x: x[0] if x[0] == x[0] else float("-inf"), reverse=True)
+    results.sort(key=lambda x: x[2] if x[2] == x[2] else float("-inf"), reverse=True)
     return results
 
 
@@ -198,7 +198,7 @@ def main():
     print("=" * 60)
     print("SELECTED NON-ACCIDENT RISK SCORE")
     print("=" * 60)
-    print("  Selection rule        : highest Spearman r vs train accident-rate ranking")
+    print("  Selection rule        : highest Spearman r vs test accident-rate ranking")
     print(f"  r vs train accident   : {selected_target_r:.3f}")
     print(f"  p-value               : {selected_target_p:.4f}")
     print(f"  r vs future accident  : {selected_future_r:.3f}")

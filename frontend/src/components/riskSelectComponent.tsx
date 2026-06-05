@@ -32,20 +32,6 @@ function RiskSelectComponent() {
           Display Event Entropy Risk
         </button>
         <button
-          className={(riskDistributionName == 'Investigation_Risk') ? 'current-selected-button' : ''}
-          disabled={riskDistributionName == 'Investigation_Risk'}
-          onClick={() => setDistribution('Investigation_Risk')}
-        >
-          Display Investigation Rate Risk
-        </button>
-        <button
-          className={(riskDistributionName == 'Flag_Risk') ? 'current-selected-button' : ''}
-          disabled={riskDistributionName == 'Flag_Risk'}
-          onClick={() => setDistribution('Flag_Risk')}
-        >
-          Display Flag Safety Risk
-        </button>
-        <button
           className={(riskDistributionName == 'Ship_Type_Risk') ? 'current-selected-button' : ''}
           disabled={riskDistributionName == 'Ship_Type_Risk'}
           onClick={() => setDistribution('Ship_Type_Risk')}
@@ -58,13 +44,6 @@ function RiskSelectComponent() {
           onClick={() => setDistribution('Open_Sea_Risk')}
         >
           Display Open Sea Risk
-        </button>
-        <button
-          className={(riskDistributionName == 'Solas_Noncompliance_Risk') ? 'current-selected-button' : ''}
-          disabled={riskDistributionName == 'Solas_Noncompliance_Risk'}
-          onClick={() => setDistribution('Solas_Noncompliance_Risk')}
-        >
-          Display Non-compliance Risk
         </button>
         <button
           className={(riskDistributionName == 'Custom') ? 'current-selected-button' : ''}

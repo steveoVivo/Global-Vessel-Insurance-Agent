@@ -24,11 +24,8 @@ interface CountryData {
   "vessel_count": number,
   "risk_score": number,
   "event_entropy_norm": number,
-  "investigation_rate_norm": number,
-  "flag_safety_risk_norm": number,
   "ship_type_risk_norm": number,
   "open_sea_rate_norm": number,
-  "solas_noncompliance_norm": number
 }
 
 const CountryNameKey: string = 'countryName';
@@ -135,11 +132,8 @@ export default function circleHook() {
           circleFeat.set(CountryCodeKey, countryData.country_code);
           circleFeat.set(CountryRiskKey, [
             countryData.event_entropy_norm,
-            countryData.investigation_rate_norm,
-            countryData.flag_safety_risk_norm,
             countryData.ship_type_risk_norm,
             countryData.open_sea_rate_norm,
-            countryData.solas_noncompliance_norm,
           ]);
           circleFeat.set(CountryFleetKey, countryData.vessel_count);
 
@@ -399,21 +393,15 @@ function getCircleDataAnalytics(data: CountryData[]): void {
   const events = data.map(country => country.event_entropy_norm);
   const eventsMax = Math.max(...events);
   const eventsMin = Math.min(...events);
-  const flags = data.map(country => country.flag_safety_risk_norm);
-  const flagsMax = Math.max(...flags);
-  const flagsMin = Math.min(...flags);
-  // const severities = data.map(country => country.severity_risk_norm);
-  // const severitiesMax = Math.max(...severities);
-  // const severitiesMin = Math.min(...severities);
-  // const ships = data.map(country => country.ship_type_risk_norm);
-  // const shipsMax = Math.max(...ships);
-  // const shipsMin = Math.min(...ships);
+  const ships = data.map(country => country.ship_type_risk_norm);
+  const shipsMax = Math.max(...ships);
+  const shipsMin = Math.min(...ships);
+  const openSea = data.map(country => country.open_sea_rate_norm);
+  const openSeaMax = Math.max(...openSea);
+  const openSeaMin = Math.min(...openSea);
 
   console.log('Count Max: ', vesselCountMax, ', and min: ', vesselCountMin);
-
-  // console.log('ALL Risk Max: ', riskScoreMax, ', and min: ', riskScoreMin);
   console.log('Event Entropy Risk Max: ', eventsMax, ', and min: ', eventsMin);
-  console.log('Flags Risk Max: ', flagsMax, ', and min: ', flagsMin);
-  // console.log('Severities Risk Max: ', severitiesMax, ', and min: ', severitiesMin);
-  // console.log('Ships Risk Max: ', shipsMax, ', and min: ', shipsMin);
+  console.log('Ship Type Risk Max: ', shipsMax, ', and min: ', shipsMin);
+  console.log('Open Sea Risk Max: ', openSeaMax, ', and min: ', openSeaMin);
 }
