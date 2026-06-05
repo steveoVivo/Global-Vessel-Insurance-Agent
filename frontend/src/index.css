@@ -280,9 +280,9 @@ code {
   font-size: 16px;
 }
 
-/* darkslategray -15 lightness */
+/* darkslategray -20 lightness */
 .custom-factor-warning .custom-factor-button {
-  color: rgb(32, 64, 64);
+  color: rgb(27, 59, 59);
   cursor: pointer;
   margin-left: 4px;
   margin-right: 4px;
