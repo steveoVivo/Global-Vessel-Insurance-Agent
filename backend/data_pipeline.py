@@ -21,20 +21,20 @@ FLEET_YEARS = list(range(2011, 2026))
 # event_entropy + investigation + flag_safety + ship_type + open_sea + solas_noncompliance.
 DEFAULT_WEIGHTS = {
     "accident_rate":       0.00,
-    "event_entropy":       1/3,    # Shannon entropy of accident-cause diversity
+    "event_entropy":       1/4,    # Shannon entropy of accident-cause diversity
     "trend":               0.00,
     "investigation":       0.00,
     "flag_safety":         0.00,
     "severity":            0.00,
-    "ship_type":           1/3,    # accident-proneness of involved vessel types
+    "ship_type":           1/4,    # accident-proneness of involved vessel types
     "multi_ship":          0.00,
     "collision":           0.00,
-    "open_sea":            1/3,    # share of accidents in open-sea locations
+    "open_sea":            1/4,    # share of accidents in open-sea locations
     "solas_noncompliance": 0.00,
     "excess_factor":       0.00,
     "excess_factor_trend": 0.00,
     "fleet_growth":        0.00,
-    "fleet_volatility":    0.00,
+    "fleet_volatility":    1/4,    # RMSE of annual fleet size changes / mean fleet size
 }
 
 # ---------------------------------------------------------------------------

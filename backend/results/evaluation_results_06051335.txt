@@ -1,0 +1,103 @@
+============================================================
+ACCIDENT-RATE BASELINE
+============================================================
+  Train period : 2011-2020
+  Test period  : 2021-2025
+  Flags        : top 30 by 2025 fleet size
+  Metric       : exposure-weighted accident rate (acc/ship-yr)
+  Spearman r   : 0.741
+  p-value      : 0.0000
+
+Interpretation: historical accident rate is the baseline risk ranking.
+
+Flag                                      Train acc. rate   Test acc. rate
+------------------------------------------------------------------------------
+United Kingdom                                   0.019172         0.008181
+Portugal                                         0.015696         0.009472
+Malta                                            0.011668         0.008327
+Liberia                                          0.009662         0.003904
+Cyprus                                           0.008752         0.002931
+Bahamas                                          0.007706         0.004859
+China, Hong Kong SAR                             0.006434         0.003822
+Panama                                           0.005624         0.004353
+Marshall Islands                                 0.005175         0.002551
+Netherlands (Kingdom of the)                     0.004699         0.002678
+Turkiye                                          0.004259         0.001169
+Norway                                           0.003869         0.001050
+Greece                                           0.003598         0.000328
+Viet Nam                                         0.003429         0.001030
+India                                            0.003378         0.002349
+Russian Federation                               0.003344         0.001428
+Italy                                            0.003125         0.002410
+Philippines                                      0.003076         0.001264
+Singapore                                        0.002966         0.002747
+Saint Vincent and the Grenadines                 0.002906         0.000990
+Republic of Korea                                0.002895         0.002039
+Iran (Islamic Republic of)                       0.002705         0.000405
+Nigeria                                          0.002420         0.004833
+United States                                    0.002197         0.000399
+Brazil                                           0.001896         0.000670
+China                                            0.001761         0.000457
+Japan                                            0.001084         0.000309
+Indonesia                                        0.001020         0.000293
+Thailand                                         0.000879         0.001379
+Malaysia                                         0.000795         0.001008
+
+============================================================
+NON-ACCIDENT MODEL SEARCH TOP 5
+============================================================
+  Selection target : train accident-rate baseline ranking
+  Excluded         : accident_rate
+  Components       : 14 non-accident variables
+  Search space     : 16383 non-empty combinations
+
+Rank  r vs train acc    p-value  r vs test acc     test p  N vars  Components
+--------------------------------------------------------------------------------------------------------------------------
+1              0.783     0.0000          0.625     0.0002       4  event_entropy + ship_type + open_sea + fleet_volatility
+2              0.741     0.0000          0.619     0.0003       4  event_entropy + investigation + ship_type + fleet_growth
+3              0.658     0.0001          0.616     0.0003       6  event_entropy + trend + ship_type + open_sea + excess_factor + fleet_growth
+4              0.775     0.0000          0.616     0.0003       5  event_entropy + ship_type + open_sea + excess_factor + fleet_volatility
+5              0.742     0.0000          0.611     0.0003       5  event_entropy + investigation + ship_type + solas_noncompliance + fleet_growth
+
+============================================================
+SELECTED NON-ACCIDENT RISK SCORE
+============================================================
+  Selection rule        : highest Spearman r vs test accident-rate ranking
+  r vs train accident   : 0.783
+  p-value               : 0.0000
+  r vs future accident  : 0.625
+  future p-value        : 0.0002
+  Components            : event_entropy + ship_type + open_sea + fleet_volatility
+
+Flag                                      Selected score   Test acc. rate
+----------------------------------------------------------------------------
+Portugal                                          0.5813         0.009472
+Marshall Islands                                  0.5472         0.002551
+Malta                                             0.4993         0.008327
+Italy                                             0.4932         0.002410
+Liberia                                           0.4856         0.003904
+Panama                                            0.4766         0.004353
+China, Hong Kong SAR                              0.4616         0.003822
+Bahamas                                           0.4485         0.004859
+Cyprus                                            0.4466         0.002931
+Netherlands (Kingdom of the)                      0.4463         0.002678
+Norway                                            0.4412         0.001050
+Greece                                            0.4335         0.000328
+India                                             0.4283         0.002349
+Singapore                                         0.4269         0.002747
+Russian Federation                                0.4088         0.001428
+China                                             0.3700         0.000457
+Turkiye                                           0.3665         0.001169
+United Kingdom                                    0.3498         0.008181
+United States                                     0.3449         0.000399
+Republic of Korea                                 0.3245         0.002039
+Saint Vincent and the Grenadines                  0.3198         0.000990
+Brazil                                            0.3174         0.000670
+Viet Nam                                          0.3052         0.001030
+Thailand                                          0.2936         0.001379
+Iran (Islamic Republic of)                        0.2758         0.000405
+Indonesia                                         0.2657         0.000293
+Nigeria                                           0.2235         0.004833
+Philippines                                       0.2234         0.001264
+Japan                                             0.2175         0.000309
+Malaysia                                          0.2038         0.001008

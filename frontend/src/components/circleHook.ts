@@ -26,6 +26,7 @@ interface CountryData {
   "event_entropy_norm": number,
   "ship_type_risk_norm": number,
   "open_sea_rate_norm": number,
+  "fleet_volatility_norm": number,
 }
 
 const CountryNameKey: string = 'countryName';
@@ -134,6 +135,7 @@ export default function circleHook() {
             countryData.event_entropy_norm,
             countryData.ship_type_risk_norm,
             countryData.open_sea_rate_norm,
+            countryData.fleet_volatility_norm,
           ]);
           circleFeat.set(CountryFleetKey, countryData.vessel_count);
 
@@ -399,9 +401,13 @@ function getCircleDataAnalytics(data: CountryData[]): void {
   const openSea = data.map(country => country.open_sea_rate_norm);
   const openSeaMax = Math.max(...openSea);
   const openSeaMin = Math.min(...openSea);
+  const fleetVol = data.map(country => country.fleet_volatility_norm);
+  const fleetVolMax = Math.max(...fleetVol);
+  const fleetVolMin = Math.min(...fleetVol);
 
   console.log('Count Max: ', vesselCountMax, ', and min: ', vesselCountMin);
   console.log('Event Entropy Risk Max: ', eventsMax, ', and min: ', eventsMin);
   console.log('Ship Type Risk Max: ', shipsMax, ', and min: ', shipsMin);
   console.log('Open Sea Risk Max: ', openSeaMax, ', and min: ', openSeaMin);
+  console.log('Fleet Volatility Risk Max: ', fleetVolMax, ', and min: ', fleetVolMin);
 }

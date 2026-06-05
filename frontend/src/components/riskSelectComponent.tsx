@@ -46,6 +46,13 @@ function RiskSelectComponent() {
           Display Open Sea Risk
         </button>
         <button
+          className={(riskDistributionName == 'Fleet_Volatility_Risk') ? 'current-selected-button' : ''}
+          disabled={riskDistributionName == 'Fleet_Volatility_Risk'}
+          onClick={() => setDistribution('Fleet_Volatility_Risk')}
+        >
+          Display Fleet Volatility Risk
+        </button>
+        <button
           className={(riskDistributionName == 'Custom') ? 'current-selected-button' : ''}
           disabled={(riskDistributionName == 'Custom') && (activePanel == 'Custom_Risk')}
           onClick={() => setDistribution('Custom')}
