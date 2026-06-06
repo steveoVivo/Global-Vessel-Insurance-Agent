@@ -49,7 +49,7 @@ function CustomriskPanelComponent() {
           <div> Event Entropy </div>
           <div>
             <input onInput={changeInputValue}
-              ref={eventRef} type="number" min="0" max="100" step="0.1" defaultValue="25" disabled={!isCustom} />
+              ref={eventRef} type="number" min="0" max="100" step="1" defaultValue="25" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
@@ -57,7 +57,7 @@ function CustomriskPanelComponent() {
           <div> Ship Type </div>
           <div>
             <input onInput={changeInputValue}
-              ref={shipTypeRef} type="number" min="0" max="100" step="0.1" defaultValue="25" disabled={!isCustom} />
+              ref={shipTypeRef} type="number" min="0" max="100" step="1" defaultValue="25" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
@@ -65,7 +65,7 @@ function CustomriskPanelComponent() {
           <div> Open Sea </div>
           <div>
             <input onInput={changeInputValue}
-              ref={openSeaRef} type="number" min="0" max="100" step="0.1" defaultValue="25" disabled={!isCustom} />
+              ref={openSeaRef} type="number" min="0" max="100" step="1" defaultValue="25" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
@@ -73,7 +73,7 @@ function CustomriskPanelComponent() {
           <div> Fleet Volatility </div>
           <div>
             <input onInput={changeInputValue}
-              ref={fleetVolatilityRef} type="number" min="0" max="100" step="0.1" defaultValue="25" disabled={!isCustom} />
+              ref={fleetVolatilityRef} type="number" min="0" max="100" step="1" defaultValue="25" disabled={!isCustom} />
             <span className="risk-input-percentage">%</span>
           </div>
         </div>
