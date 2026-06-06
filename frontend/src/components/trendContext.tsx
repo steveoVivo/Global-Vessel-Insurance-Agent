@@ -18,11 +18,17 @@ export interface MonthlyPoint {
   has_fleet_data: boolean;
 }
 
+export interface PredictedYearlyPoint {
+  year: number;
+  accident_rate: number;
+}
+
 export interface FlagTrend {
   flag: string;
   flag_key: string;
   yearly: YearlyPoint[];
   monthly: MonthlyPoint[];
+  predicted_yearly: PredictedYearlyPoint[];
 }
 
 interface TrendContextData {

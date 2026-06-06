@@ -1,0 +1,199 @@
+Loading trend data…
+Running walk-forward validation on 205 flags…
+
+Flag                           Rounds        MAE      MAPE%   CI Cover
+----------------------------------------------------------------------
+Austria                            10   0.282545      100.0      80.0%
+China, Macao SAR                   10   0.196027        N/A      90.0%
+Monaco                             10   0.174005      100.0      80.0%
+Anguilla                           10   0.156044      100.0      90.0%
+Falkland Islands (Malvinas)        10   0.103455      100.0      80.0%
+Greenland                          10   0.073638       66.6      80.0%
+Nauru                               2   0.051404        5.3      50.0%
+Nicaragua                          10   0.050986      100.0      80.0%
+Mauritania                         10   0.036663      100.0      90.0%
+Ethiopia                           10   0.035937       89.1      60.0%
+Lithuania                          10   0.033083      145.7      70.0%
+Madagascar                         10   0.029052       68.7      50.0%
+Ireland                            10   0.027203       77.6      60.0%
+Georgia                            10   0.021348      100.0      80.0%
+Argentina                          10   0.020182      119.1      50.0%
+Kenya                              10   0.019602        N/A      90.0%
+Namibia                            10   0.017886      100.0      80.0%
+British Virgin Islands             10   0.017719       66.2      70.0%
+Belgium                            10   0.015748       90.9      10.0%
+Sao Tome and Principe              10   0.015614       88.7      90.0%
+Mozambique                         10   0.015526       76.7      70.0%
+Seychelles                         10   0.015381      100.0      90.0%
+Senegal                            10   0.014790      100.0      90.0%
+Uruguay                            10   0.014258       84.7      50.0%
+Estonia                            10   0.014239       73.1      50.0%
+Cabo Verde                         10   0.013979        N/A      80.0%
+Croatia                            10   0.013830      234.6      80.0%
+Palau                               8   0.011938      262.1      50.0%
+Switzerland                        10   0.011655       88.6      70.0%
+Iceland                            10   0.011653       95.3     100.0%
+Cameroon                           10   0.010832       47.7      70.0%
+Ecuador                            10   0.010711       97.8      60.0%
+Faroe Islands                      10   0.010680       33.6      80.0%
+Latvia                             10   0.010245       94.4      70.0%
+Iraq                               10   0.010204       97.1      70.0%
+New Zealand                        10   0.010123       75.2      40.0%
+Mauritius                          10   0.009857       92.5      80.0%
+Guinea-Bissau                      10   0.009296       70.8      90.0%
+Tunisia                            10   0.009147       79.2      80.0%
+France                             10   0.009031       48.2     100.0%
+Israel                             10   0.008990      100.0      80.0%
+Vanuatu                            10   0.008973      132.2      60.0%
+Myanmar                            10   0.008655       61.8      50.0%
+Portugal                           10   0.008635       81.0      80.0%
+Dominica                           10   0.008374       73.2      80.0%
+Syrian Arab Republic               10   0.008342      100.0      80.0%
+South Africa                       10   0.008214       90.6      90.0%
+Albania                            10   0.008083       69.3      50.0%
+Gibraltar                          10   0.007977       76.1      60.0%
+Oman                               10   0.007951       80.9      80.0%
+Barbados                           10   0.007895       60.8      60.0%
+Niue                                4   0.007892       73.7      50.0%
+Lebanon                            10   0.007747       70.5      70.0%
+Sri Lanka                          10   0.007596       83.8      80.0%
+Gabon                              10   0.007161       93.0      50.0%
+Dem. Rep. of the Congo              9   0.007125        N/A      88.9%
+Bermuda                            10   0.007061       47.9      50.0%
+Comoros                            10   0.007035       74.8      50.0%
+Spain                              10   0.006954       47.1     100.0%
+Dem. People's Rep. of Korea        10   0.006852       73.1      80.0%
+Sweden                             10   0.006749      178.9      80.0%
+Fiji                               10   0.006672       23.5      80.0%
+Togo                               10   0.006662      150.8      50.0%
+Peru                               10   0.006376       91.8     100.0%
+China, Taiwan Province of          10   0.006318       89.0      60.0%
+Poland                             10   0.005789       98.2      60.0%
+Solomon Islands                    10   0.005537      100.0      90.0%
+Trinidad and Tobago                10   0.005449       72.5      60.0%
+Cook Islands                       10   0.005316       87.8      70.0%
+Jordan                             10   0.005257      100.0      80.0%
+Kuwait                             10   0.005153       96.6      70.0%
+Bulgaria                           10   0.005086       90.3      60.0%
+Kiribati                           10   0.005018       87.5      80.0%
+Bolivia (Plurinational State of)     10   0.004920      100.0      90.0%
+Libya                              10   0.004871       59.3      90.0%
+Mongolia                           10   0.004701       82.9      80.0%
+Luxembourg                         10   0.004695       54.1      90.0%
+Djibouti                           10   0.004589      100.0      90.0%
+Micronesia (Federated States of)     10   0.004409        N/A      90.0%
+Paraguay                           10   0.004393       49.7      80.0%
+Chile                              10   0.004356       89.4      60.0%
+Saint Kitts and Nevis              10   0.004349       60.5      90.0%
+Cayman Islands                     10   0.004232       49.0     100.0%
+Germany                            10   0.004199      111.1      30.0%
+Tuvalu                             10   0.004047       50.0      80.0%
+Algeria                            10   0.003925       71.1      70.0%
+Maldives                           10   0.003788       79.8      80.0%
+United Republic of Tanzania        10   0.003595       82.6      90.0%
+Guyana                             10   0.003550      100.0      90.0%
+Denmark                            10   0.003516       40.2      60.0%
+Isle of Man                        10   0.003515       79.7      90.0%
+Finland                            10   0.003496       71.4      80.0%
+Antigua and Barbuda                10   0.003392       60.4      60.0%
+United Kingdom                     10   0.003388       67.8      70.0%
+Cyprus                             10   0.003280       90.7      60.0%
+Azerbaijan                         10   0.003203       65.7      50.0%
+Colombia                           10   0.003126       18.0      80.0%
+Morocco                            10   0.003113       26.9      90.0%
+Bahamas                            10   0.002926       68.4      60.0%
+Mexico                             10   0.002905       90.8      50.0%
+Malta                              10   0.002892       36.2      60.0%
+Qatar                              10   0.002875        N/A      90.0%
+Viet Nam                           10   0.002764      173.8      70.0%
+Australia                          10   0.002634       55.8      70.0%
+Bangladesh                         10   0.002494       61.6      70.0%
+Canada                             10   0.002479       83.8      80.0%
+Jamaica                            10   0.002326      100.0      90.0%
+Iran (Islamic Republic of)         10   0.002276       70.8      90.0%
+Romania                            10   0.002254       91.1      80.0%
+Liberia                            10   0.002160       46.2      90.0%
+Greece                             10   0.002124      177.8      80.0%
+India                              10   0.002097       87.2      80.0%
+Saint Vincent and the Grenadines     10   0.002060       78.1      80.0%
+Angola                             10   0.001997      100.0      90.0%
+United States                      10   0.001996      265.4      80.0%
+Venezuela (Bolivarian Rep. of)     10   0.001919       84.7      80.0%
+Honduras                           10   0.001829       79.9      60.0%
+Nigeria                            10   0.001686       91.2      50.0%
+Panama                             10   0.001635       62.1      70.0%
+Egypt                              10   0.001605       53.4      90.0%
+Norway                             10   0.001598       84.5      80.0%
+Sierra Leone                       10   0.001529       63.4      90.0%
+China, Hong Kong SAR               10   0.001517       42.9      50.0%
+Saudi Arabia                       10   0.001491       36.7      80.0%
+Italy                              10   0.001453       62.8      60.0%
+Philippines                        10   0.001393       79.9      80.0%
+Thailand                           10   0.001337       67.1      50.0%
+Netherlands (Kingdom of the)       10   0.001256       56.8     100.0%
+Turkiye                            10   0.001247       70.4      90.0%
+Brazil                             10   0.001234       85.9      90.0%
+Russian Federation                 10   0.001175      114.1      80.0%
+Belize                             10   0.001133       44.5      80.0%
+Bahrain                            10   0.001082       46.1      90.0%
+Papua New Guinea                   10   0.001080      100.0     100.0%
+Kazakhstan                         10   0.001054      100.0      90.0%
+Republic of Moldova                10   0.001035      100.0     100.0%
+United Arab Emirates               10   0.000975       48.2      60.0%
+Singapore                          10   0.000933       35.2      60.0%
+Marshall Islands                   10   0.000926       37.9     100.0%
+Republic of Korea                  10   0.000899       40.9      80.0%
+Cambodia                           10   0.000895        N/A      90.0%
+Malaysia                           10   0.000744       95.6      60.0%
+China                              10   0.000668      151.1      80.0%
+Ukraine                            10   0.000471        N/A      90.0%
+Japan                              10   0.000449      104.1      90.0%
+Indonesia                          10   0.000374       82.8      80.0%
+French Polynesia                   10   0.000366        N/A     100.0%
+Ghana                              10   0.000083        N/A     100.0%
+Aruba                               2   0.000000        N/A     100.0%
+Belarus                            10   0.000000        N/A     100.0%
+Benin                              10   0.000000        N/A     100.0%
+Brunei Darussalam                  10   0.000000        N/A     100.0%
+Congo                              10   0.000000        N/A     100.0%
+Costa Rica                         10   0.000000        N/A     100.0%
+Cote d'Ivoire                      10   0.000000        N/A     100.0%
+Cuba                               10   0.000000        N/A     100.0%
+Curacao                            10   0.000000        N/A     100.0%
+Dominican Republic                 10   0.000000        N/A     100.0%
+El Salvador                        10   0.000000        N/A     100.0%
+Equatorial Guinea                  10   0.000000        N/A     100.0%
+Eritrea                            10   0.000000        N/A     100.0%
+French Southern Territories         4   0.000000        N/A     100.0%
+Gambia                             10   0.000000        N/A     100.0%
+Grenada                            10   0.000000        N/A     100.0%
+Guam                               10   0.000000        N/A     100.0%
+Guatemala                          10   0.000000        N/A     100.0%
+Guinea                              7   0.000000        N/A     100.0%
+Haiti                              10   0.000000        N/A     100.0%
+Hungary                             1   0.000000        N/A     100.0%
+Lao People's Dem. Rep.             10   0.000000        N/A     100.0%
+Montenegro                         10   0.000000        N/A     100.0%
+New Caledonia                      10   0.000000        N/A     100.0%
+Niger                               7   0.000000        N/A     100.0%
+Pakistan                           10   0.000000        N/A     100.0%
+Reunion                            10   0.000000        N/A     100.0%
+Samoa                              10   0.000000        N/A     100.0%
+Slovakia                            1   0.000000        N/A     100.0%
+Slovenia                           10   0.000000        N/A     100.0%
+Somalia                            10   0.000000        N/A     100.0%
+Sudan                              10   0.000000        N/A     100.0%
+Suriname                           10   0.000000        N/A     100.0%
+Timor-Leste                         2   0.000000        N/A     100.0%
+Tonga                              10   0.000000        N/A     100.0%
+Turkmenistan                       10   0.000000        N/A     100.0%
+Turks and Caicos Islands           10   0.000000        N/A     100.0%
+United States Virgin Islands        4   0.000000        N/A     100.0%
+Wallis and Futuna Islands           4   0.000000        N/A     100.0%
+Yemen                              10   0.000000        N/A     100.0%
+Zambia                              2   0.000000        N/A     100.0%
+
+Flags evaluated : 189
+Mean MAE        : 0.010716
+Mean MAPE       : 84.0%
+Mean CI Coverage: 80.6%  (target ≥ 80%)

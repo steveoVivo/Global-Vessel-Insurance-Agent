@@ -5,6 +5,8 @@ from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
 
+from temporal_trend_prediction import predict as holt_predict
+
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR  = BASE_DIR / "data"
@@ -739,6 +741,7 @@ def build_merged_rows(start_year: int = None, end_year: int = None, weights: dic
 # Temporal trends (monthly granularity for the trend chart)
 # ---------------------------------------------------------------------------
 
+
 def compute_temporal_trends() -> list[dict]:
     """Per-flag accident rates at yearly and monthly granularity.
 
@@ -797,6 +800,13 @@ def compute_temporal_trends() -> list[dict]:
                     "has_fleet_data": m_exp > 0,
                 })
 
-        trends.append({"flag": display_name, "flag_key": key, "yearly": yearly, "monthly": monthly})
+        predicted_yearly = holt_predict(yearly)
+        trends.append({
+            "flag": display_name,
+            "flag_key": key,
+            "yearly": yearly,
+            "monthly": monthly,
+            "predicted_yearly": predicted_yearly,
+        })
 
     return trends

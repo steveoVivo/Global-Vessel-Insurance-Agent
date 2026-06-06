@@ -1,0 +1,198 @@
+Loading trend data…
+Running walk-forward validation on 205 flags…
+
+Flag                           Rounds        MAE      MAPE%
+-----------------------------------------------------------
+Austria                            10   0.282545      100.0
+China, Macao SAR                   10   0.196027        N/A
+Monaco                             10   0.174005      100.0
+Anguilla                           10   0.156044      100.0
+Falkland Islands (Malvinas)        10   0.103455      100.0
+Greenland                          10   0.073638       66.6
+Nauru                               2   0.051404        5.3
+Nicaragua                          10   0.050986      100.0
+Mauritania                         10   0.036663      100.0
+Ethiopia                           10   0.035937       89.1
+Lithuania                          10   0.033083      145.7
+Madagascar                         10   0.029052       68.7
+Ireland                            10   0.027203       77.6
+Georgia                            10   0.021348      100.0
+Argentina                          10   0.020182      119.1
+Kenya                              10   0.019602        N/A
+Namibia                            10   0.017886      100.0
+British Virgin Islands             10   0.017719       66.2
+Belgium                            10   0.015748       90.9
+Sao Tome and Principe              10   0.015614       88.7
+Mozambique                         10   0.015526       76.7
+Seychelles                         10   0.015381      100.0
+Senegal                            10   0.014790      100.0
+Uruguay                            10   0.014258       84.7
+Estonia                            10   0.014239       73.1
+Cabo Verde                         10   0.013979        N/A
+Croatia                            10   0.013830      234.6
+Palau                               8   0.011938      262.1
+Switzerland                        10   0.011655       88.6
+Iceland                            10   0.011653       95.3
+Cameroon                           10   0.010832       47.7
+Ecuador                            10   0.010711       97.8
+Faroe Islands                      10   0.010680       33.6
+Latvia                             10   0.010245       94.4
+Iraq                               10   0.010204       97.1
+New Zealand                        10   0.010123       75.2
+Mauritius                          10   0.009857       92.5
+Guinea-Bissau                      10   0.009296       70.8
+Tunisia                            10   0.009147       79.2
+France                             10   0.009031       48.2
+Israel                             10   0.008990      100.0
+Vanuatu                            10   0.008973      132.2
+Myanmar                            10   0.008655       61.8
+Portugal                           10   0.008635       81.0
+Dominica                           10   0.008374       73.2
+Syrian Arab Republic               10   0.008342      100.0
+South Africa                       10   0.008214       90.6
+Albania                            10   0.008083       69.3
+Gibraltar                          10   0.007977       76.1
+Oman                               10   0.007951       80.9
+Barbados                           10   0.007895       60.8
+Niue                                4   0.007892       73.7
+Lebanon                            10   0.007747       70.5
+Sri Lanka                          10   0.007596       83.8
+Gabon                              10   0.007161       93.0
+Dem. Rep. of the Congo              9   0.007125        N/A
+Bermuda                            10   0.007061       47.9
+Comoros                            10   0.007035       74.8
+Spain                              10   0.006954       47.1
+Dem. People's Rep. of Korea        10   0.006852       73.1
+Sweden                             10   0.006749      178.9
+Fiji                               10   0.006672       23.5
+Togo                               10   0.006662      150.8
+Peru                               10   0.006376       91.8
+China, Taiwan Province of          10   0.006318       89.0
+Poland                             10   0.005789       98.2
+Solomon Islands                    10   0.005537      100.0
+Trinidad and Tobago                10   0.005449       72.5
+Cook Islands                       10   0.005316       87.8
+Jordan                             10   0.005257      100.0
+Kuwait                             10   0.005153       96.6
+Bulgaria                           10   0.005086       90.3
+Kiribati                           10   0.005018       87.5
+Bolivia (Plurinational State of)     10   0.004920      100.0
+Libya                              10   0.004871       59.3
+Mongolia                           10   0.004701       82.9
+Luxembourg                         10   0.004695       54.1
+Djibouti                           10   0.004589      100.0
+Micronesia (Federated States of)     10   0.004409        N/A
+Paraguay                           10   0.004393       49.7
+Chile                              10   0.004356       89.4
+Saint Kitts and Nevis              10   0.004349       60.5
+Cayman Islands                     10   0.004232       49.0
+Germany                            10   0.004199      111.1
+Tuvalu                             10   0.004047       50.0
+Algeria                            10   0.003925       71.1
+Maldives                           10   0.003788       79.8
+United Republic of Tanzania        10   0.003595       82.6
+Guyana                             10   0.003550      100.0
+Denmark                            10   0.003516       40.2
+Isle of Man                        10   0.003515       79.7
+Finland                            10   0.003496       71.4
+Antigua and Barbuda                10   0.003392       60.4
+United Kingdom                     10   0.003388       67.8
+Cyprus                             10   0.003280       90.7
+Azerbaijan                         10   0.003203       65.7
+Colombia                           10   0.003126       18.0
+Morocco                            10   0.003113       26.9
+Bahamas                            10   0.002926       68.4
+Mexico                             10   0.002905       90.8
+Malta                              10   0.002892       36.2
+Qatar                              10   0.002875        N/A
+Viet Nam                           10   0.002764      173.8
+Australia                          10   0.002634       55.8
+Bangladesh                         10   0.002494       61.6
+Canada                             10   0.002479       83.8
+Jamaica                            10   0.002326      100.0
+Iran (Islamic Republic of)         10   0.002276       70.8
+Romania                            10   0.002254       91.1
+Liberia                            10   0.002160       46.2
+Greece                             10   0.002124      177.8
+India                              10   0.002097       87.2
+Saint Vincent and the Grenadines     10   0.002060       78.1
+Angola                             10   0.001997      100.0
+United States                      10   0.001996      265.4
+Venezuela (Bolivarian Rep. of)     10   0.001919       84.7
+Honduras                           10   0.001829       79.9
+Nigeria                            10   0.001686       91.2
+Panama                             10   0.001635       62.1
+Egypt                              10   0.001605       53.4
+Norway                             10   0.001598       84.5
+Sierra Leone                       10   0.001529       63.4
+China, Hong Kong SAR               10   0.001517       42.9
+Saudi Arabia                       10   0.001491       36.7
+Italy                              10   0.001453       62.8
+Philippines                        10   0.001393       79.9
+Thailand                           10   0.001337       67.1
+Netherlands (Kingdom of the)       10   0.001256       56.8
+Turkiye                            10   0.001247       70.4
+Brazil                             10   0.001234       85.9
+Russian Federation                 10   0.001175      114.1
+Belize                             10   0.001133       44.5
+Bahrain                            10   0.001082       46.1
+Papua New Guinea                   10   0.001080      100.0
+Kazakhstan                         10   0.001054      100.0
+Republic of Moldova                10   0.001035      100.0
+United Arab Emirates               10   0.000975       48.2
+Singapore                          10   0.000933       35.2
+Marshall Islands                   10   0.000926       37.9
+Republic of Korea                  10   0.000899       40.9
+Cambodia                           10   0.000895        N/A
+Malaysia                           10   0.000744       95.6
+China                              10   0.000668      151.1
+Ukraine                            10   0.000471        N/A
+Japan                              10   0.000449      104.1
+Indonesia                          10   0.000374       82.8
+French Polynesia                   10   0.000366        N/A
+Ghana                              10   0.000083        N/A
+Aruba                               2   0.000000        N/A
+Belarus                            10   0.000000        N/A
+Benin                              10   0.000000        N/A
+Brunei Darussalam                  10   0.000000        N/A
+Congo                              10   0.000000        N/A
+Costa Rica                         10   0.000000        N/A
+Cote d'Ivoire                      10   0.000000        N/A
+Cuba                               10   0.000000        N/A
+Curacao                            10   0.000000        N/A
+Dominican Republic                 10   0.000000        N/A
+El Salvador                        10   0.000000        N/A
+Equatorial Guinea                  10   0.000000        N/A
+Eritrea                            10   0.000000        N/A
+French Southern Territories         4   0.000000        N/A
+Gambia                             10   0.000000        N/A
+Grenada                            10   0.000000        N/A
+Guam                               10   0.000000        N/A
+Guatemala                          10   0.000000        N/A
+Guinea                              7   0.000000        N/A
+Haiti                              10   0.000000        N/A
+Hungary                             1   0.000000        N/A
+Lao People's Dem. Rep.             10   0.000000        N/A
+Montenegro                         10   0.000000        N/A
+New Caledonia                      10   0.000000        N/A
+Niger                               7   0.000000        N/A
+Pakistan                           10   0.000000        N/A
+Reunion                            10   0.000000        N/A
+Samoa                              10   0.000000        N/A
+Slovakia                            1   0.000000        N/A
+Slovenia                           10   0.000000        N/A
+Somalia                            10   0.000000        N/A
+Sudan                              10   0.000000        N/A
+Suriname                           10   0.000000        N/A
+Timor-Leste                         2   0.000000        N/A
+Tonga                              10   0.000000        N/A
+Turkmenistan                       10   0.000000        N/A
+Turks and Caicos Islands           10   0.000000        N/A
+United States Virgin Islands        4   0.000000        N/A
+Wallis and Futuna Islands           4   0.000000        N/A
+Yemen                              10   0.000000        N/A
+Zambia                              2   0.000000        N/A
+
+Flags evaluated : 189
+Mean MAE        : 0.010716
+Mean MAPE       : 84.0%
