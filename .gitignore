@@ -9,3 +9,8 @@ vite.config.ts.timestamp-*
 
 # Python temporary venv files
 __pycache__/
+/backend/.venv/
+
+# data & results
+/backend/data/
+/backend/results/
