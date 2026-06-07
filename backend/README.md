@@ -21,6 +21,18 @@ python3 -m venv .venv
 Run the following steps once from the `backend/` directory before starting the
 API server.
 
+### 0. Download source data
+
+Download the `data/` directory from Box and place it inside `backend/`:
+
+[https://ucdavis.box.com/s/nhxb0eb2jmloiw4ltdfzbw9b600o9n48](https://ucdavis.box.com/s/nhxb0eb2jmloiw4ltdfzbw9b600o9n48)
+
+The archive contains:
+- `accident_data_20110101_20251231.csv`
+- `Num_of_ships_by_flag.csv`
+- `country_name.md`
+- Paris MoU PDF reports (2010–2024)
+
 ### 1. Parse Paris MoU PDFs (run once, or when rebuilding paris_mou.csv)
 
 Parses all annual Paris MoU PDF reports (2010–2024) into `data/paris_mou.csv`.
@@ -61,7 +73,13 @@ Files modified in place (originals backed up as `<file>.bak`):
 .venv/bin/python app.py
 ```
 
-Base URL: `http://127.0.0.1:5000`
+> **macOS note:** AirPlay Receiver uses port 5000 by default. Run on port 5001
+> instead to avoid conflicts:
+> ```bash
+> .venv/bin/python app.py --port 5001
+> ```
+
+Base URL: `http://127.0.0.1:5000` (or `http://127.0.0.1:5001` on macOS)
 
 ---
 

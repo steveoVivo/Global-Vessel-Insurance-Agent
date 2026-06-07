@@ -31,6 +31,10 @@ The backend assumes Python 3.12.
 
 These steps are required before starting the API server for the first time.
 
+0. **Download source data** — download the `data/` folder from Box and place it
+   inside `backend/`:
+   [https://ucdavis.box.com/s/nhxb0eb2jmloiw4ltdfzbw9b600o9n48](https://ucdavis.box.com/s/nhxb0eb2jmloiw4ltdfzbw9b600o9n48)
+
 1. **Install Tesseract** (needed for image-based Paris MoU PDFs):
    ```bash
    brew install tesseract          # macOS
