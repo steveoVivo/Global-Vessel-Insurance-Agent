@@ -34,18 +34,6 @@ The archive contains:
 - Paris MoU PDF reports (2010–2024)
 
 ### 1. Parse Paris MoU PDFs (run once, or when rebuilding paris_mou.csv)
-
-Parses all annual Paris MoU PDF reports (2010–2024) into `data/paris_mou.csv`.
-PDFs for 2017, 2018, 2022, and 2023 are image-based and require Tesseract OCR.
-Install it first if not already present:
-
-```bash
-brew install tesseract          # macOS
-# sudo apt install tesseract-ocr  # Debian/Ubuntu
-```
-
-Then run:
-
 ```bash
 .venv/bin/python parse_paris_mou.py
 ```
