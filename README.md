@@ -63,6 +63,5 @@ As the frontend and backend are served seperately, you'll need to use two differ
 2. `.venv/bin/python app.py`
 ```bash
 **macOS note:** AirPlay Receiver uses port 5000 by default. Run on port 5001
-```bash
 .venv/bin/python app.py --port 5001
 ```
