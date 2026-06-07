@@ -7,15 +7,12 @@ Run once from the backend/ directory:
     python fix_country_names.py
 
 Modifies in place (backups written as <file>.bak before any change):
-  data/archive/Num_of_Ships_2011_2025.csv  — Economy_Label column
-  data/paris_mou.csv                        — flag column
+  data/Num_of_ships_by_flag.csv             — Economy_Label column
+  data/paris_mou.csv                        — flag column (garbage rows dropped)
   data/accident_data_20110101_20251231.csv  — Flag Administrations column
-  data/merged_vessel_risk_by_flag.csv       — flag column
-  data/accident_risk_by_flag.csv            — flag column
 """
 
 import csv
-import io
 import re
 import shutil
 from pathlib import Path
@@ -79,7 +76,7 @@ CANONICAL_MAP = {
     "Bermuda (United Kingdom)":               "Bermuda",
     "British Virgin Islands (United Kingdom)": "British Virgin Islands",
     "Cayman Islands (United Kingdom)":        "Cayman Islands",
-    "Curaçao (Kingdom of the Netherlands)":   "Netherlands Antilles",
+    "Curaçao (Kingdom of the Netherlands)":   "Curacao",
     "DIS (Denmark)":                          "Denmark",
     "Falkland Islands (Malvinas)‡":      "Falkland Islands [Islas Malvinas]",
     "Faroes":                                 "Faroe Islands",
@@ -105,6 +102,26 @@ CANONICAL_MAP = {
     # --- Paris MoU data ---
     "Bermuda (UK)":                           "Bermuda",
     "Bermuda UK":                             "Bermuda",
+    # OCR artifacts: trailing junk after real country name
+    "Albania to":                             "Albania",
+    "Comoros to":                             "Comoros",
+    "Cook Islands Al":                        "Cook Islands",
+    "Denmark at":                             "Denmark",
+    "Germany ]":                              "Germany",
+    "Marshall Islands =":                     "Marshall Islands",
+    "Vanuatu Risk":                           "Vanuatu",
+    "| Antigua and Barbuda":                  "Antigua and Barbuda",
+    "' Singapore":                            "Singapore",
+    # OCR artifacts: trailing quote (OCR reads closing " as part of name)
+    "Bahamas \"":                             "Bahamas",
+    "Belgium \"":                             "Belgium",
+    "Bermuda UK \"":                          "Bermuda",
+    "China \"":                               "China",
+    "Hong Kong China ] \"":                   "Hong Kong",
+    "Italy \"":                               "Italy",
+    "Luxembourg \"":                          "Luxembourg",
+    "Norway \"":                              "Norway",
+    "United Kingdom \"":                      "United Kingdom",
     "Cayman Islands (UK)":                    "Cayman Islands",
     "Cayman Islands UK":                      "Cayman Islands",
     "Congo Republic of the":                  "Congo [Republic]",
@@ -132,6 +149,14 @@ CANONICAL_MAP = {
     "Tanzania United Rep.":                   "Tanzania",
     "Tanzania United Republic of":            "Tanzania",
     "Tanzania, United Republic of":           "Tanzania",
+
+    # --- Accident data additional fixes ---
+    "Netherlands Antilles":                   "Curacao",
+    "Republic of South Korea Korea":          "South Korea",
+    "Denmark)":                               "Denmark",
+    # Entries that are clearly not flag states (vessel/fishing names) — map to sentinel
+    # so the caller can drop them; here we leave them unchanged (no mapping needed,
+    # split_flag_administrations in data_pipeline.py already drops unknown keys).
 }
 
 # Country names that contain commas — must be substituted BEFORE splitting
@@ -141,6 +166,8 @@ COMMA_NAMES = {
     "Korea, Republic of":         "South Korea",
     "Moldova, Republic of":       "Moldova",
     "Tanzania, United Republic of": "Tanzania",
+    # "FAS (Faeros, Denmark)" is the Faroe Islands second register — treat as Faroe Islands
+    "FAS (Faeros, Denmark)":      "Faroe Islands",
 }
 
 
@@ -176,36 +203,74 @@ def fix_flag_administrations(value: str) -> str:
 # Per-file processors
 # ---------------------------------------------------------------------------
 
-def fix_simple_csv(path: Path, col: str) -> int:
-    """Fix *col* in a simple CSV (one flag per cell). Returns change count."""
+# Flag values in paris_mou.csv that are classification societies or OCR garbage,
+# not actual flag states.  Rows with these values are dropped entirely.
+PARIS_GARBAGE_FLAGS = {
+    "DNV GLAS", 'DNV GLAS DNVGL . "',
+    "Germanischer Lloyd",
+    "Inspeccion Clasificacion Maritima (INCLAMAR) INCLAMAR",
+    "Intermaritime Certification Services ICS Class",
+    "Macosnar Corporation",
+    "Maritime Lloyd - Georgia", "Maritime Lloyd - Georgia ML", "Maritime Lloyd - Georgia | ML",
+    "National Shipping Adjuster Inc. | NASHA",
+    "Nippon Kaiji Kyokai", "Nippon Kaiji Kyokai INI .",
+    "Overseas Marine Certification Services", "Overseas Marine Certification Services | OMCS",
+    "Panama Maritime Documentation Services", "Panama Maritime Documentation Services | #\\| )",
+    "Panama Shipping Registrar Inc. PSR", "Panama Shipping Registrar Inc. | PSR |",
+    'Performance level DNV GL AS',
+    "Registro Italiano Navale",
+    "RINA Services . . . | RINA",
+    "Shipping)",
+    "Turkish Lloyd", "Turkish Lloyd TL",
+    "chenmanitime Certification Services ICS Ics",
+    "chermaritime Certification Services ICS",
+    "Other",
+    "low",
+}
+
+
+def fix_simple_csv(path: Path, col: str, drop_garbage: bool = False) -> tuple[int, int]:
+    """Fix *col* in a simple CSV (one flag per cell).
+
+    Returns (changes, dropped) counts.
+    When *drop_garbage* is True, rows whose *col* value is in PARIS_GARBAGE_FLAGS
+    are removed entirely.
+    """
     rows = []
     changes = 0
+    dropped = 0
     with path.open(newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         fieldnames = reader.fieldnames
         if fieldnames is None or col not in fieldnames:
             print(f"  [skip] {path.name}: column '{col}' not found")
-            return 0
+            return 0, 0
         for row in reader:
-            old = row[col]
+            old = row[col].strip()
+            if drop_garbage and old in PARIS_GARBAGE_FLAGS:
+                dropped += 1
+                continue
             new = canonical(old)
             if old != new:
                 row[col] = new
                 changes += 1
             rows.append(row)
 
-    if changes:
+    if changes or dropped:
         shutil.copy2(path, path.with_suffix(path.suffix + ".bak"))
         with path.open("w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
 
-    return changes
+    return changes, dropped
 
 
-def fix_accident_csv(path: Path) -> int:
-    """Fix the Flag Administrations column in the accident CSV. Returns change count."""
+def fix_accident_csv(path: Path) -> tuple[int, int]:
+    """Fix the Flag Administrations column in the accident CSV.
+
+    Returns (changes, 0) — accident rows are never dropped, only normalised.
+    """
     rows = []
     changes = 0
     col = "Flag Administrations"
@@ -215,7 +280,7 @@ def fix_accident_csv(path: Path) -> int:
         fieldnames = reader.fieldnames
         if fieldnames is None or col not in fieldnames:
             print(f"  [skip] {path.name}: column '{col}' not found")
-            return 0
+            return 0, 0
         for row in reader:
             # Drop the overflow key produced when a row has more fields than the header
             row.pop(None, None)
@@ -233,7 +298,7 @@ def fix_accident_csv(path: Path) -> int:
             writer.writeheader()
             writer.writerows(rows)
 
-    return changes
+    return changes, 0
 
 
 # ---------------------------------------------------------------------------
@@ -241,32 +306,35 @@ def fix_accident_csv(path: Path) -> int:
 # ---------------------------------------------------------------------------
 
 FILES = [
-    # (path,                                                  column,           fixer)
-    (DATA_DIR / "archive" / "Num_of_Ships_2011_2025.csv",   "Economy_Label",  "simple"),
-    (DATA_DIR / "paris_mou.csv",                             "flag",           "simple"),
-    (DATA_DIR / "accident_data_20110101_20251231.csv",       None,             "accident"),
-    (DATA_DIR / "merged_vessel_risk_by_flag.csv",            "flag",           "simple"),
-    (DATA_DIR / "accident_risk_by_flag.csv",                 "flag",           "simple"),
+    # (path,                                           column,           fixer,      drop_garbage)
+    (DATA_DIR / "Num_of_ships_by_flag.csv",           "Economy_Label",  "simple",   False),
+    (DATA_DIR / "paris_mou.csv",                       "flag",           "simple",   True),
+    (DATA_DIR / "accident_data_20110101_20251231.csv", None,             "accident", False),
 ]
 
 
 def main():
-    total = 0
-    for path, col, fixer in FILES:
+    total_changes = 0
+    total_dropped = 0
+    for path, col, fixer, drop_garbage in FILES:
         if not path.exists():
             print(f"  [missing] {path.relative_to(BASE_DIR)}")
             continue
 
         if fixer == "accident":
-            n = fix_accident_csv(path)
+            n, d = fix_accident_csv(path)
         else:
-            n = fix_simple_csv(path, col)
+            n, d = fix_simple_csv(path, col, drop_garbage=drop_garbage)
 
-        print(f"  {path.relative_to(BASE_DIR)}: {n} cell(s) updated")
-        total += n
+        msg = f"  {path.relative_to(BASE_DIR)}: {n} cell(s) updated"
+        if d:
+            msg += f", {d} garbage row(s) dropped"
+        print(msg)
+        total_changes += n
+        total_dropped += d
 
-    print(f"\nDone. {total} total cell(s) updated across all datasets.")
-    if total:
+    print(f"\nDone. {total_changes} cell(s) updated, {total_dropped} garbage row(s) dropped.")
+    if total_changes or total_dropped:
         print("Backup files written as <original>.bak")
 
 

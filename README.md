@@ -14,17 +14,40 @@ The development build of this project has a completely seperate frontend (React 
 
 ### Setting Up the Backend
 
-Flask is a python program that requires python to run. The project assumes you have miniconda installed and are running all code in a fresh directory.
+Flask is a Python program that requires Python to run. Create a local virtual
+environment in the backend directory and install the backend dependencies there.
 
-Currently, the only package the project uses is `Flask`. Realistically, any python environment running version >= 2.6 should run the project just fine.
+The backend assumes Python 3.12.
 
 1. cd `backend`
 
-2. (optional) Create a new environment to run the backend from, `conda create -n insurance_project python=3.12`
+2. Create a virtual environment: `python3 -m venv .venv`
 
-3. (optional) Activate that environmentm `conda activate insurance_project`
+3. Install the backend packages: `.venv/bin/pip install -r requirements.txt`
 
-4. Install flask (if it is not installed already), `pip install flask`
+4. Run backend commands with `.venv/bin/python` or activate the environment with `source .venv/bin/activate`
+
+#### One-time data preparation (run in order)
+
+These steps are required before starting the API server for the first time.
+
+1. **Install Tesseract** (needed for image-based Paris MoU PDFs):
+   ```bash
+   brew install tesseract          # macOS
+   # sudo apt install tesseract-ocr  # Debian/Ubuntu
+   ```
+
+2. **Parse Paris MoU PDFs** — generates `data/paris_mou.csv`:
+   ```bash
+   .venv/bin/python parse_paris_mou.py
+   ```
+
+3. **Normalize country names** — canonicalizes flag names in all source CSVs:
+   ```bash
+   .venv/bin/python fix_country_names.py
+   ```
+
+See `backend/README.md` for full API documentation and methodology details.
 
 ## Running the Project
 As the frontend and backend are served seperately, you'll need to use two different terminals to ensure the project works. After both of these steps are taken, you should see a basic test site at `http://localhost:5173/`
@@ -39,4 +62,4 @@ As the frontend and backend are served seperately, you'll need to use two differ
 
 1. cd `backend`
 
-2. `flask run`
+2. `.venv/bin/python app.py`

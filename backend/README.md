@@ -18,10 +18,30 @@ python3 -m venv .venv
 
 ## Data Preparation
 
-### 1. Fix country names (run once)
+Run the following steps once from the `backend/` directory before starting the
+API server.
 
-Normalizes all country/flag names across every dataset to the canonical standard
-used by the frontend map library:
+### 1. Parse Paris MoU PDFs (run once, or when rebuilding paris_mou.csv)
+
+Parses all annual Paris MoU PDF reports (2010–2024) into `data/paris_mou.csv`.
+PDFs for 2017, 2018, 2022, and 2023 are image-based and require Tesseract OCR.
+Install it first if not already present:
+
+```bash
+brew install tesseract          # macOS
+# sudo apt install tesseract-ocr  # Debian/Ubuntu
+```
+
+Then run:
+
+```bash
+.venv/bin/python parse_paris_mou.py
+```
+
+### 2. Normalize country names (run once, after step 1)
+
+Normalizes all country/flag names across every source dataset to the canonical
+standard used by the frontend map library:
 
 ```bash
 .venv/bin/python fix_country_names.py
@@ -34,18 +54,6 @@ Files modified in place (originals backed up as `<file>.bak`):
 | `data/Num_of_ships_by_flag.csv` | `Economy_Label` |
 | `data/paris_mou.csv` | `flag` |
 | `data/accident_data_20110101_20251231.csv` | `Flag Administrations` |
-| `data/merged_vessel_risk_by_flag.csv` | `flag` |
-| `data/accident_risk_by_flag.csv` | `flag` |
-
-### 2. Parse Paris MoU PDFs (run once, if rebuilding paris_mou.csv)
-
-Parses all annual Paris MoU PDF reports (2010-2024) into `data/paris_mou.csv`.
-PDFs for 2017, 2018, 2022, and 2023 are image-based and require Tesseract OCR
-(`pytesseract`, `Pillow`, `PyMuPDF`).
-
-```bash
-.venv/bin/python parse_paris_mou.py
-```
 
 ### 3. Run the API server
 

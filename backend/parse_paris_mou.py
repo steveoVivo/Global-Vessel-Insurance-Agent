@@ -56,6 +56,9 @@ RISK_TEXT_RE = re.compile(
 # Category headline (handles normalized text)
 CAT_LINE_RE = re.compile(r"\b(black\s+list|grey\s+list|white\s+list)\b", re.IGNORECASE)
 
+# Recognized Organization section header — pages with this header are NOT flag-state data
+RECOG_ORG_RE = re.compile(r"\brecognized\s+organi[sz]ation", re.IGNORECASE)
+
 # Column-header fragments to skip
 SKIP_LINE_RE = re.compile(
     r"\b(INSPECTIONS|DETENTIONS|Classification|Bureau|Register|Veritas"
@@ -311,6 +314,9 @@ def parse_annual_pdf(year: int):
 
     for page_num in range(doc.page_count):
         text = page_text(doc[page_num])
+        if RECOG_ORG_RE.search(text):
+            print(f"  {year} p{page_num+1}: skipping Recognized Organization page", file=sys.stderr)
+            continue
         category = detect_category(text) or last_category
         if category is None:
             continue
