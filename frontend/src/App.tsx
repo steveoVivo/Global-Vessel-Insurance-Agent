@@ -10,6 +10,9 @@ import MapComponent from './components/mapComponent';
 import ControlPanelComponent from './components/controlPanelComponent';
 import CustomriskPanelComponent from './components/customriskPanelComponent';
 
+/**
+ * Entry point for the entire project
+ */
 function App() {
   return (
     <MapProvider>

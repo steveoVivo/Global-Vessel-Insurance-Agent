@@ -5,6 +5,10 @@ import { NumericRisk } from './riskContext';
 // TODO: Do I still need this here?
 import 'ol/ol.css';
 
+/**
+ * Component that allows user to modify the custom risk score
+ * @desc React - Component
+ */
 function CustomriskPanelComponent() {
   const { riskDistribution, riskDistributionName, setCustomDistribution, setDistribution } = getRiskContext();
 

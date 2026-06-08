@@ -41,6 +41,10 @@ const CountryIsSelected: string = 'isSelected';
 // Set in a range [0, 1]. Lower values means more varriation. (1/3) is a good standard. 1 is a regular linear size mapping.
 const exponential = (1 / 3);
 
+/**
+ * Hook that draws circle symbols on the map. Only runs once, uses listeners for functionality.
+ * @desc React - Hook
+ */
 export default function circleHook() {
   const { map } = getMapContext();
   const { riskDistribution } = getRiskContext();

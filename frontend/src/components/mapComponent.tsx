@@ -14,6 +14,10 @@ import RiskSelectComponent from './riskSelectComponent';
 const ucDavisCoordinates = [-93703952.94088145, 4656009.537393207];
 const ucDavisZoom = 14.165;
 
+/**
+ * Component that holds the map. For the most part, this just acts as a wrapper.
+ * @desc React - Component
+ */
 function MapComponent() {
   const mapRef = useRef<HTMLDivElement>(null);
   const { map, setMap } = getMapContext();
