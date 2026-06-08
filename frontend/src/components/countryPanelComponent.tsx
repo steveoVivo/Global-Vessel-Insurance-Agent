@@ -8,7 +8,10 @@ import AccidentListComponent from './accidentListComponent';
 import { getColorFromRiskScore } from './circleHook';
 import unknownFlagImage from './../assets/unknown.png';
 
-
+/**
+ * Component respondible for displaying country flag, risk score, vessel count, and temporal trend data
+ * @desc React - Component
+ */
 function CountryPanelComponent() {
   const { currentCountry, currentCountryCode, currentRisk, currentFleetSize } = getSelectionContext();
   const { riskDistribution } = getRiskContext();

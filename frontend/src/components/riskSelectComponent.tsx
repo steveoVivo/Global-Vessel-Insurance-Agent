@@ -6,10 +6,14 @@ import 'ol/ol.css';
 import getRiskContext from './riskContext';
 import getPanelContext from './panelContext';
 
-
+/**
+ * Component used to modify the weights of the different risk scores
+ * @desc React - Component
+ */
 function RiskSelectComponent() {
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const { riskDistributionName, setDistribution } = getRiskContext();
+  // TODO: Phase this out, it never gets changed now
   const { activePanel } = getPanelContext();
 
   const riskSelectComponentClassname = 'risk-select-component' + ((isExpanded) ? ' expanded' : '');

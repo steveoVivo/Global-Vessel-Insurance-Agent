@@ -17,6 +17,12 @@ interface SelectionContextData {
 
 const SelectionContext = createContext<SelectionContextData>(null);
 
+/**
+ * Context that tracks the currently selected country
+ * Set by the mapComponent, needed by the circleHook, accidentListComponent, controlPanelComponent and countryPanelComponent
+ * @param {any} children - Standard React structure to pass HTML through props 
+ * @desc React - Context
+ */
 export const SelectionProvider = ({ children }: any) => {
   const [selectedCountry, setSelectedCountry] = useState<CountrySelection>(null);
 

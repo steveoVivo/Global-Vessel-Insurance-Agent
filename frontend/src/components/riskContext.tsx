@@ -12,6 +12,12 @@ interface RiskContextData {
 // TODO: Come back, type this, recomment and restructure
 const RiskContext = createContext<RiskContextData>(null);
 
+/**
+ * Context that holds the Current risk distribution information
+ * Set by the customriskPanelComponent, needed by the circleHook and countryPanelComponent
+ * @param {any} children - Standard React structure to pass HTML through props
+ * @desc React - Context
+ */
 export const RiskProvider = ({ children }: any) => {
   const [distribution, setDistribution] = useState<RiskName>('Custom');
   const [customDistribution, setCustomDistribution] = useState<NumericRisk>([1/4, 1/4, 1/4, 1/4]);

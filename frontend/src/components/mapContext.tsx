@@ -3,10 +3,15 @@ import { Map } from 'ol';
 
 interface MapContextData {
   map: Map,
-  setMap: any // TODO: Type this
+  setMap: (_: Map) => void
 }
 
-// TODO: Come back, type this, recomment and restructure
+/**
+ * Context that holds the OpenLayers Map object
+ * Set by the mapComponent, needed by the circleHook
+ * @param {any} children - Standard React structure to pass HTML through props
+ * @desc React - Context
+ */
 const MapContext = createContext<MapContextData>(null);
 
 export const MapProvider = ({ children }: any) => {
