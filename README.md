@@ -1,8 +1,16 @@
 # Global-Vessel-Insurance-Agent
-Steven Shoemaker and Yoshiki Yamaguchi cause billions of dollars of damage to the world's oceans
 
-## First-Time Setup
-The development build of this project has a completely seperate frontend (React x Vite) and backend (Flask). These each have to be setup and installed on their own. For release we can compile the frontend down to plain HTML + JS, but for development purposes we keep the two seperate.
+## Description
+This repository contains the final project for Team 10 at UC Davis' Spring 2026 ECS 273 Course.
+
+This project provides an estimate of the riskiness to insure a vessel flying the flag of any country. This visualized as a proportional symbol map using OpenLayers. The "risk level" is scored between 0 and 100, and considers 4 subfactors. It is possible to view and modify these subfactors on the project frontend - as well as view detailed data about a ship's riskiness.
+
+![Recording of project](./public/Recording.gif)
+
+
+
+## (Installation) First-Time Setup
+The development build of this project has a completely seperate frontend (React x Vite) and backend (Flask). These each have to be setup and installed on their own.
 
 ### Setting Up Frontend
 
@@ -64,8 +72,10 @@ These steps are required before starting the API server for the first time.
 
 See `backend/README.md` for full API documentation and methodology details.
 
-## Running the Project
-As the frontend and backend are served seperately, you'll need to use two different terminals to ensure the project works. After both of these steps are taken, you should see a basic test site at `http://localhost:5173/`
+## (Execution) Running the Project
+As the frontend and backend are served seperately, you'll need to use two different terminals to ensure the project works. After both of these steps are taken, the website will work at `http://localhost:5173/`
+Once the project makes it out of development into a production release, we'll be able to compile the React code into
+pure HTML, but until then both servers are required.
 
 ### Spin Up the Frontend
 
@@ -78,7 +88,8 @@ As the frontend and backend are served seperately, you'll need to use two differ
 1. cd `backend`
 
 2. `.venv/bin/python app.py`
+
 ```bash
-**macOS note:** AirPlay Receiver uses port 5000 by default. Run on port 5001
+**macOS note:** AirPlay Receiver uses port 5000 by default. Run on port 5001 instead
 .venv/bin/python app.py --port 5001
 ```
