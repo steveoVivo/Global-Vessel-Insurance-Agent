@@ -7,6 +7,32 @@ records, Paris MoU Port State Control data, and UNCTAD fleet statistics.
 
 ## Setup
 
+### System dependencies
+
+`parse_paris_mou.py` uses [Tesseract OCR](https://github.com/tesseract-ocr/tesseract)
+to extract text from image-based Paris MoU PDFs (2017, 2018, 2022, 2023).
+Tesseract is a system binary — `pip install pytesseract` alone is not enough.
+
+```bash
+# Ubuntu / Debian
+sudo apt install tesseract-ocr
+
+# macOS (Homebrew)
+brew install tesseract
+```
+
+Verify the installation:
+
+```bash
+tesseract --version
+```
+
+> **Note:** If you skip this step, `parse_paris_mou.py` will raise
+> `TesseractNotFoundError` when it encounters an image-based PDF page.
+> Text-embedded PDF pages (most years) are unaffected and will parse normally.
+
+### Python dependencies
+
 From the `backend/` directory:
 
 ```bash

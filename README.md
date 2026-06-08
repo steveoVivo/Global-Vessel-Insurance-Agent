@@ -21,11 +21,28 @@ The backend assumes Python 3.12.
 
 1. cd `backend`
 
-2. Create a virtual environment: `python3 -m venv .venv`
+2. **Install Tesseract OCR** — required by `parse_paris_mou.py` to read
+   image-based PDF pages (2017, 2018, 2022, 2023 reports).
+   This is a system binary and cannot be installed via `pip`.
 
-3. Install the backend packages: `.venv/bin/pip install -r requirements.txt`
+   ```bash
+   # Ubuntu / Debian
+   sudo apt install tesseract-ocr
 
-4. Run backend commands with `.venv/bin/python` or activate the environment with `source .venv/bin/activate`
+   # macOS (Homebrew)
+   brew install tesseract
+   ```
+
+   Verify: `tesseract --version`
+
+   > If Tesseract is missing, `parse_paris_mou.py` will raise
+   > `TesseractNotFoundError` on image-based PDF pages.
+
+3. Create a virtual environment: `python3 -m venv .venv`
+
+4. Install the backend packages: `.venv/bin/pip install -r requirements.txt`
+
+5. Run backend commands with `.venv/bin/python` or activate the environment with `source .venv/bin/activate`
 
 #### One-time data preparation (run in order)
 
