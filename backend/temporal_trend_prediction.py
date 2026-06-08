@@ -1,18 +1,26 @@
-"""Holt's linear trend prediction with walk-forward validation.
+"""Holt linear trend model for per-flag accident-rate forecasting.
 
-Usage (evaluation):
+The model is fitted on a flag's historical yearly accident rates and used to
+project rates 3 years into the future.  Walk-forward (expanding-window)
+validation is provided for offline evaluation.
+
+Usage (standalone evaluation):
     python temporal_trend_prediction.py
 
 Usage (from data_pipeline):
-    from temporal_trend_prediction import predict, walk_forward_validate
+    from temporal_trend_prediction import predict
 """
+
 import warnings
 from dataclasses import dataclass, field
 
 from statsmodels.tsa.holtwinters import Holt
 
-MIN_TRAIN_POINTS = 5   # minimum points needed to fit the model
-HORIZON          = 3   # years to forecast
+# Minimum number of valid data points required to fit the model
+MIN_TRAIN_POINTS = 5
+
+# Number of years to project forward
+FORECAST_HORIZON = 3
 
 
 # ---------------------------------------------------------------------------
@@ -21,18 +29,17 @@ HORIZON          = 3   # years to forecast
 
 @dataclass
 class PredictedPoint:
-    year: int
+    """A single year's model-predicted accident rate."""
+    year:          int
     accident_rate: float
 
     def to_dict(self) -> dict:
-        return {
-            "year":          self.year,
-            "accident_rate": self.accident_rate,
-        }
+        return {"year": self.year, "accident_rate": self.accident_rate}
 
 
 @dataclass
 class ValidationRound:
+    """One step of walk-forward validation: train up to train_end_year, predict the next."""
     train_end_year: int
     predicted_rate: float
     actual_rate:    float
@@ -48,21 +55,24 @@ class ValidationRound:
 
 @dataclass
 class ValidationResult:
+    """Aggregate walk-forward validation outcome for a single flag."""
     flag_key: str
     rounds:   list[ValidationRound] = field(default_factory=list)
 
     @property
     def mae(self) -> float:
+        """Mean Absolute Error across all validation rounds."""
         if not self.rounds:
             return float("nan")
         return sum(r.abs_error for r in self.rounds) / len(self.rounds)
 
     @property
     def mape(self) -> float:
-        valid = [r for r in self.rounds if r.actual_rate > 0]
-        if not valid:
+        """Mean Absolute Percentage Error, computed only over rounds where actual > 0."""
+        valid_rounds = [r for r in self.rounds if r.actual_rate > 0]
+        if not valid_rounds:
             return float("nan")
-        return sum(abs(r.error) / r.actual_rate for r in valid) / len(valid) * 100
+        return sum(abs(r.error) / r.actual_rate for r in valid_rounds) / len(valid_rounds) * 100
 
 
 # ---------------------------------------------------------------------------
@@ -70,15 +80,20 @@ class ValidationResult:
 # ---------------------------------------------------------------------------
 
 class HoltTrendModel:
-    """Wrapper around statsmodels Holt that fits on a rate series."""
+    """Holt's linear exponential smoothing fitted to an accident-rate series.
+
+    Wraps statsmodels Holt with automatic parameter optimization and clips
+    forecasts to zero (accident rates cannot be negative).
+    """
 
     def __init__(self, rates: list[float]):
         if len(rates) < MIN_TRAIN_POINTS:
             raise ValueError(f"Need at least {MIN_TRAIN_POINTS} points, got {len(rates)}")
-        self._rates = rates
+        self._rates     = rates
         self._model_fit = None
 
     def fit(self) -> "HoltTrendModel":
+        """Fit the model, suppressing convergence warnings from statsmodels."""
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             self._model_fit = Holt(
@@ -86,71 +101,72 @@ class HoltTrendModel:
             ).fit(optimized=True)
         return self
 
-    def forecast(self, horizon: int = HORIZON) -> list[float]:
+    def forecast(self, horizon: int = FORECAST_HORIZON) -> list[float]:
+        """Return `horizon` projected values, clipped to non-negative."""
         if self._model_fit is None:
-            raise RuntimeError("Call fit() first")
-        raw = self._model_fit.forecast(horizon)
-        return [max(0.0, float(v)) for v in raw]
+            raise RuntimeError("Call fit() before forecast()")
+        raw_forecast = self._model_fit.forecast(horizon)
+        return [max(0.0, float(v)) for v in raw_forecast]
 
 
 # ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
-def predict(yearly: list[dict], horizon: int = HORIZON) -> list[dict]:
-    """Return Holt linear trend predictions for the next `horizon` years.
+def predict(yearly_data: list[dict], horizon: int = FORECAST_HORIZON) -> list[dict]:
+    """Forecast accident rates for the next `horizon` years using Holt's model.
 
     Args:
-        yearly: list of dicts with keys: year, accident_rate, exposure, has_fleet_data
-        horizon: number of years to forecast
+        yearly_data: list of dicts from compute_temporal_trends(), each with
+                     keys: year, accident_rate, exposure, has_fleet_data.
+        horizon:     number of years to project forward.
 
     Returns:
-        list of dicts: [{year, accident_rate}, ...]
-        Empty list if there are fewer than MIN_TRAIN_POINTS valid data points.
+        List of {year, accident_rate} dicts for each projected year.
+        Returns an empty list when there are fewer than MIN_TRAIN_POINTS valid points.
     """
-    valid = [p for p in yearly if p["has_fleet_data"] and p["exposure"] > 0]
-    if len(valid) < MIN_TRAIN_POINTS:
+    # Only use years where fleet data exists (exposure > 0 ensures a meaningful rate)
+    valid_points = [p for p in yearly_data if p["has_fleet_data"] and p["exposure"] > 0]
+    if len(valid_points) < MIN_TRAIN_POINTS:
         return []
 
-    rates     = [p["accident_rate"] for p in valid]
-    last_year = valid[-1]["year"]
+    historical_rates = [p["accident_rate"] for p in valid_points]
+    last_year        = valid_points[-1]["year"]
 
     try:
-        model    = HoltTrendModel(rates).fit()
-        forecast = model.forecast(horizon)
+        model         = HoltTrendModel(historical_rates).fit()
+        forecast_vals = model.forecast(horizon)
     except Exception:
         return []
 
     return [
-        PredictedPoint(
-            year          = last_year + i + 1,
-            accident_rate = forecast[i],
-        ).to_dict()
+        PredictedPoint(year=last_year + i + 1, accident_rate=forecast_vals[i]).to_dict()
         for i in range(horizon)
     ]
 
 
-def walk_forward_validate(yearly: list[dict], min_train: int = MIN_TRAIN_POINTS) -> ValidationResult | None:
-    """Walk-forward (expanding window) validation.
+def walk_forward_validate(
+    yearly_data: list[dict],
+    min_train: int = MIN_TRAIN_POINTS,
+) -> ValidationResult | None:
+    """Walk-forward (expanding-window) validation of the Holt model.
 
-    For each step from min_train to len(valid)-1:
-        - Train on valid[0:t]
-        - Predict valid[t]
-        - Compare against actual
+    Iterates from min_train to len(valid)-1, training on [0:t] and predicting t,
+    then comparing against the actual value.
 
-    Returns None if there are not enough points for even one validation round.
+    Returns None if there are not enough valid points for at least one round.
     """
-    valid = [p for p in yearly if p["has_fleet_data"] and p["exposure"] > 0]
-    if len(valid) <= min_train:
+    valid_points = [p for p in yearly_data if p["has_fleet_data"] and p["exposure"] > 0]
+    if len(valid_points) <= min_train:
         return None
 
-    flag_key = yearly[0].get("flag_key", "unknown") if yearly else "unknown"
+    flag_key = yearly_data[0].get("flag_key", "unknown") if yearly_data else "unknown"
     result   = ValidationResult(flag_key=flag_key)
 
-    for t in range(min_train, len(valid)):
-        train_rates = [p["accident_rate"] for p in valid[:t]]
-        actual_rate = valid[t]["accident_rate"]
-        train_end   = valid[t - 1]["year"]
+    for t in range(min_train, len(valid_points)):
+        train_rates = [p["accident_rate"] for p in valid_points[:t]]
+        actual_rate = valid_points[t]["accident_rate"]
+        train_end   = valid_points[t - 1]["year"]
 
         try:
             model    = HoltTrendModel(train_rates).fit()

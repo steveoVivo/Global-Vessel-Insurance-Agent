@@ -1,18 +1,17 @@
 """
-Mapping from normalized flag_key (as produced by data_pipeline.normalize_flag_name)
-to ISO 3166-1 alpha-2 country code and [latitude, longitude] centroid.
+Lookup table mapping normalized flag_key → (ISO 3166-1 alpha-2 code, [lat, lon] centroid).
 
-Centroid data from Google Developers Canonical Country CSV.
-Used by the /api/data endpoint to include country_code and coordinates in each
-flag-state row so the frontend can render circles without a separate local lookup.
+Centroid coordinates from the Google Developers Canonical Country CSV.
+The /api/data endpoint uses this to embed country_code and coordinates in each
+flag-state row so the frontend can place map markers without a separate lookup.
 """
 
 from data_pipeline import normalize_flag_name
 
-# Raw entries: ISO code -> (display_name_matching_backend, [lat, lon])
-# The display_name must match exactly what the fleet/accident CSVs produce
-# after normalize_flag_name, or be a name that normalizes to the same key.
-_RAW = {
+# Primary table: ISO alpha-2 code → (display name, [lat, lon] centroid).
+# Display names must match what fleet/accident CSVs produce after normalize_flag_name,
+# or normalize to the same canonical key.
+_ISO_TO_COUNTRY: dict[str, tuple[str, list[float]]] = {
     "AD": ("Andorra",                        [42.546245,   1.601554]),
     "AE": ("United Arab Emirates",           [23.424076,  53.847818]),
     "AF": ("Afghanistan",                    [33.939110,  67.709953]),
@@ -217,39 +216,41 @@ _RAW = {
     "ZW": ("Zimbabwe",                       [-19.015438, 29.154857]),
 }
 
-# Build lookup: normalized_flag_key -> (iso_code, [lat, lon])
+# Build the primary lookup: normalized_flag_key → (iso_code, [lat, lon])
 COUNTRY_LOOKUP: dict[str, tuple[str, list[float]]] = {}
-for _iso, (_name, _coords) in _RAW.items():
+for _iso, (_name, _coords) in _ISO_TO_COUNTRY.items():
     _key = normalize_flag_name(_name)
     COUNTRY_LOOKUP[_key] = (_iso, _coords)
 
-# Extra aliases for names that differ between the fleet CSV and the canonical name above
-_EXTRA_ALIASES = {
-    # fleet CSV says "United States of America" via NAME_ALIASES
-    "united states of america": ("US",  [37.090240, -95.712891]),
-    # Myanmar variants
-    "myanmar  burma ":           ("MM",  [21.916221,  95.956014]),
-    # Congo DRC variants
-    "congo  drc ":               ("CD",  [-4.038333,  21.758664]),
-    "congo  republic ":          ("CG",  [-0.228021,  15.827659]),
-    # Falkland Islands variant
-    "falkland islands  islas malvinas ": ("FK", [-51.796253, -59.523613]),
-    # São Tomé
-    "sao tome and principe":     ("ST",  [0.186360,   6.613081]),
-    # Côte d'Ivoire
-    "cote d ivoire":             ("CI",  [7.539988,  -5.547080]),
-    # St. names without periods
-    "st  kitts and nevis":       ("KN",  [17.357822, -62.782998]),
-    "st  lucia":                 ("LC",  [13.909444, -60.978893]),
-    "st  vincent and grenadines":("VC",  [12.984305, -61.287228]),
-    # Hong Kong (China) variant
-    "hong kong":                 ("HK",  [22.396428, 114.109497]),
+# Additional aliases for names that normalize differently between data sources.
+# These cover edge cases where the fleet CSV, accident CSV, or NAME_ALIASES produce
+# a key that does not match the canonical display name in _ISO_TO_COUNTRY.
+_EXTRA_ALIASES: dict[str, tuple[str, list[float]]] = {
+    # Fleet CSV uses "United States of America" (via NAME_ALIASES)
+    "united states of america":              ("US", [37.090240,  -95.712891]),
+    # Myanmar: bracket notation survives normalize_flag_name as spaces
+    "myanmar  burma ":                       ("MM", [21.916221,   95.956014]),
+    # Congo: two separate states with similar names
+    "congo  drc ":                           ("CD", [-4.038333,   21.758664]),
+    "congo  republic ":                      ("CG", [-0.228021,   15.827659]),
+    # Falkland Islands: bracket notation variant
+    "falkland islands  islas malvinas ":     ("FK", [-51.796253, -59.523613]),
+    # São Tomé: diacritics stripped by normalize_flag_name
+    "sao tome and principe":                 ("ST", [ 0.186360,    6.613081]),
+    # Côte d'Ivoire: apostrophe stripped by normalize_flag_name
+    "cote d ivoire":                         ("CI", [ 7.539988,   -5.547080]),
+    # "St." with period converts to "st " then collapses — match keyless variant
+    "st  kitts and nevis":                   ("KN", [17.357822,  -62.782998]),
+    "st  lucia":                             ("LC", [13.909444,  -60.978893]),
+    "st  vincent and grenadines":            ("VC", [12.984305,  -61.287228]),
+    # Hong Kong appears as a short name in some rows
+    "hong kong":                             ("HK", [22.396428,  114.109497]),
 }
 COUNTRY_LOOKUP.update(_EXTRA_ALIASES)
 
 
 def get_country_info(flag_key: str) -> tuple[str | None, list[float] | None]:
-    """Return (iso_code, [lat, lon]) for a normalized flag_key, or (None, None)."""
+    """Return (ISO alpha-2 code, [lat, lon]) for a normalized flag_key, or (None, None)."""
     entry = COUNTRY_LOOKUP.get(flag_key)
     if entry:
         return entry[0], entry[1]
